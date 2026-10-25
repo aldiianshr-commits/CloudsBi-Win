@@ -128,8 +128,13 @@ jobs:
         shell: pwsh
         run: |
           Remove-Item -Recurse -Force ci/results -ErrorAction SilentlyContinue
-          git config user.name ci; git config user.email ci@users.noreply.github.com
-          git switch --orphan ci-tmp
+          $chunks = [System.Linq.Enumerable]::Chunk([string[]](Get-Content ci/summary.txt), 45)
+          $n = 0
+          foreach ($c in $chunks) { if ($n -lt 9) { Write-Output ("::notice title=summary-$n::" + ($c -join '%0A')) }; $n++ }
+          git config user.name ci
+          git config user.email ci@users.noreply.github.com
+          git checkout --orphan ci-logs-tmp
+          git rm -rf --cached . | Out-Null
           git add -f ci
-          git commit -q -m "ci ${{ github.sha }}"
-          git push -f origin ci-tmp:ci-logs
+          git commit -m "ci ${{ github.sha }}"
+          git push -f origin HEAD:ci-logs

@@ -56,8 +56,8 @@ public static partial class SecretRedactor
             }
         }
 
-        result = KeyValueRegex().Replace(result, m => m.Groups[1].Value + Mask);
         result = AuthHeaderRegex().Replace(result, m => m.Groups[1].Value + " " + Mask);
+        result = KeyValueRegex().Replace(result, m => m.Groups[1].Value + Mask);
         result = RcPassRegex().Replace(result, m => m.Groups[1].Value + Mask);
         return result;
     }
