@@ -310,8 +310,8 @@ public sealed class LibraryViewModel : PageViewModel
             throw new InvalidOperationException("The account of this entry is not connected. Reconnect it first.");
         }
 
-        var app = _host.Launcher.Launch(e);
-        Status = $"Started {e.Name} (PID {app.Process.Id}).";
+        _host.Launcher.Launch(e);
+        Status = $"Started {e.Name} (PID {e.LastPid}).";
         Reload();
     }
 

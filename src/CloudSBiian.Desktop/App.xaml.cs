@@ -12,6 +12,9 @@ public partial class App : Application
 
     public static AppHost? Host { get; private set; }
 
+    /// <summary>Set by "--ui-selftest": errors are collected instead of shown in dialogs.</summary>
+    public static List<string>? SelfTestErrors { get; private set; }
+
     public static void ApplyTheme(AppTheme mode)
     {
         var dictionaries = Current.Resources.MergedDictionaries;
@@ -22,6 +25,14 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        var selfTestIndex = Array.IndexOf(e.Args, "--ui-selftest");
+        string? selfTestOutput = null;
+        if (selfTestIndex >= 0)
+        {
+            SelfTestErrors = new List<string>();
+            selfTestOutput = selfTestIndex + 1 < e.Args.Length ? e.Args[selfTestIndex + 1] : "ui-selftest.txt";
+        }
+
         _singleInstance = new Mutex(true, @"Local\CloudSBiian.SingleInstance", out var created);
         if (!created)
         {
@@ -62,14 +73,26 @@ public partial class App : Application
         catch (Exception ex)
         {
             Host.Log.Error("app", "Startup sequence failed.", ex);
+            SelfTestErrors?.Add("Startup: " + ex.Message);
+        }
+
+        if (selfTestOutput != null)
+        {
+            await Services.UiSelfTest.RunAsync(window, selfTestOutput);
         }
     }
 
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         Host?.Log.Error("ui", "Unhandled UI exception.", e.Exception);
-        Mvvm.UiErrors.Show(e.Exception, "Unexpected error");
         e.Handled = true;
+        if (SelfTestErrors != null)
+        {
+            SelfTestErrors.Add(e.Exception.ToString());
+            return;
+        }
+
+        Mvvm.UiErrors.Show(e.Exception, "Unexpected error");
     }
 
     protected override void OnExit(ExitEventArgs e)

@@ -9,4 +9,8 @@
     <Project Path="src/CloudSBiian.GameLauncher/CloudSBiian.GameLauncher.csproj" />
     <Project Path="src/CloudSBiian.Desktop/CloudSBiian.Desktop.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CloudSBiian.Tests/CloudSBiian.Tests.csproj" />
+    <Project Path="tests/CloudSBiian.IntegrationTests/CloudSBiian.IntegrationTests.csproj" />
+  </Folder>
 </Solution>

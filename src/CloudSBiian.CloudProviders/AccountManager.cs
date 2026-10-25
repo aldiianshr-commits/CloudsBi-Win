@@ -67,8 +67,8 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
         }
     }
 
-    /// <summary>Hook for tests: builds providers for <see cref="ProviderKind.Mock"/> accounts.</summary>
-    public Func<CloudAccount, ICloudStorageProvider>? MockFactory { get; set; }
+    /// <summary>Hook for automated tests: returns an in-memory provider for an account (null = normal behaviour).</summary>
+    public Func<CloudAccount, ICloudStorageProvider?>? MockFactory { get; set; }
 
     public event EventHandler<AccountRuntime>? RuntimeChanged;
 
@@ -454,10 +454,16 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
 
     private async Task<ICloudStorageProvider> CreateProviderAsync(CloudAccount account, CancellationToken ct)
     {
+        // Test hook: automated tests substitute in-memory backends for any provider kind.
+        if (MockFactory?.Invoke(account) is { } mock)
+        {
+            return mock;
+        }
+
         switch (account.Kind)
         {
             case ProviderKind.Mock:
-                return MockFactory?.Invoke(account) ?? throw new CloudProviderException(CloudErrorKind.NotSupported, "Mock provider is only available in tests.");
+                throw new CloudProviderException(CloudErrorKind.NotSupported, "Mock provider is only available in tests.");
             case ProviderKind.LocalFolder:
                 if (!account.Options.TryGetValue(OptionPath, out var path) || string.IsNullOrWhiteSpace(path))
                 {

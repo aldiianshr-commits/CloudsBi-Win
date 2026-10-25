@@ -127,6 +127,12 @@ public static class UiErrors
     {
         var message = Core.Security.SecretRedactor.Redact(ex is AggregateException ae && ae.InnerException != null ? ae.InnerException.Message : ex.Message);
         App.Host?.Log.Warn("ui", message, ex);
+        if (App.SelfTestErrors != null)
+        {
+            App.SelfTestErrors.Add("UiErrors: " + message);
+            return;
+        }
+
         void Display() => MessageBox.Show(
             Application.Current?.MainWindow!,
             message,

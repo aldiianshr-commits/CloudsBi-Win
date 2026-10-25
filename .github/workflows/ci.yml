@@ -9,41 +9,127 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  build:
+  build-test-package:
     runs-on: windows-latest
+    timeout-minutes: 60
     env:
       DOTNET_NOLOGO: 1
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      GH_TOKEN: ${{ github.token }}
+      VERSION: 0.1.${{ github.run_number }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+
       - name: Build
         id: build
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force ci | Out-Null
-          dotnet build CloudSBiian.slnx -c Release -v minimal -clp:NoSummary 2>&1 | Tee-Object -FilePath ci/build.log
+          dotnet build CloudSBiian.slnx -c Release -v minimal -clp:NoSummary -p:Version=$env:VERSION 2>&1 | Tee-Object -FilePath ci/build.log
           if ($LASTEXITCODE -ne 0) { exit 1 }
-      - name: Error digest
-        if: failure()
+
+      - name: Unit tests (mock providers)
+        id: unit
         shell: pwsh
         run: |
-          $lines = Get-Content ci/*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match ': error |\[FAIL\]|Failed |Assert' } | ForEach-Object { $l = $_; $i = $l.IndexOf('src\'); if ($i -ge 0) { $l = $l.Substring($i) }; $j = $l.LastIndexOf(' ['); if ($j -gt 0) { $l = $l.Substring(0, $j) }; $l.Trim() } | Sort-Object -Unique | Select-Object -First 150
-          $msg = ($lines -join '%0A')
-          Write-Output "::warning title=error-digest::$msg"
+          dotnet test tests/CloudSBiian.Tests -c Release --no-build --logger "trx;LogFileName=unit.trx" --results-directory ci/results 2>&1 | Tee-Object -FilePath ci/unit.log
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      - name: Install WinFsp and rclone for integration tests
+        shell: pwsh
+        run: |
+          choco install winfsp rclone -y --no-progress | Out-Null
+          $rcloneDir = Split-Path (Get-Command rclone).Source
+          "$rcloneDir" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          rclone version
+
+      - name: Integration tests (WinFsp mount, rclone servers)
+        id: integration
+        if: always() && steps.build.outcome == 'success'
+        shell: pwsh
+        run: |
+          dotnet test tests/CloudSBiian.IntegrationTests -c Release --no-build --logger "trx;LogFileName=integration.trx" --logger "console;verbosity=normal" --results-directory ci/results 2>&1 | Tee-Object -FilePath ci/integration.log
+          $bench = Get-ChildItem tests/CloudSBiian.IntegrationTests/bin -Recurse -Filter bench-results.json | Select-Object -First 1
+          if ($bench) { Copy-Item $bench.FullName ci/bench-results.json }
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      - name: Package (exe, portable zip, installer)
+        id: package
+        if: always() && steps.build.outcome == 'success'
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress | Out-Null
+          ./build/package.ps1 -Version $env:VERSION 2>&1 | Tee-Object -FilePath ci/package.log
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      - name: UI self-test (renders every page, both themes)
+        id: uitest
+        if: always() && steps.package.outcome == 'success'
+        shell: pwsh
+        run: |
+          $exe = "artifacts/portable/CloudSBiian/CloudSBiian.exe"
+          $out = Join-Path (Get-Location) "ci/ui-selftest.txt"
+          $p = Start-Process -FilePath $exe -ArgumentList "--ui-selftest", "`"$out`"" -PassThru
+          if (-not $p.WaitForExit(240000)) { $p.Kill($true); "TIMEOUT" | Out-File -Append $out; exit 1 }
+          "exit code: $($p.ExitCode)" | Out-File -Append $out
+          Get-Content $out
+          Get-ChildItem artifacts/portable/CloudSBiian/data/logs -Filter *.log -ErrorAction SilentlyContinue | ForEach-Object { Copy-Item $_.FullName "ci/app-$($_.Name)" }
+          if ($p.ExitCode -ne 0) { exit 1 }
+
+      - name: Upload artifacts
+        if: always() && steps.package.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: CloudSBiian-${{ env.VERSION }}
+          path: |
+            artifacts/CloudSBiian.exe
+            artifacts/CloudSBiian-Setup.exe
+            artifacts/CloudSBiian-Portable-x64.zip
+
+      - name: Publish rolling pre-release
+        if: success()
+        shell: pwsh
+        run: |
+          $notes = "Automated build $env:VERSION from commit ${{ github.sha }}. All unit, integration and UI self-tests passed on windows-latest. See BUILD_STATUS.md and TEST_REPORT.md for what is and is not verified."
+          gh release delete latest-build --yes --cleanup-tag 2>$null
+          gh release create latest-build --prerelease --title "CloudSBiian $env:VERSION (latest build)" --notes "$notes" --target ${{ github.sha }} `
+            artifacts/CloudSBiian.exe artifacts/CloudSBiian-Setup.exe artifacts/CloudSBiian-Portable-x64.zip
+
+      - name: Test summary
+        if: always()
+        shell: pwsh
+        run: |
+          $summary = @("commit ${{ github.sha }}", "version $env:VERSION",
+            "build: ${{ steps.build.outcome }}", "unit: ${{ steps.unit.outcome }}", "integration: ${{ steps.integration.outcome }}",
+            "package: ${{ steps.package.outcome }}", "uitest: ${{ steps.uitest.outcome }}", "")
+          foreach ($trx in Get-ChildItem ci/results -Filter *.trx -ErrorAction SilentlyContinue) {
+            [xml]$x = Get-Content $trx.FullName
+            $c = $x.TestRun.ResultSummary.Counters
+            $summary += "$($trx.Name): total=$($c.total) executed=$($c.executed) passed=$($c.passed) failed=$($c.failed) notExecuted=$($c.notExecuted)"
+            foreach ($r in $x.TestRun.Results.UnitTestResult) {
+              $msg = ""
+              if ($r.outcome -eq "Failed") { $msg = " :: " + ($r.Output.ErrorInfo.Message -replace "`r?`n", " ") }
+              $summary += "  [$($r.outcome)] $($r.testName) ($($r.duration))$msg"
+            }
+          }
+          $summary | Out-File -Encoding utf8 ci/summary.txt
+          Get-Content ci/summary.txt | Select-Object -First 400
+          $fails = $summary | Where-Object { $_ -match '\[Failed\]|: error ' } | Select-Object -First 60
+          if ($fails) { Write-Output ("::warning title=error-digest::" + ($fails -join '%0A')) }
+          $lines = Get-Content ci/*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match ': error ' } | ForEach-Object { $l = $_; $i = $l.IndexOf('src\'); if ($i -lt 0) { $i = $l.IndexOf('tests\') }; if ($i -ge 0) { $l = $l.Substring($i) }; $j = $l.LastIndexOf(' ['); if ($j -gt 0) { $l = $l.Substring(0, $j) }; $l.Trim() } | Sort-Object -Unique | Select-Object -First 150
+          if ($lines) { Write-Output ("::warning title=compile-digest::" + ($lines -join '%0A')) }
+
       - name: Publish CI logs
         if: always()
         continue-on-error: true
         shell: pwsh
         run: |
-          $sha = "${{ github.sha }}"
-          "commit $sha`nbuild: ${{ steps.build.outcome }}" | Out-File -Encoding utf8 ci/summary.txt
-          Get-Content ci/build.log -ErrorAction SilentlyContinue | Select-String -Pattern "error|warning CS8|Warn" | Select-Object -First 300 | ForEach-Object { $_.Line } | Out-File -Encoding utf8 ci/errors.txt
+          Remove-Item -Recurse -Force ci/results -ErrorAction SilentlyContinue
           git config user.name ci; git config user.email ci@users.noreply.github.com
-          git fetch origin ci-logs 2>$null
           git switch --orphan ci-tmp
           git add -f ci
-          git commit -q -m "ci $sha"
+          git commit -q -m "ci ${{ github.sha }}"
           git push -f origin ci-tmp:ci-logs

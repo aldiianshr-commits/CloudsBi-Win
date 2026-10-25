@@ -37,6 +37,7 @@ public sealed class LaunchService
     private readonly PredictionService? _prediction;
     private readonly IAppLog _log;
     private readonly ConcurrentDictionary<string, RunningApp> _running = new();
+    private readonly object _gate = new();
 
     public LaunchService(LibraryStore library, Func<string, string, string?> resolveDrivePath, PredictionService? prediction, IAppLog? log = null)
     {
@@ -175,28 +176,40 @@ public sealed class LaunchService
             _prediction?.StartTrace(entry.TraceId);
         }
 
-        Process process;
-        try
+        // Subscribe before starting and serialize with OnExited so a very short-lived process
+        // can never have its exit recorded before the "Running" state is saved.
+        var process = new Process { StartInfo = psi, EnableRaisingEvents = true };
+        var app = new RunningApp(entry, process, exe);
+        int pid;
+        process.Exited += (_, _) => OnExited(entry.Id);
+        lock (_gate)
         {
-            process = Process.Start(psi) ?? throw new InvalidOperationException("The process could not be started.");
-        }
-        catch
-        {
-            _prediction?.StopTrace(entry.TraceId);
-            throw;
+            _running[entry.Id] = app;
+            try
+            {
+                if (!process.Start())
+                {
+                    throw new InvalidOperationException("The process could not be started.");
+                }
+            }
+            catch
+            {
+                _running.TryRemove(entry.Id, out _);
+                _prediction?.StopTrace(entry.TraceId);
+                process.Dispose();
+                throw;
+            }
+
+            entry.LastLaunchAt = DateTimeOffset.Now;
+            entry.LastStatus = "Running";
+            entry.LastExitCode = null;
+            pid = process.Id;
+            entry.LastPid = pid;
+            entry.LastPidStartTicks = SafeStartTicks(process);
+            _library.Save(entry);
         }
 
-        process.EnableRaisingEvents = true;
-        var app = new RunningApp(entry, process, exe);
-        _running[entry.Id] = app;
-        entry.LastLaunchAt = DateTimeOffset.Now;
-        entry.LastStatus = "Running";
-        entry.LastExitCode = null;
-        entry.LastPid = process.Id;
-        entry.LastPidStartTicks = SafeStartTicks(process);
-        _library.Save(entry);
-        _log.Info("library", $"Launched {entry.Name} (PID {process.Id}, mode {entry.Mode}).");
-        process.Exited += (_, _) => OnExited(entry.Id);
+        _log.Info("library", $"Launched {entry.Name} (PID {pid}, mode {entry.Mode}).");
 
         if (_prediction != null && _prediction.IsTracing(entry.TraceId))
         {
@@ -232,7 +245,7 @@ public sealed class LaunchService
                 }
             }
         }
-        catch (InvalidOperationException)
+        catch (Exception ex) when (ex is InvalidOperationException or ObjectDisposedException or System.ComponentModel.Win32Exception)
         {
             // Already gone.
         }
@@ -280,27 +293,33 @@ public sealed class LaunchService
 
     private void OnExited(string entryId)
     {
-        if (!_running.TryRemove(entryId, out var app))
-        {
-            return;
-        }
-
+        RunningApp? app;
+        LibraryEntry entry;
         int? code = null;
-        try
+        lock (_gate)
         {
-            code = app.Process.ExitCode;
-        }
-        catch (InvalidOperationException)
-        {
+            if (!_running.TryRemove(entryId, out app))
+            {
+                return;
+            }
+
+            try
+            {
+                code = app.Process.ExitCode;
+            }
+            catch (InvalidOperationException)
+            {
+            }
+
+            entry = _library.Get(entryId) ?? app.Entry;
+            entry.LastExitCode = code;
+            entry.LastStatus = code == null ? "Exited" : $"Exited with code {code}";
+            entry.LastPid = null;
+            entry.LastPidStartTicks = null;
+            _library.Save(entry);
         }
 
         _prediction?.StopTrace(app.Entry.TraceId);
-        var entry = _library.Get(entryId) ?? app.Entry;
-        entry.LastExitCode = code;
-        entry.LastStatus = code == null ? "Exited" : $"Exited with code {code}";
-        entry.LastPid = null;
-        entry.LastPidStartTicks = null;
-        _library.Save(entry);
         _log.Info("library", $"{entry.Name} exited (code {code?.ToString() ?? "?"}) after {(DateTimeOffset.Now - app.StartedAt).TotalMinutes:F1} min.");
         app.Process.Dispose();
         Changed?.Invoke(this, entryId);
