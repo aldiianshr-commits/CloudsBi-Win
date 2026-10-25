@@ -120,6 +120,8 @@ jobs:
           Get-Content ci/summary.txt | Select-Object -First 400
           $fails = $summary | Where-Object { $_ -match '\[Failed\]|: error ' } | Select-Object -First 60
           if ($fails) { Write-Output ("::warning title=error-digest::" + ($fails -join '%0A')) }
+          $trace = Get-Content ci/testlog-*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match 'Rename|Cleanup with delete|Deleted|Queued|Uploaded|Folder created|WARN|ERROR' } | Select-Object -Last 60
+          if ($trace) { Write-Output ("::notice title=drive-trace::" + ($trace -join '%0A')) }
           $lines = Get-Content ci/*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match ': error ' } | ForEach-Object { $l = $_; $i = $l.IndexOf('src\'); if ($i -lt 0) { $i = $l.IndexOf('tests\') }; if ($i -ge 0) { $l = $l.Substring($i) }; $j = $l.LastIndexOf(' ['); if ($j -gt 0) { $l = $l.Substring(0, $j) }; $l.Trim() } | Sort-Object -Unique | Select-Object -First 150
           if ($lines) { Write-Output ("::warning title=compile-digest::" + ($lines -join '%0A')) }
 
@@ -137,5 +139,6 @@ jobs:
           git checkout --orphan ci-logs-tmp
           git rm -rf --cached . | Out-Null
           git add -f ci
-          git commit -m "ci ${{ github.sha }}"
-          git push -f origin HEAD:ci-logs
+          $o1 = git commit -m "ci ${{ github.sha }}" 2>&1 | Out-String
+          $o2 = git push -f origin HEAD:ci-logs 2>&1 | Out-String
+          Write-Output ("::notice title=git-push::" + (($o1 + $o2) -replace "`r?`n", '%0A'))
