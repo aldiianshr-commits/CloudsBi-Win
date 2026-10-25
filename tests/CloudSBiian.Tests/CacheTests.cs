@@ -116,6 +116,7 @@ public class CacheTests
         var bytes = File.ReadAllBytes(block);
         bytes[1000] ^= 0xFF;
         File.WriteAllBytes(block, bytes);
+        env.Cache.Store.DropHotCache();
 
         Assert.Equal(data, await ReadAllAsync(env, id, e));
         Assert.Equal(1, env.Metrics.Get(MetricNames.CacheCorruptChunks));

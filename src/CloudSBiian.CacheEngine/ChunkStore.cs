@@ -34,6 +34,8 @@ public sealed class ChunkStore
     private readonly object _usageGate = new();
     private readonly Dictionary<string, long> _usage = new();
     private readonly Func<bool> _verifyOnRead;
+    private readonly HotChunkCache _hot = new(96L * 1024 * 1024);
+    private readonly ConcurrentDictionary<(string Account, string Path), CachedFileRecord> _files = new();
 
     public ChunkStore(string root, AppDatabase db, MetricsRegistry metrics, Func<bool>? verifyOnRead = null, IAppLog? log = null)
     {
@@ -91,9 +93,15 @@ public sealed class ChunkStore
     public CachedFileRecord EnsureFile(string accountId, CloudEntry entry, int chunkSize)
     {
         var path = CloudPath.Normalize(entry.Path);
+        if (_files.TryGetValue((accountId, path), out var known) && known.Identity == entry.Identity && known.ChunkSize == chunkSize)
+        {
+            return known;
+        }
+
         var existing = GetFile(accountId, path);
         if (existing != null && existing.Identity == entry.Identity && existing.ChunkSize == chunkSize)
         {
+            _files[(accountId, path)] = existing;
             return existing;
         }
 
@@ -106,18 +114,41 @@ public sealed class ChunkStore
         _db.Execute(
             "INSERT OR REPLACE INTO cache_files(account_id, path, file_key, size, identity, chunk_size, last_access) VALUES(@a,@p,@k,@s,@i,@c,@t)",
             ("@a", accountId), ("@p", path), ("@k", key), ("@s", entry.Size), ("@i", entry.Identity), ("@c", chunkSize), ("@t", Clock.NowMs()));
-        return new CachedFileRecord(accountId, path, key, entry.Size, entry.Identity, chunkSize);
+        var record = new CachedFileRecord(accountId, path, key, entry.Size, entry.Identity, chunkSize);
+        _files[(accountId, path)] = record;
+        return record;
     }
 
-    public CachedFileRecord? GetFile(string accountId, string path) =>
-        _db.Query(
+    public CachedFileRecord? GetFile(string accountId, string path)
+    {
+        var p = CloudPath.Normalize(path);
+        if (_files.TryGetValue((accountId, p), out var known))
+        {
+            return known;
+        }
+
+        return _db.Query(
             "SELECT path, file_key, size, identity, chunk_size FROM cache_files WHERE account_id=@a AND path=@p",
             r => new CachedFileRecord(accountId, r.GetString(0), r.GetString(1), r.GetInt64(2), r.GetString(3), (int)r.GetInt64(4)),
-            ("@a", accountId), ("@p", CloudPath.Normalize(path))).FirstOrDefault();
+            ("@a", accountId), ("@p", p)).FirstOrDefault();
+    }
 
     /// <summary>Reads a cached chunk. Returns null on miss, missing file or checksum mismatch.</summary>
     public byte[]? TryRead(string accountId, string fileKey, int index, int expectedLength)
     {
+        if (_hot.TryGet((accountId, fileKey, index), out var hot) && hot.Data.Length == expectedLength)
+        {
+            _pendingAccess[(accountId, fileKey, index)] = Clock.NowMs();
+            if (hot.Origin == ChunkOrigin.Prefetch && hot.MarkUsed())
+            {
+                _metrics.Increment(MetricNames.PrefetchUseful);
+                _db.Execute("UPDATE cache_chunks SET used=1 WHERE account_id=@a AND file_key=@k AND chunk_index=@i",
+                    ("@a", accountId), ("@k", fileKey), ("@i", index));
+            }
+
+            return hot.Data;
+        }
+
         var row = _db.Query(
             "SELECT length, sha256, origin, used FROM cache_chunks WHERE account_id=@a AND file_key=@k AND chunk_index=@i",
             r => (Length: r.GetInt64(0), Sha: r.GetString(1), Origin: (int)r.GetInt64(2), Used: r.GetInt64(3) != 0),
@@ -157,11 +188,12 @@ public sealed class ChunkStore
                 ("@a", accountId), ("@k", fileKey), ("@i", index));
         }
 
+        _hot.Add((accountId, fileKey, index), new HotChunk(data, ChunkOrigin.Demand));
         return data;
     }
 
     public bool Contains(string accountId, string fileKey, int index) =>
-        (_db.Scalar<long?>("SELECT 1 FROM cache_chunks WHERE account_id=@a AND file_key=@k AND chunk_index=@i",
+        _hot.Contains((accountId, fileKey, index)) || (_db.Scalar<long?>("SELECT 1 FROM cache_chunks WHERE account_id=@a AND file_key=@k AND chunk_index=@i",
             ("@a", accountId), ("@k", fileKey), ("@i", index)) ?? 0) == 1;
 
     public void Write(string accountId, string fileKey, int index, ReadOnlySpan<byte> data, ChunkOrigin origin)
@@ -169,7 +201,9 @@ public sealed class ChunkStore
         var file = ChunkPath(accountId, fileKey, index);
         Directory.CreateDirectory(Path.GetDirectoryName(file)!);
         var tmp = file + ".tmp-" + Environment.CurrentManagedThreadId + "-" + Guid.NewGuid().ToString("N")[..8];
-        using (var fs = new FileStream(tmp, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions.WriteThrough))
+        // Temp file + rename keeps a crash from leaving a half-written block under the real name;
+        // the SHA-256 recorded below catches anything that still goes wrong on disk.
+        using (var fs = new FileStream(tmp, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions.None))
         {
             fs.Write(data);
         }
@@ -194,6 +228,7 @@ public sealed class ChunkStore
             cmd.ExecuteNonQuery();
         });
         AddUsage(accountId, disk - previous);
+        _hot.Add((accountId, fileKey, index), new HotChunk(data.ToArray(), origin));
     }
 
     /// <summary>Persists batched last-access timestamps (used by LRU eviction).</summary>
@@ -266,6 +301,7 @@ public sealed class ChunkStore
         _db.Execute("DELETE FROM cache_chunks WHERE account_id=@a AND file_key=@k AND chunk_index=@i",
             ("@a", accountId), ("@k", fileKey), ("@i", index));
         TryDelete(ChunkPath(accountId, fileKey, index));
+        _hot.Remove((accountId, fileKey, index));
         _pendingAccess.TryRemove((accountId, fileKey, index), out _);
         AddUsage(accountId, -disk);
     }
@@ -291,6 +327,7 @@ public sealed class ChunkStore
         foreach (var f in files)
         {
             RemoveChunks(accountId, f.Key);
+            _files.TryRemove((accountId, f.Path), out _);
             _db.Execute("DELETE FROM cache_files WHERE account_id=@a AND file_key=@k", ("@a", accountId), ("@k", f.Key));
         }
 
@@ -302,6 +339,11 @@ public sealed class ChunkStore
     {
         _db.Execute("DELETE FROM cache_chunks WHERE account_id=@a", ("@a", accountId));
         _db.Execute("DELETE FROM cache_files WHERE account_id=@a", ("@a", accountId));
+        _hot.RemoveAccount(accountId);
+        foreach (var key in _files.Keys.Where(k => k.Account == accountId).ToList())
+        {
+            _files.TryRemove(key, out _);
+        }
         var dir = Path.Combine(AccountDirectory(accountId), "chunks");
         if (Directory.Exists(dir))
         {
@@ -431,6 +473,15 @@ public sealed class ChunkStore
 
     public void RecalculateUsage() => LoadUsage();
 
+    /// <summary>Drops the in-memory block cache (tests and diagnostics).</summary>
+    internal void DropHotCache()
+    {
+        foreach (var account in _usage.Keys.ToList())
+        {
+            _hot.RemoveAccount(account);
+        }
+    }
+
     private void AddUsage(string accountId, long delta)
     {
         if (delta == 0)
@@ -464,5 +515,111 @@ public sealed class ChunkStore
         }
 
         return false;
+    }
+}
+
+/// <summary>Verified block kept in memory for repeated small reads (bounded LRU).</summary>
+internal sealed class HotChunk
+{
+    private int _used;
+
+    public HotChunk(byte[] data, ChunkOrigin origin)
+    {
+        Data = data;
+        Origin = origin;
+        _used = origin == ChunkOrigin.Demand ? 1 : 0;
+    }
+
+    public byte[] Data { get; }
+
+    public ChunkOrigin Origin { get; }
+
+    /// <summary>True only the first time a prefetched block is used by a real read.</summary>
+    public bool MarkUsed() => Interlocked.Exchange(ref _used, 1) == 0;
+}
+
+internal sealed class HotChunkCache
+{
+    private readonly long _capacity;
+    private readonly object _gate = new();
+    private readonly Dictionary<(string, string, int), LinkedListNode<((string, string, int) Key, HotChunk Chunk)>> _map = new();
+    private readonly LinkedList<((string, string, int) Key, HotChunk Chunk)> _lru = new();
+    private long _bytes;
+
+    public HotChunkCache(long capacityBytes) => _capacity = capacityBytes;
+
+    public bool TryGet((string, string, int) key, out HotChunk chunk)
+    {
+        lock (_gate)
+        {
+            if (_map.TryGetValue(key, out var node))
+            {
+                _lru.Remove(node);
+                _lru.AddFirst(node);
+                chunk = node.Value.Chunk;
+                return true;
+            }
+        }
+
+        chunk = null!;
+        return false;
+    }
+
+    public bool Contains((string, string, int) key)
+    {
+        lock (_gate)
+        {
+            return _map.ContainsKey(key);
+        }
+    }
+
+    public void Add((string, string, int) key, HotChunk chunk)
+    {
+        if (chunk.Data.Length > _capacity / 4)
+        {
+            return;
+        }
+
+        lock (_gate)
+        {
+            if (_map.Remove(key, out var old))
+            {
+                _lru.Remove(old);
+                _bytes -= old.Value.Chunk.Data.Length;
+            }
+
+            _map[key] = _lru.AddFirst((key, chunk));
+            _bytes += chunk.Data.Length;
+            while (_bytes > _capacity && _lru.Last != null)
+            {
+                var last = _lru.Last;
+                _lru.RemoveLast();
+                _map.Remove(last.Value.Key);
+                _bytes -= last.Value.Chunk.Data.Length;
+            }
+        }
+    }
+
+    public void Remove((string, string, int) key)
+    {
+        lock (_gate)
+        {
+            if (_map.Remove(key, out var node))
+            {
+                _lru.Remove(node);
+                _bytes -= node.Value.Chunk.Data.Length;
+            }
+        }
+    }
+
+    public void RemoveAccount(string accountId)
+    {
+        lock (_gate)
+        {
+            foreach (var key in _map.Keys.Where(k => k.Item1 == accountId).ToList())
+            {
+                Remove(key);
+            }
+        }
     }
 }
