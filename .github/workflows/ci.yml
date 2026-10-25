@@ -88,8 +88,8 @@ jobs:
         run: |
           $log = "ci/install-test.txt"
           $dir = "C:\CSBInstallTest"
-          function Run($file, $args, $seconds) {
-            $p = Start-Process $file -ArgumentList $args -PassThru
+          function Run($file, $argList, $seconds) {
+            $p = Start-Process $file -ArgumentList $argList -PassThru
             if (-not $p.WaitForExit($seconds * 1000)) { $p.Kill($true); return "TIMEOUT" }
             return $p.ExitCode
           }
