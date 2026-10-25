@@ -1,0 +1,36 @@
+name: probe
+on: [push]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: env
+        shell: pwsh
+        run: |
+          $o = @()
+          $o += (dotnet --info | Out-String)
+          choco install winfsp -y --no-progress | Out-Null
+          choco install rclone -y --no-progress | Out-Null
+          choco install innosetup -y --no-progress | Out-Null
+          $o += "winfsp: " + (Get-ItemProperty 'HKLM:\SOFTWARE\WOW6432Node\WinFsp' -ErrorAction SilentlyContinue | Out-String)
+          $o += "rclone: " + (rclone version | Out-String)
+          $o += "iscc: " + (Get-Command iscc -ErrorAction SilentlyContinue | Out-String)
+          $o += (Get-ChildItem 'C:\Program Files (x86)\Inno Setup 6' -ErrorAction SilentlyContinue | Out-String)
+          $o += (Get-ComputerInfo -Property OsName,OsVersion | Out-String)
+          $o | Out-File probe.txt
+      - name: publish log
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name ci; git config user.email ci@example.com
+          git checkout --orphan ci-logs
+          git rm -rf --cached . | Out-Null
+          git add -f probe.txt
+          git commit -m "probe log $env:GITHUB_SHA"
+          git push -f origin ci-logs
