@@ -40,6 +40,9 @@ public sealed class DriveManager : IDisposable
     private readonly ConcurrentDictionary<string, MountedDrive> _mounted = new(StringComparer.OrdinalIgnoreCase);
     private readonly object _gate = new();
 
+    /// <summary>The winfsp.net binding used (2.0) works with WinFsp 2.0 and newer.</summary>
+    public const int MinimumWinFspMajor = 2;
+
     public DriveManager(DriveServices services) => _services = services;
 
     public event EventHandler? Changed;
@@ -66,7 +69,13 @@ public sealed class DriveManager : IDisposable
                 return new WinFspStatus(false, null, dir, $"WinFsp seems incomplete: {dll} is missing. Reinstall WinFsp.");
             }
 
-            var version = FileVersionInfo.GetVersionInfo(dll).ProductVersion;
+            var info = FileVersionInfo.GetVersionInfo(dll);
+            var version = info.ProductVersion ?? $"{info.FileMajorPart}.{info.FileMinorPart}";
+            if (info.FileMajorPart < MinimumWinFspMajor)
+            {
+                return new WinFspStatus(false, version, dir, $"WinFsp {version} is too old; version 2.0 or newer is required. Install the current release from https://winfsp.dev/rel/.");
+            }
+
             return new WinFspStatus(true, version, dir, $"WinFsp {version} is installed.");
         }
         catch (Exception ex) when (ex is System.Security.SecurityException or UnauthorizedAccessException or IOException)
