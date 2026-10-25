@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>CloudSBiian.VirtualDrive</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="winfsp.net" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CloudSBiian.Core\CloudSBiian.Core.csproj" />
+    <ProjectReference Include="..\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj" />
+    <ProjectReference Include="..\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj" />
+    <ProjectReference Include="..\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj" />
+    <ProjectReference Include="..\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="CloudSBiian.IntegrationTests" />
+    <InternalsVisibleTo Include="CloudSBiian.Tests" />
+  </ItemGroup>
+</Project>

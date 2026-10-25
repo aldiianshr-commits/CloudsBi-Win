@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CloudSBiian.Core/CloudSBiian.Core.csproj" />
+    <Project Path="src/CloudSBiian.Monitoring/CloudSBiian.Monitoring.csproj" />
+    <Project Path="src/CloudSBiian.CloudProviders/CloudSBiian.CloudProviders.csproj" />
+    <Project Path="src/CloudSBiian.CacheEngine/CloudSBiian.CacheEngine.csproj" />
+    <Project Path="src/CloudSBiian.PredictionEngine/CloudSBiian.PredictionEngine.csproj" />
+    <Project Path="src/CloudSBiian.VirtualDrive/CloudSBiian.VirtualDrive.csproj" />
+    <Project Path="src/CloudSBiian.GameLauncher/CloudSBiian.GameLauncher.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>CloudSBiian.PredictionEngine</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CloudSBiian.Core\CloudSBiian.Core.csproj" />
+    <ProjectReference Include="..\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj" />
+    <ProjectReference Include="..\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="CloudSBiian.Tests" />
+  </ItemGroup>
+</Project>

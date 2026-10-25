@@ -1,0 +1,41 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build
+        id: build
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force ci | Out-Null
+          dotnet build CloudSBiian.slnx -c Release -v minimal -clp:NoSummary 2>&1 | Tee-Object -FilePath ci/build.log
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+      - name: Publish CI logs
+        if: always()
+        shell: pwsh
+        run: |
+          $sha = "${{ github.sha }}"
+          "commit $sha`nbuild: ${{ steps.build.outcome }}" | Out-File -Encoding utf8 ci/summary.txt
+          Get-Content ci/build.log -ErrorAction SilentlyContinue | Select-String -Pattern "error|warning CS8|Warn" | Select-Object -First 300 | ForEach-Object { $_.Line } | Out-File -Encoding utf8 ci/errors.txt
+          git config user.name ci; git config user.email ci@users.noreply.github.com
+          git fetch origin ci-logs 2>$null
+          git switch --orphan ci-tmp
+          git add -f ci
+          git commit -q -m "ci $sha"
+          git push -f origin ci-tmp:ci-logs
