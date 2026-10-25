@@ -120,6 +120,23 @@ public class DriveCoreTests
     }
 
     [Fact]
+    public async Task CaseInsensitivePaths_MapToTheRealCloudSpelling()
+    {
+        await using var env = TestEnv.Create();
+        var (id, p) = await env.AddAccountAsync("A");
+        p.AddFile("/Docs/Report.TXT", "content"u8.ToArray());
+        var core = Core(env, id);
+        Assert.Equal(Ok, core.Open("\\DOCS\\report.txt", out var node));
+        Assert.Equal("/Docs/Report.TXT", node!.CloudPath);
+        Assert.Equal(Ok, core.Rename(node, "\\DOCS\\Final.txt", false));
+        Assert.True(p.Exists("/Docs/Final.txt"));
+        Assert.False(p.Exists("/DOCS/Final.txt"));
+        Assert.Equal(Ok, core.Open("\\docs\\final.txt", out var n2));
+        Assert.Equal(Ok, core.Rename(n2!, "\\docs\\FINAL.txt", false));
+        Assert.True(p.Exists("/Docs/FINAL.txt"), "case-only rename must be applied");
+    }
+
+    [Fact]
     public async Task RenamingAFileThatWasNeverUploaded_StaysLocal()
     {
         await using var env = TestEnv.Create();

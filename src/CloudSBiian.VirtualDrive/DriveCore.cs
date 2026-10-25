@@ -157,32 +157,108 @@ public sealed class DriveCore
         return string.IsNullOrEmpty(s) ? "Account" : s;
     }
 
-    internal (string? AccountId, string CloudPath, bool VirtualRoot) Resolve(string windowsPath)
+    /// <summary>
+    /// Maps a Windows path to (account, cloud path). Windows is case-insensitive and WinFsp may
+    /// hand us upper-cased components (e.g. on rename), while most backends are case-sensitive, so
+    /// every existing component is replaced by its real spelling from the directory listings.
+    /// </summary>
+    internal (string? AccountId, string CloudPath, bool VirtualRoot) Resolve(string windowsPath, bool canonicalLeaf = true)
     {
         var p = CloudPath.Normalize(windowsPath);
+        string account;
+        string rest;
         if (SingleAccount)
         {
-            return (_mount.AccountIds[0], p, false);
+            account = _mount.AccountIds[0];
+            rest = p;
         }
-
-        if (p == CloudPath.Root)
+        else
         {
-            return (null, CloudPath.Root, true);
+            if (p == CloudPath.Root)
+            {
+                return (null, CloudPath.Root, true);
+            }
+
+            var parts = p.Split('/', 3, StringSplitOptions.RemoveEmptyEntries);
+            string? found;
+            lock (_mapGate)
+            {
+                _folderToAccount.TryGetValue(parts[0], out found);
+            }
+
+            account = found ?? throw CloudProviderException.NotFound(windowsPath);
+            rest = parts.Length > 1 ? "/" + parts[1] : CloudPath.Root;
         }
 
-        var parts = p.Split('/', 3, StringSplitOptions.RemoveEmptyEntries);
-        string? account;
-        lock (_mapGate)
+        return (account, Canonicalize(account, rest, canonicalLeaf), false);
+    }
+
+    private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<DirectoryListing, NameLookup> NameIndex = new();
+
+    private string Canonicalize(string accountId, string path, bool includeLeaf)
+    {
+        if (path == CloudPath.Root)
         {
-            _folderToAccount.TryGetValue(parts[0], out account);
+            return path;
         }
 
-        if (account == null)
+        var segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        var current = CloudPath.Root;
+        var provider = Provider(accountId);
+        for (var i = 0; i < segments.Length; i++)
         {
-            throw CloudProviderException.NotFound(windowsPath);
+            var name = segments[i];
+            var isLeaf = i == segments.Length - 1;
+            if (!isLeaf || includeLeaf)
+            {
+                name = RealName(accountId, provider, current, name) ?? name;
+            }
+
+            current = current == CloudPath.Root ? "/" + name : current + "/" + name;
         }
 
-        return (account, parts.Length > 1 ? "/" + parts[1] : CloudPath.Root, false);
+        return current;
+    }
+
+    private string? RealName(string accountId, ICloudStorageProvider? provider, string directory, string name)
+    {
+        foreach (var key in _pending.Keys)
+        {
+            if (key.Account == accountId && CloudPath.GetParent(key.Path) == directory &&
+                string.Equals(CloudPath.GetName(key.Path), name, StringComparison.OrdinalIgnoreCase))
+            {
+                return CloudPath.GetName(key.Path);
+            }
+        }
+
+        DirectoryListing listing;
+        try
+        {
+            listing = Wait(_s.Cache.Metadata.ListAsync(accountId, provider, directory, CancellationToken.None));
+        }
+        catch (CloudProviderException)
+        {
+            return null;
+        }
+
+        var index = NameIndex.GetValue(listing, l => new NameLookup(l.Entries.Select(e => e.Name)));
+        return index.Exact.Contains(name) ? name : index.IgnoreCase.TryGetValue(name, out var real) ? real : null;
+    }
+
+    private sealed class NameLookup
+    {
+        public NameLookup(IEnumerable<string> names)
+        {
+            foreach (var n in names)
+            {
+                Exact.Add(n);
+                IgnoreCase.TryAdd(n, n);
+            }
+        }
+
+        public HashSet<string> Exact { get; } = new(StringComparer.Ordinal);
+
+        public Dictionary<string, string> IgnoreCase { get; } = new(StringComparer.OrdinalIgnoreCase);
     }
 
     /// <summary>Windows path ("\Folder\x") for an account path, used by the game launcher.</summary>
@@ -798,7 +874,7 @@ public sealed class DriveCore
             return NtStatus.AccessDenied;
         }
 
-        var (account, newPath, root) = Resolve(newWindowsPath);
+        var (account, newPath, root) = Resolve(newWindowsPath, canonicalLeaf: false);
         if (root || account != node.AccountId)
         {
             return NtStatus.NotSameDevice;

@@ -201,7 +201,8 @@ public sealed class RcloneProvider : ICloudStorageProvider, IFileUploadProvider
 
     public async Task MoveAsync(string sourcePath, string destinationPath, bool isDirectory, bool overwrite, CancellationToken ct)
     {
-        if (!overwrite && await StatAsync(destinationPath, ct).ConfigureAwait(false) != null)
+        var caseOnly = string.Equals(CloudPath.Normalize(sourcePath), CloudPath.Normalize(destinationPath), StringComparison.OrdinalIgnoreCase);
+        if (!overwrite && !caseOnly && await StatAsync(destinationPath, ct).ConfigureAwait(false) != null)
         {
             throw new CloudProviderException(CloudErrorKind.AlreadyExists, $"Destination exists: {destinationPath}");
         }
