@@ -54,7 +54,7 @@ jobs:
           dotnet test tests/CloudSBiian.IntegrationTests -c Release --no-build --logger "trx;LogFileName=integration.trx" --logger "console;verbosity=normal" --results-directory ci/results 2>&1 | Tee-Object -FilePath ci/integration.log
           $bench = Get-ChildItem tests/CloudSBiian.IntegrationTests/bin -Recurse -Filter bench-results.json | Select-Object -First 1
           if ($bench) { Copy-Item $bench.FullName ci/bench-results.json }
-          Get-ChildItem tests -Recurse -Filter *.log | Where-Object { $_.FullName -match 'test-logs' } | ForEach-Object { Copy-Item $_.FullName "ci/testlog-$($_.Directory.Parent.Name)-$($_.Name)" }
+          Get-ChildItem tests -Recurse -Filter *.log | Where-Object { $_.FullName -match 'test-logs' } | ForEach-Object { $proj = (($_.FullName -split '\\tests\\')[1] -split '\\')[0]; Copy-Item $_.FullName "ci/testlog-$proj-$($_.Name)" }
           if ($LASTEXITCODE -ne 0) { exit 1 }
 
       - name: Package (exe, portable zip, installer)
@@ -120,7 +120,7 @@ jobs:
           Get-Content ci/summary.txt | Select-Object -First 400
           $fails = $summary | Where-Object { $_ -match '\[Failed\]|: error ' } | Select-Object -First 60
           if ($fails) { Write-Output ("::warning title=error-digest::" + ($fails -join '%0A')) }
-          $trace = Get-Content ci/testlog-*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match 'Rename|Cleanup with delete|Deleted|Queued|Uploaded|Folder created|WARN|ERROR' } | Select-Object -Last 60
+          $trace = Get-Content ci/testlog-CloudSBiian.IntegrationTests-*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match 'docs' } | Select-Object -Last 80
           if ($trace) { Write-Output ("::notice title=drive-trace::" + ($trace -join '%0A')) }
           $lines = Get-Content ci/*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match ': error ' } | ForEach-Object { $l = $_; $i = $l.IndexOf('src\'); if ($i -lt 0) { $i = $l.IndexOf('tests\') }; if ($i -ge 0) { $l = $l.Substring($i) }; $j = $l.LastIndexOf(' ['); if ($j -gt 0) { $l = $l.Substring(0, $j) }; $l.Trim() } | Sort-Object -Unique | Select-Object -First 150
           if ($lines) { Write-Output ("::warning title=compile-digest::" + ($lines -join '%0A')) }

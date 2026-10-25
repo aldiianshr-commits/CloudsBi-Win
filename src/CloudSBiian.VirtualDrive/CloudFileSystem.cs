@@ -125,6 +125,7 @@ internal sealed class CloudFileSystem : FileSystemBase
         {
             var directory = (createOptions & NtStatus.FileDirectoryFile) != 0;
             var status = _core.Create(fileName, directory, out var node);
+            _log.Debug("winfsp", $"Create {fileName} dir={directory} = 0x{status:X8}");
             if (status != NtStatus.Success || node == null)
             {
                 return status;
@@ -156,6 +157,7 @@ internal sealed class CloudFileSystem : FileSystemBase
         try
         {
             var status = _core.Open(fileName, out var node);
+            _log.Debug("winfsp", $"Open {fileName} access=0x{grantedAccess:X} options=0x{createOptions:X} = 0x{status:X8}");
             if (status != NtStatus.Success || node == null)
             {
                 return status;
@@ -373,7 +375,9 @@ internal sealed class CloudFileSystem : FileSystemBase
         var node = (DriveNode)fileNode;
         try
         {
-            return _core.CanDelete(node);
+            var status = _core.CanDelete(node);
+            _log.Debug("winfsp", $"CanDelete {fileName} = 0x{status:X8}");
+            return status;
         }
         catch (Exception ex)
         {
