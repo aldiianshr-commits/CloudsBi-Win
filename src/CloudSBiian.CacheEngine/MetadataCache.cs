@@ -35,7 +35,8 @@ public sealed class MetadataCache
     {
         var p = CloudPath.Normalize(path);
         var key = (accountId, p);
-        if (!forceRefresh && _memory.TryGetValue(key, out var cached) && !cached.IsStale &&
+        _memory.TryGetValue(key, out var cached);
+        if (!forceRefresh && cached != null && !cached.IsStale &&
             DateTimeOffset.UtcNow - cached.FetchedAt < _ttl())
         {
             return cached;

@@ -26,8 +26,16 @@ jobs:
           New-Item -ItemType Directory -Force ci | Out-Null
           dotnet build CloudSBiian.slnx -c Release -v minimal -clp:NoSummary 2>&1 | Tee-Object -FilePath ci/build.log
           if ($LASTEXITCODE -ne 0) { exit 1 }
+      - name: Error digest
+        if: failure()
+        shell: pwsh
+        run: |
+          $lines = Get-Content ci/build.log -ErrorAction SilentlyContinue | Select-String -Pattern ': error ' | ForEach-Object { ($_.Line -replace '^.*\\src\\','src/' -replace '\s*\[[^\]]*\]$','') } | Sort-Object -Unique | Select-Object -First 200
+          $msg = ($lines -join '%0A')
+          Write-Output "::warning title=error-digest::$msg"
       - name: Publish CI logs
         if: always()
+        continue-on-error: true
         shell: pwsh
         run: |
           $sha = "${{ github.sha }}"

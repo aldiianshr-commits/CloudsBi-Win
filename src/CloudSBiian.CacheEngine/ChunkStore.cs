@@ -176,6 +176,8 @@ public sealed class ChunkStore
 
         File.Move(tmp, file, overwrite: true);
         var disk = DiskBytes(data.Length);
+        var length = data.Length;
+        var hash = Hash(data);
         long previous = 0;
         _db.InTransaction((c, tx) =>
         {
@@ -187,7 +189,7 @@ public sealed class ChunkStore
 
             using var cmd = AppDatabase.Build(c,
                 "INSERT OR REPLACE INTO cache_chunks(account_id, file_key, chunk_index, length, disk_bytes, sha256, last_access, origin, used) VALUES(@a,@k,@i,@l,@d,@h,@t,@o,@u)",
-                [("@a", accountId), ("@k", fileKey), ("@i", index), ("@l", data.Length), ("@d", disk), ("@h", Hash(data)), ("@t", Clock.NowMs()),
+                [("@a", accountId), ("@k", fileKey), ("@i", index), ("@l", length), ("@d", disk), ("@h", hash), ("@t", Clock.NowMs()),
                  ("@o", (int)origin), ("@u", origin == ChunkOrigin.Demand ? 1 : 0)], tx);
             cmd.ExecuteNonQuery();
         });
