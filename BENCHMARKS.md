@@ -10,13 +10,15 @@ Karena backend berada di memori, ini mengukur **overhead tumpukan CloudSBiian** 
 
 ## Hasil
 
-| Metrik | Sebelum cache RAM (build 0.1.13) | Saat ini (build 0.1.14) |
-|---|---|---|
-| Baca berurutan 64 MiB, cold (miss → unduh blok → simpan) | 22.7 MB/s | **157.5 MB/s** |
-| Baca berurutan 64 MiB, warm (semua blok ter-cache) | 537 MB/s | **1493.5 MB/s** |
-| Baca acak 4 KiB warm, p50 | 1.086 ms | **0.046 ms** |
-| Baca acak 4 KiB warm, p95 | 1.254 ms | **0.075 ms** |
-| Cache hit rate setelah dua pembacaan penuh | 0.50 | 0.50 (pembacaan pertama semua miss, kedua semua hit) |
+| Metrik | Sebelum cache RAM (build 0.1.13) | Setelah (build 0.1.14) | Build 0.1.17 |
+|---|---|---|---|
+| Baca berurutan 64 MiB, cold (miss → unduh blok → simpan) | 22.7 MB/s | 157.5 MB/s | **227.9 MB/s** |
+| Baca berurutan 64 MiB, warm (semua blok ter-cache) | 537 MB/s | 1493.5 MB/s | **1496.5 MB/s** |
+| Baca acak 4 KiB warm, p50 | 1.086 ms | 0.046 ms | **0.051 ms** |
+| Baca acak 4 KiB warm, p95 | 1.254 ms | 0.075 ms | **0.090 ms** |
+| Cache hit rate setelah dua pembacaan penuh | 0.50 | 0.50 | 0.50 (pembacaan pertama semua miss, kedua semua hit) |
+
+Build 0.1.14 dan 0.1.17 memakai kode cache yang sama; selisih cold 158 vs 228 MB/s menunjukkan variasi antar-VM runner.
 
 Perubahan antara dua build: cache RAM 96 MB untuk blok terverifikasi, cache record file di memori, dan penulisan blok tanpa `FILE_FLAG_WRITE_THROUGH` (keamanan crash tetap lewat temp-file + rename + SHA-256). Angka build 0.1.12 (sebelumnya) bervariasi antara 22–51 MB/s cold di runner yang sama, sehingga variasi VM ±2× harus diperhitungkan.
 

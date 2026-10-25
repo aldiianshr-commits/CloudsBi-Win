@@ -13,7 +13,7 @@
 7. Artefak diunggah ke run dan, bila semua langkah lulus, ke pre-release bergulir **`latest-build`**.
 8. Ringkasan + log ke branch `ci-logs`.
 
-## Status terakhir yang terverifikasi
+## Status terakhir yang terverifikasi (build 0.1.17, commit `3e5f11e`)
 
 | Langkah | Status | Bukti |
 |---|---|---|
@@ -22,7 +22,7 @@
 | Integration test 14/14 (WinFsp 2.1, rclone) | ✅ | `ci/integration.log` |
 | Paket: `CloudSBiian.exe` (single-file, ~128 MB), `CloudSBiian-Portable-x64.zip` (~90 MB), `CloudSBiian-Setup.exe` (~65 MB) | ✅ | `ci/package.log`, release `latest-build` |
 | UI self-test (32 layar) | ✅ | `ci/ui-selftest.txt` |
-| Install/uninstall diam + self-test terinstal + single-file | lihat `ci/install-test.txt` pada run terbaru | — |
+| Install diam → self-test terinstal → uninstall diam (data pengguna tetap) → self-test single-file | ✅ | `ci/install-test.txt` |
 
 ## Artefak
 

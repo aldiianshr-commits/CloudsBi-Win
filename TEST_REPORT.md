@@ -8,7 +8,7 @@ Sumber: GitHub Actions run untuk commit terbaru di `main` (`.github/workflows/ci
 - **[REAL-DRIVER]** = driver WinFsp sungguhan; operasi lewat API Windows (`System.IO`) pada drive yang di-mount.
 - Pengujian terhadap **akun cloud asli (Google Drive, OneDrive, Dropbox, TeraBox) TIDAK dijalankan** — lihat bagian terakhir.
 
-## Ringkasan (build 0.1.14, commit `0b39e40`)
+## Ringkasan (build 0.1.17, commit `3e5f11e`)
 
 | Suite | Total | Lulus | Gagal | Skip |
 |---|---|---|---|---|
@@ -16,8 +16,7 @@ Sumber: GitHub Actions run untuk commit terbaru di `main` (`.github/workflows/ci
 | Integrasi (`CloudSBiian.IntegrationTests`) [REAL-PROTOCOL]/[REAL-DRIVER] | 14 | 14 | 0 | 0 |
 | UI self-test (paket portable): 11 halaman × 2 tema + dialog Add Account untuk 10 jenis provider | 32 layar | 32 | 0 | — |
 | Packaging (exe single-file, zip portable, installer Inno Setup) | 3 artefak | 3 | 0 | — |
-
-Install/uninstall diam (silent) dan self-test exe single-file: lihat bagian "Installer" di bawah.
+| Installer: install diam, self-test aplikasi terinstal, uninstall diam, self-test exe single-file | 12 pemeriksaan | 12 | 0 | — |
 
 ## Unit test [MOCK]
 
@@ -66,7 +65,24 @@ Bug nyata yang ditemukan oleh tes integrasi dan diperbaiki selama pengembangan: 
 
 ## Installer
 
-Diuji di CI: install diam (`/VERYSILENT`) ke folder uji, keberadaan file (`CloudSBiian.exe`, `rclone\rclone.exe`, `dependencies\winfsp.msi`, LICENSE, notices), UI self-test aplikasi terinstal, uninstall diam (program terhapus, data pengguna di `%LOCALAPPDATA%` tetap), lalu UI self-test `CloudSBiian.exe` single-file. Hasil per run: `ci/install-test.txt`.
+Diuji di CI (build 0.1.17, `ci/install-test.txt`):
+
+```
+setup exit code: 0
+installed CloudSBiian.exe : True
+installed rclone\rclone.exe : True
+installed dependencies\winfsp.msi : True
+installed LICENSE : True
+installed THIRD_PARTY_NOTICES.md : True
+installed app self-test exit code: 0
+user data exists before uninstall: True
+uninstall exit code: 0
+program removed: True
+user data kept after uninstall: True
+single-file self-test exit code: 0
+```
+
+Bug yang ditemukan di sini dan diperbaiki: pesan uninstall memakai `MsgBox` yang tidak dapat ditekan pada mode diam sehingga uninstall diam menggantung; kini `SuppressibleMsgBox`.
 
 ## TIDAK diuji
 
