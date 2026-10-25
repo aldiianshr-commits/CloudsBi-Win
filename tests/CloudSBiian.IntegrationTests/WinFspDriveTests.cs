@@ -111,16 +111,16 @@ public class WinFspDriveTests
         await TestEnv.WaitUntilAsync(() => p.GetContent("/docs/existing.txt") is { } c && c.SequenceEqual("replaced"u8.ToArray()), TimeSpan.FromSeconds(30), "overwrite upload");
 
         File.Move(newFile, Path.Combine(drive.Root, "docs", "renamed.txt"));
-        Assert.True(p.Exists("/docs/renamed.txt"));
-        Assert.False(p.Exists("/docs/new.txt"));
+        await TestEnv.WaitUntilAsync(() => p.Exists("/docs/renamed.txt") && !p.Exists("/docs/new.txt"), TimeSpan.FromSeconds(30),
+            $"rename to reach the cloud (cloud: {string.Join(", ", (await p.ListAsync("/docs", default)).Select(e => e.Name))}; queue: {string.Join(", ", env.Uploads.GetAll().Select(u => u.Path + ":" + u.State))})");
 
         Directory.CreateDirectory(Path.Combine(drive.Root, "saves"));
-        Assert.True(p.Exists("/saves"));
+        Assert.True(p.Exists("/saves"), "folder created on the drive must exist in the cloud");
 
         File.Delete(Path.Combine(drive.Root, "docs", "renamed.txt"));
-        Assert.False(p.Exists("/docs/renamed.txt"));
+        Assert.False(p.Exists("/docs/renamed.txt"), "deleted file must be gone from the cloud");
         Directory.Delete(Path.Combine(drive.Root, "saves"));
-        Assert.False(p.Exists("/saves"));
+        Assert.False(p.Exists("/saves"), "deleted folder must be gone from the cloud");
         drives.Dispose();
     }
 
@@ -154,7 +154,12 @@ public class WinFspDriveTests
         Assert.Equal(new[] { "TeraBox", "TeraBox (2)" }, folders);
         Assert.Equal("account one", File.ReadAllText(Path.Combine(drive.Root, "TeraBox", "same.txt")));
         Assert.Equal("account two", File.ReadAllText(Path.Combine(drive.Root, "TeraBox (2)", "same.txt")));
-        Assert.ThrowsAny<IOException>(() => File.Move(Path.Combine(drive.Root, "TeraBox", "same.txt"), Path.Combine(drive.Root, "TeraBox (2)", "moved.txt")));
+        // Moving between accounts cannot be a server-side rename; Windows falls back to copy + delete.
+        File.Move(Path.Combine(drive.Root, "TeraBox", "same.txt"), Path.Combine(drive.Root, "TeraBox (2)", "moved.txt"));
+        await TestEnv.WaitUntilAsync(() => providers[1].GetContent("/moved.txt") != null && !providers[0].Exists("/same.txt"),
+            TimeSpan.FromSeconds(30), "cross-account move via copy + delete");
+        Assert.Equal("account one"u8.ToArray(), providers[1].GetContent("/moved.txt"));
+        Assert.Equal("account two"u8.ToArray(), providers[1].GetContent("/same.txt"));
         drives.Dispose();
     }
 
