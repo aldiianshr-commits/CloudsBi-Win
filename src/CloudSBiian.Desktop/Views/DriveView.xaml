@@ -1,0 +1,92 @@
+<UserControl x:Class="CloudSBiian.Desktop.Views.DriveView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="Virtual Drive" Style="{StaticResource PageTitle}" />
+            <TextBlock Text="Mount your cloud accounts as a Windows drive. Reads go through the local cache; changes are stored locally and uploaded in the background." Style="{StaticResource PageSubtitle}" />
+
+            <Border Style="{StaticResource Banner}" Visibility="{Binding Status, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="Install WinFsp" Command="{Binding InstallWinFsp}" VerticalAlignment="Center"
+                            Visibility="{Binding WinFspInstalled, Converter={StaticResource Collapsed}}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse>
+                            <Ellipse.Style>
+                                <Style TargetType="Ellipse" BasedOn="{StaticResource StatusDot}">
+                                    <Setter Property="Fill" Value="{DynamicResource ErrorBrush}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding WinFspInstalled}" Value="True">
+                                            <Setter Property="Fill" Value="{DynamicResource OkBrush}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Ellipse.Style>
+                        </Ellipse>
+                        <StackPanel>
+                            <TextBlock Text="File system driver (WinFsp)" FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding WinFspStatus}" Style="{StaticResource Muted}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel MaxWidth="640" HorizontalAlignment="Left">
+                    <TextBlock Text="Mount a drive" Style="{StaticResource SectionTitle}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Drive letter" VerticalAlignment="Center" Margin="0,0,0,8" />
+                        <DockPanel Grid.Column="1">
+                            <Button DockPanel.Dock="Right" Content="Refresh" Command="{Binding RefreshLetters}" Margin="8,0,0,8" />
+                            <ComboBox ItemsSource="{Binding Letters}" SelectedItem="{Binding SelectedLetter}" />
+                        </DockPanel>
+                        <TextBlock Grid.Row="1" Text="Accounts" VerticalAlignment="Center" Margin="0,0,0,8" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AccountChoices}" SelectedItem="{Binding SelectedAccount}" />
+                        <TextBlock Grid.Row="2" Text="Volume label" VerticalAlignment="Center" Margin="0,0,0,8" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding VolumeLabel, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                    <CheckBox Content="Show as a network drive" IsChecked="{Binding NetworkDrive}" />
+                    <CheckBox Content="Read-only" IsChecked="{Binding ReadOnly}" />
+                    <CheckBox Content="Mount automatically when CloudSBiian starts" IsChecked="{Binding MountOnStartup}" />
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,0,0,10"
+                               Text="Letters already used by Windows are not offered. Capacity shown in Explorer is the sum of the quotas the providers report; when a provider reports none, the placeholder from Settings is shown." />
+                    <Button Content="Mount" Command="{Binding Mount}" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Mounted drives" Style="{StaticResource SectionTitle}" />
+                    <TextBlock Text="No drive is mounted." Style="{StaticResource Muted}" Visibility="{Binding MountedDrives.Count, Converter={StaticResource Collapsed}}" />
+                    <DataGrid ItemsSource="{Binding MountedDrives}" SelectedItem="{Binding SelectedMounted}" MaxHeight="260"
+                              Visibility="{Binding MountedDrives.Count, Converter={StaticResource Visible}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Drive" Binding="{Binding Letter, StringFormat={}{0}:}" Width="70" />
+                            <DataGridTextColumn Header="Accounts" Binding="{Binding Accounts}" Width="*" />
+                            <DataGridTextColumn Header="Mode" Binding="{Binding Mode}" Width="180" />
+                            <DataGridTextColumn Header="Open handles" Binding="{Binding Handles}" Width="110" />
+                            <DataGridTextColumn Header="Mounted" Binding="{Binding Since}" Width="150" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button Content="Open in Explorer" Command="{Binding OpenExplorer}" />
+                        <Button Content="Unmount" Command="{Binding Unmount}" Style="{StaticResource DangerButton}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

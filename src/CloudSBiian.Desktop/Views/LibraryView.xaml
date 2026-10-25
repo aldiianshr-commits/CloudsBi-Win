@@ -1,0 +1,78 @@
+<UserControl x:Class="CloudSBiian.Desktop.Views.LibraryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Button Content="+ Add Game or Application" Command="{Binding AddExecutable}" Style="{StaticResource PrimaryButton}" />
+                    <Button Content="Scan Folder" Command="{Binding ScanFolder}" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Game Library" Style="{StaticResource PageTitle}" />
+                    <TextBlock Style="{StaticResource PageSubtitle}"
+                               Text="Games and apps run on this PC, with their files on a cloud drive. Cloud Direct reads on demand, Hybrid Optimized prefetches what earlier launches needed, Full Local copies everything first. CloudSBiian does not bypass DRM, anti-cheat or launcher requirements." />
+                </StackPanel>
+            </DockPanel>
+
+            <Border Style="{StaticResource Banner}" Visibility="{Binding Status, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Your library is empty. Mount a drive, then add the game's executable from it." Style="{StaticResource Muted}"
+                               Visibility="{Binding Entries.Count, Converter={StaticResource Collapsed}}" />
+                    <DataGrid ItemsSource="{Binding Entries}" SelectedItem="{Binding Selected}" MaxHeight="340"
+                              Visibility="{Binding Entries.Count, Converter={StaticResource Visible}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200" />
+                            <DataGridTextColumn Header="Mode" Binding="{Binding Mode}" Width="140" />
+                            <DataGridTextColumn Header="Location" Binding="{Binding Source}" Width="*" />
+                            <DataGridTextColumn Header="Last status" Binding="{Binding LastStatus}" Width="200" />
+                            <DataGridTextColumn Header="Last launch" Binding="{Binding LastLaunch}" Width="150" />
+                            <DataGridTextColumn Header="" Binding="{Binding RunState}" Width="80" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <WrapPanel Margin="0,10,0,0">
+                        <Button Content="Launch" Command="{Binding Launch}" Style="{StaticResource PrimaryButton}" />
+                        <Button Content="Stop" Command="{Binding Stop}" />
+                        <Button Content="Optimize &amp; Prepare" Command="{Binding Prepare}" />
+                        <Button Content="Install locally…" Command="{Binding InstallLocal}" />
+                        <Button Content="View File Location" Command="{Binding ViewLocation}" />
+                        <Button Content="Remove Entry" Command="{Binding Remove}" Style="{StaticResource DangerButton}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}" Visibility="{Binding Selected, Converter={StaticResource Visible}}">
+                <StackPanel MaxWidth="720" HorizontalAlignment="Left">
+                    <TextBlock Text="Entry settings" Style="{StaticResource SectionTitle}" />
+                    <TextBlock Text="{Binding EditInfo}" Style="{StaticResource Muted}" Margin="0,0,0,10" />
+                    <TextBlock Text="Name" Margin="0,0,0,4" />
+                    <TextBox Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Launch arguments" Margin="0,0,0,4" />
+                    <TextBox Text="{Binding EditArguments, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Working directory (empty = executable's folder; relative paths are inside the game folder)" Margin="0,0,0,4" />
+                    <TextBox Text="{Binding EditWorkingDir, UpdateSourceTrigger=PropertyChanged}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Mode" Margin="0,0,0,4" />
+                            <ComboBox ItemsSource="{Binding Modes}" SelectedItem="{Binding EditMode}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Cache priority (0 normal · 1 pin while preparing · 2 always pinned)" Margin="0,0,0,4" TextWrapping="Wrap" />
+                            <ComboBox ItemsSource="{Binding Priorities}" SelectedItem="{Binding EditPriority}" />
+                        </StackPanel>
+                    </Grid>
+                    <Button Content="Save changes" Command="{Binding SaveEntry}" HorizontalAlignment="Left" Margin="0,6,0,0" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

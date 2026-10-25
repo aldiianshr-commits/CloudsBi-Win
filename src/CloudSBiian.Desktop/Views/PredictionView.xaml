@@ -1,0 +1,58 @@
+<UserControl x:Class="CloudSBiian.Desktop.Views.PredictionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="Prediction Engine" Style="{StaticResource PageTitle}" />
+            <TextBlock Style="{StaticResource PageSubtitle}"
+                       Text="Heuristic prefetching (not machine learning): sequential read-ahead, files usually opened together, and the blocks a game read during earlier launches. Prefetch always yields to active reads (P0) and respects the cache budget, the free-space floor and the bandwidth limit." />
+
+            <Border Style="{StaticResource Banner}" Visibility="{Binding Status, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel MaxWidth="620" HorizontalAlignment="Left">
+                    <TextBlock Text="Settings" Style="{StaticResource SectionTitle}" />
+                    <CheckBox Content="Enable prediction and prefetch" IsChecked="{Binding Enabled}" />
+                    <TextBlock Text="Aggressiveness" Margin="0,4,0,4" />
+                    <ComboBox ItemsSource="{Binding Levels}" SelectedItem="{Binding Aggressiveness}" Width="220" HorizontalAlignment="Left" />
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,0,0,8"
+                               Text="Conservative: 1 block read-ahead, 512 MB/hour. Balanced: 2 blocks, small files (≤16 MB) prefetched whole, 2 GB/hour. Aggressive: 4 blocks, files ≤64 MB, low-probability predictions, 8 GB/hour." />
+                    <TextBlock Text="Prefetch bandwidth limit (MB/s, 0 = unlimited)" Margin="0,4,0,4" />
+                    <TextBox Text="{Binding BandwidthMBps, UpdateSourceTrigger=PropertyChanged}" Width="160" HorizontalAlignment="Left" />
+                    <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                        <Button Content="Save" Command="{Binding Save}" Style="{StaticResource PrimaryButton}" />
+                        <Button Content="Delete prediction profiles" Command="{Binding Clear}" Style="{StaticResource DangerButton}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Measured effect" Style="{StaticResource SectionTitle}" />
+                    <TextBlock Text="{Binding Stats}" TextWrapping="Wrap" Margin="0,0,0,8" />
+                    <TextBlock Text="{Binding Metrics}" Style="{StaticResource Muted}" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Most opened files" Style="{StaticResource SectionTitle}" />
+                    <TextBlock Text="Nothing recorded yet. Profiles are built when files are read through the virtual drive." Style="{StaticResource Muted}"
+                               Visibility="{Binding TopFiles.Count, Converter={StaticResource Collapsed}}" />
+                    <DataGrid ItemsSource="{Binding TopFiles}" MaxHeight="360" Visibility="{Binding TopFiles.Count, Converter={StaticResource Visible}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Account" Binding="{Binding Account}" Width="140" />
+                            <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*" />
+                            <DataGridTextColumn Header="Opens" Binding="{Binding Opens}" Width="70" />
+                            <DataGridTextColumn Header="Read" Binding="{Binding ReadBytes}" Width="100" />
+                            <DataGridTextColumn Header="Pattern" Binding="{Binding Pattern}" Width="140" />
+                            <DataGridTextColumn Header="Last open" Binding="{Binding LastOpen}" Width="150" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,90 @@
+<UserControl x:Class="CloudSBiian.Desktop.Views.MonitoringView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:CloudSBiian.Desktop.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Content="Reset counters" Command="{Binding Reset}" VerticalAlignment="Top" Margin="0,0,12,0" />
+                <StackPanel>
+                    <TextBlock Text="Monitoring" Style="{StaticResource PageTitle}" />
+                    <TextBlock Text="Counters and response times measured since CloudSBiian started. Nothing here is estimated or simulated." Style="{StaticResource PageSubtitle}" />
+                </StackPanel>
+            </DockPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Bytes per second (download / upload)" Style="{StaticResource SectionTitle}" />
+                        <c:Sparkline Height="110" Values="{Binding DownSeries}" SecondaryValues="{Binding UpSeries}"
+                                     Stroke="{DynamicResource ChartBrush}" SecondaryStroke="{DynamicResource ChartSecondaryBrush}" GridBrush="{DynamicResource CardBorderBrush}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Cache hits / misses per second" Style="{StaticResource SectionTitle}" />
+                        <c:Sparkline Height="110" Values="{Binding HitSeries}" SecondaryValues="{Binding MissSeries}"
+                                     Stroke="{DynamicResource OkBrush}" SecondaryStroke="{DynamicResource WarnBrush}" GridBrush="{DynamicResource CardBorderBrush}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Per account" Style="{StaticResource SectionTitle}" />
+                    <DataGrid ItemsSource="{Binding AccountsPerf}" MaxHeight="240">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Account" Binding="{Binding Account}" Width="*" />
+                            <DataGridTextColumn Header="State" Binding="{Binding State}" Width="160" />
+                            <DataGridTextColumn Header="Measured download speed" Binding="{Binding MeasuredSpeed}" Width="190" />
+                            <DataGridTextColumn Header="Download slots" Binding="{Binding Downloads}" Width="180" />
+                            <DataGridTextColumn Header="Cached on disk" Binding="{Binding CachedOnDisk}" Width="130" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Counters" Style="{StaticResource SectionTitle}" />
+                        <DataGrid ItemsSource="{Binding Counters}" MaxHeight="360">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Metric" Binding="{Binding Name}" Width="*" />
+                                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="140" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Response times" Style="{StaticResource SectionTitle}" />
+                        <TextBlock Text="N/A — no operation measured yet." Style="{StaticResource Muted}" Visibility="{Binding Latencies.Count, Converter={StaticResource Collapsed}}" />
+                        <DataGrid ItemsSource="{Binding Latencies}" MaxHeight="360" Visibility="{Binding Latencies.Count, Converter={StaticResource Visible}}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Operation" Binding="{Binding Operation}" Width="*" />
+                                <DataGridTextColumn Header="n" Binding="{Binding Samples}" Width="50" />
+                                <DataGridTextColumn Header="avg" Binding="{Binding Average}" Width="70" />
+                                <DataGridTextColumn Header="p50" Binding="{Binding P50}" Width="70" />
+                                <DataGridTextColumn Header="p95" Binding="{Binding P95}" Width="70" />
+                                <DataGridTextColumn Header="max" Binding="{Binding Max}" Width="70" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Style="{StaticResource Card}">
+                <TextBlock Text="{Binding ProcessInfo}" Style="{StaticResource Muted}" />
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

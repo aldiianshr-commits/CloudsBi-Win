@@ -1,0 +1,120 @@
+<UserControl x:Class="CloudSBiian.Desktop.Views.AccountsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Button Content="+ Add Account" Command="{Binding AddAccount}" Style="{StaticResource PrimaryButton}" />
+                    <Button Content="+ Add TeraBox Account" Command="{Binding AddTeraBox}" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Cloud Accounts" Style="{StaticResource PageTitle}" />
+                    <TextBlock Text="Add as many accounts as you like, including several of the same provider. Each account has its own credentials, session, cache, queue and error handling." Style="{StaticResource PageSubtitle}" />
+                </StackPanel>
+            </DockPanel>
+
+            <Border Style="{StaticResource Banner}" Visibility="{Binding Status, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="No accounts yet. Use '+ Add Account' to connect a cloud storage." Style="{StaticResource Muted}"
+                               Visibility="{Binding Accounts.Count, Converter={StaticResource Collapsed}}" />
+                    <ListBox ItemsSource="{Binding Accounts}" SelectedItem="{Binding Selected}" MaxHeight="420"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border x:Name="Bd" Padding="12,10" CornerRadius="8" Margin="0,0,0,4" Background="Transparent">
+                                                <ContentPresenter />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource HoverBrush}" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource SelectedBrush}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1.4*" />
+                                        <ColumnDefinition Width="1.2*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Style="{StaticResource StatusDot}" Fill="{Binding State, Converter={StaticResource StatusBrush}}" />
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding Detail}" Style="{StaticResource Muted}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" Margin="12,0">
+                                        <TextBlock Text="{Binding Provider}" />
+                                        <TextBlock Text="{Binding ProviderStatus}" Style="{StaticResource Muted}" Foreground="{Binding ProviderStatus, Converter={StaticResource StatusBrush}}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <TextBlock Text="{Binding State}" Foreground="{Binding State, Converter={StaticResource StatusBrush}}" />
+                                        <TextBlock Text="{Binding Quota}" Style="{StaticResource Muted}" />
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="4" Text="{Binding Activity}" Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Selected account" Style="{StaticResource SectionTitle}" />
+                    <WrapPanel>
+                        <Button Content="Connect" Command="{Binding Connect}" />
+                        <Button Content="Disconnect" Command="{Binding Disconnect}" />
+                        <Button Content="Reconnect" Command="{Binding Reconnect}" ToolTip="Reconnects this account only. Opens the sign-in page again if the session expired." />
+                        <Button Content="Test Connection" Command="{Binding Test}" />
+                        <Button Content="Refresh" Command="{Binding RefreshAccount}" ToolTip="Reload quota and identity" />
+                        <Button Content="Rename" Command="{Binding Rename}" />
+                        <Button Content="View Details" Command="{Binding Details}" />
+                        <Button Content="View Transfer Status" Command="{Binding ViewTransfers}" />
+                        <Button Content="Remove" Command="{Binding Remove}" Style="{StaticResource DangerButton}" />
+                    </WrapPanel>
+                    <TextBlock Text="Select an account above. Removing an account never deletes files in the cloud." Style="{StaticResource Muted}" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Provider support status" Style="{StaticResource SectionTitle}" />
+                    <ItemsControl ItemsSource="{Binding Providers}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200" />
+                                        <ColumnDefinition Width="110" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Status}" Foreground="{Binding Status, Converter={StaticResource StatusBrush}}" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Note}" Style="{StaticResource Muted}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

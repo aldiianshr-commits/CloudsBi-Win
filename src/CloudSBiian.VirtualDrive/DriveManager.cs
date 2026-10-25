@@ -190,6 +190,40 @@ public sealed class DriveManager : IDisposable
         return null;
     }
 
+    /// <summary>Maps "X:\Folder\file.exe" on a mounted CloudSBiian drive back to (account, cloud path).</summary>
+    public bool TryMapWindowsPath(string fullPath, out string? accountId, out string? cloudPath)
+    {
+        accountId = null;
+        cloudPath = null;
+        if (string.IsNullOrEmpty(fullPath) || fullPath.Length < 3 || fullPath[1] != ':')
+        {
+            return false;
+        }
+
+        var drive = Get(fullPath[..1]);
+        if (drive == null)
+        {
+            return false;
+        }
+
+        try
+        {
+            var (account, path, isRoot) = drive.Core.Resolve(fullPath[2..]);
+            if (isRoot || account == null)
+            {
+                return false;
+            }
+
+            accountId = account;
+            cloudPath = path;
+            return true;
+        }
+        catch (Exception ex) when (ex is Core.Abstractions.CloudProviderException or ArgumentException)
+        {
+            return false;
+        }
+    }
+
     private static string Normalize(string letter)
     {
         var l = letter.Trim().TrimEnd(':', '\\').ToUpperInvariant();

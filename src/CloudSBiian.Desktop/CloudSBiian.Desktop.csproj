@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>CloudSBiian</AssemblyName>
+    <RootNamespace>CloudSBiian.Desktop</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\cloudsbiian.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CloudSBiian.Core\CloudSBiian.Core.csproj" />
+    <ProjectReference Include="..\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj" />
+    <ProjectReference Include="..\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj" />
+    <ProjectReference Include="..\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj" />
+    <ProjectReference Include="..\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj" />
+    <ProjectReference Include="..\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj" />
+    <ProjectReference Include="..\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\cloudsbiian.ico" />
+  </ItemGroup>
+</Project>

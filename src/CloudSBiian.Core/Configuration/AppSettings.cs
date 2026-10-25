@@ -19,7 +19,7 @@ public enum PredictionAggressiveness
     Aggressive,
 }
 
-public enum ThemeMode
+public enum AppTheme
 {
     Dark,
     Light,
@@ -77,7 +77,7 @@ public sealed class AppSettings
 
     public string? RclonePath { get; set; }
 
-    public ThemeMode Theme { get; set; } = ThemeMode.Dark;
+    public AppTheme Theme { get; set; } = AppTheme.Dark;
 
     public string LogLevel { get; set; } = "Info";
 

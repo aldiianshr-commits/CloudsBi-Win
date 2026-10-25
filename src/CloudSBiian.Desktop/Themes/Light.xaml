@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="WindowColor">#F6F6F7</Color>
+    <SolidColorBrush x:Key="WindowBrush" Color="#F6F6F7" />
+    <SolidColorBrush x:Key="SidebarBrush" Color="#EDEDEF" />
+    <SolidColorBrush x:Key="CardBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="CardBorderBrush" Color="#E2E2E6" />
+    <SolidColorBrush x:Key="InputBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="InputBorderBrush" Color="#CFCFD5" />
+    <SolidColorBrush x:Key="HoverBrush" Color="#E6E6EA" />
+    <SolidColorBrush x:Key="SelectedBrush" Color="#DCDCE1" />
+    <SolidColorBrush x:Key="ForegroundBrush" Color="#141416" />
+    <SolidColorBrush x:Key="MutedBrush" Color="#5E5E66" />
+    <SolidColorBrush x:Key="SubtleBrush" Color="#8C8C94" />
+    <SolidColorBrush x:Key="AccentBrush" Color="#141416" />
+    <SolidColorBrush x:Key="AccentForegroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="OkBrush" Color="#1E8E4F" />
+    <SolidColorBrush x:Key="WarnBrush" Color="#A86B00" />
+    <SolidColorBrush x:Key="ErrorBrush" Color="#C23434" />
+    <SolidColorBrush x:Key="ChartBrush" Color="#202024" />
+    <SolidColorBrush x:Key="ChartSecondaryBrush" Color="#8C8C94" />
+    <SolidColorBrush x:Key="TrackBrush" Color="#E2E2E6" />
+</ResourceDictionary>

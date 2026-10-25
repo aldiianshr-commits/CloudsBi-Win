@@ -1,0 +1,108 @@
+<UserControl x:Class="CloudSBiian.Desktop.Views.CacheView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="Cache Manager" Style="{StaticResource PageTitle}" />
+            <TextBlock Text="The cache keeps recently used blocks on your local NTFS disk. Usage shown here is real disk usage, not the size of the cloud files." Style="{StaticResource PageSubtitle}" />
+
+            <Border Style="{StaticResource Banner}" Visibility="{Binding Status, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Usage" Style="{StaticResource SectionTitle}" />
+                    <ProgressBar Value="{Binding UsagePercent, Mode=OneWay}" Maximum="100" Margin="0,0,0,8" />
+                    <TextBlock Text="{Binding Summary}" Style="{StaticResource Muted}" />
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,10">
+                        <Run Text="Location: " /><Run Text="{Binding CacheDirectory, Mode=OneWay}" />
+                    </TextBlock>
+                    <DataGrid ItemsSource="{Binding Usage}" SelectedItem="{Binding SelectedUsage}" MaxHeight="240">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Account" Binding="{Binding Account}" Width="*" />
+                            <DataGridTextColumn Header="On disk" Binding="{Binding Physical}" Width="110" />
+                            <DataGridTextColumn Header="Data" Binding="{Binding Logical}" Width="110" />
+                            <DataGridTextColumn Header="Blocks" Binding="{Binding Chunks}" Width="80" />
+                            <DataGridTextColumn Header="Files" Binding="{Binding Files}" Width="70" />
+                            <DataGridTextColumn Header="Pending uploads" Binding="{Binding Staging}" Width="130" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <WrapPanel Margin="0,10,0,0">
+                        <Button Content="Clear selected account" Command="{Binding ClearAccount}" />
+                        <Button Content="Clear all" Command="{Binding ClearAll}" Style="{StaticResource DangerButton}" />
+                        <Button Content="Verify integrity" Command="{Binding Verify}" />
+                        <Button Content="Open cache folder" Command="{Binding OpenFolder}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel MaxWidth="660" HorizontalAlignment="Left">
+                    <TextBlock Text="Budget and behaviour" Style="{StaticResource SectionTitle}" />
+                    <TextBlock Text="Cache size (GB)" Margin="0,0,0,6" />
+                    <ComboBox ItemsSource="{Binding BudgetOptions}" SelectedItem="{Binding BudgetChoice}" Width="160" HorizontalAlignment="Left" />
+                    <StackPanel Visibility="{Binding IsCustom, Converter={StaticResource Visible}}">
+                        <TextBlock Text="Custom size (GB)" Margin="0,4,0,4" />
+                        <TextBox Text="{Binding CustomBudgetGb, UpdateSourceTrigger=PropertyChanged}" Width="160" HorizontalAlignment="Left" />
+                    </StackPanel>
+                    <TextBlock Text="Always keep this much disk space free (GB)" Margin="0,4,0,4" />
+                    <TextBox Text="{Binding MinFreeGb, UpdateSourceTrigger=PropertyChanged}" Width="160" HorizontalAlignment="Left" />
+                    <TextBlock Text="Block size (MiB)" Margin="0,4,0,4" />
+                    <TextBox Text="{Binding ChunkSizeMiB, UpdateSourceTrigger=PropertyChanged}" Width="160" HorizontalAlignment="Left" />
+                    <CheckBox Content="Verify every cached block with SHA-256 when it is read" IsChecked="{Binding VerifyOnRead}" />
+                    <CheckBox Content="Write-through on close (closing a modified file waits for its upload)" IsChecked="{Binding WriteThrough}" />
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,0,0,10"
+                               Text="Default is write-back: changes are saved locally first and uploaded in the background. Pending changes are never evicted. Write-through makes programs wait for the upload when they close a file." />
+                    <Button Content="Save cache settings" Command="{Binding Save}" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Border>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Pinned items" Style="{StaticResource SectionTitle}" />
+                        <TextBlock Text="Pin files or folders from the File Browser. Pinned blocks are never evicted." Style="{StaticResource Muted}" Margin="0,0,0,8" />
+                        <DataGrid ItemsSource="{Binding Pins}" SelectedItem="{Binding SelectedPin}" MaxHeight="220">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Account" Binding="{Binding Account}" Width="140" />
+                                <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button Content="Cache now" Command="{Binding DownloadPinned}" />
+                            <Button Content="Unpin" Command="{Binding Unpin}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="Exclusions" Style="{StaticResource SectionTitle}" />
+                        <TextBlock Text="Matching files are read directly and never cached or prefetched. Examples: *.tmp, *.iso, /Videos/**" Style="{StaticResource Muted}" Margin="0,0,0,8" />
+                        <DataGrid ItemsSource="{Binding Exclusions}" SelectedItem="{Binding SelectedExclusion}" MaxHeight="180">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Scope" Binding="{Binding Scope}" Width="140" />
+                                <DataGridTextColumn Header="Pattern" Binding="{Binding Pattern}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox ItemsSource="{Binding Scopes}" SelectedItem="{Binding PatternScope}" Margin="0,0,8,8" />
+                            <TextBox Grid.Column="1" Text="{Binding NewPattern, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button Grid.Column="2" Content="Add" Command="{Binding AddExclusion}" Margin="8,0,0,8" />
+                        </Grid>
+                        <Button Content="Remove exclusion" Command="{Binding RemoveExclusion}" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

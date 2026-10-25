@@ -7,5 +7,6 @@
     <Project Path="src/CloudSBiian.PredictionEngine/CloudSBiian.PredictionEngine.csproj" />
     <Project Path="src/CloudSBiian.VirtualDrive/CloudSBiian.VirtualDrive.csproj" />
     <Project Path="src/CloudSBiian.GameLauncher/CloudSBiian.GameLauncher.csproj" />
+    <Project Path="src/CloudSBiian.Desktop/CloudSBiian.Desktop.csproj" />
   </Folder>
 </Solution>
