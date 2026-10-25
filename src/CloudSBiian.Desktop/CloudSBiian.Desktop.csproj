@@ -21,6 +21,10 @@
     <ProjectReference Include="..\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Using Include="System.IO" />
+    <Using Include="CloudSBiian.Core.Logging" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\cloudsbiian.ico" />
   </ItemGroup>
 </Project>
