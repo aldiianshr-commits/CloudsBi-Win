@@ -30,10 +30,10 @@ public sealed class StagingFile : IDisposable
     public string LocalPath { get; internal set; }
 
     /// <summary>True once the remote content was fully copied in (or the file is new/truncated).</summary>
-    public bool Hydrated { get; internal set; }
+    public bool Hydrated { get; set; }
 
     /// <summary>Identity of the remote version this copy is based on (null for new files). Used for conflict detection.</summary>
-    public string? BaseIdentity { get; internal set; }
+    public string? BaseIdentity { get; set; }
 
     public bool Dirty { get; private set; }
 

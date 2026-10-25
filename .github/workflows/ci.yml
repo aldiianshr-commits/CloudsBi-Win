@@ -30,7 +30,7 @@ jobs:
         if: failure()
         shell: pwsh
         run: |
-          $lines = Get-Content ci/build.log -ErrorAction SilentlyContinue | Select-String -Pattern ': error ' | ForEach-Object { ($_.Line -replace '^.*\\src\\','src/' -replace '\s*\[[^\]]*\]$','') } | Sort-Object -Unique | Select-Object -First 200
+          $lines = Get-Content ci/*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match ': error |\[FAIL\]|Failed |Assert' } | ForEach-Object { $l = $_; $i = $l.IndexOf('src\'); if ($i -ge 0) { $l = $l.Substring($i) }; $j = $l.LastIndexOf(' ['); if ($j -gt 0) { $l = $l.Substring(0, $j) }; $l.Trim() } | Sort-Object -Unique | Select-Object -First 150
           $msg = ($lines -join '%0A')
           Write-Output "::warning title=error-digest::$msg"
       - name: Publish CI logs

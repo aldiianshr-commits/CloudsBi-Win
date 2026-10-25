@@ -496,8 +496,9 @@ public sealed class DriveCore
             ArrayPool<byte>.Shared.Return(buffer);
         }
 
-        Try(() => _s.Prediction?.OnRead(node.AccountId!, entry, node.Pattern, offset, bytesRead));
-        return bytesRead == 0 ? NtStatus.EndOfFile : NtStatus.Success;
+        var readCount = bytesRead;
+        Try(() => _s.Prediction?.OnRead(node.AccountId!, entry, node.Pattern, offset, readCount));
+        return readCount == 0 ? NtStatus.EndOfFile : NtStatus.Success;
     }
 
     public int Write(DriveNode node, long offset, ReadOnlySpan<byte> data, bool writeToEndOfFile, bool constrainedIo, out int written)
