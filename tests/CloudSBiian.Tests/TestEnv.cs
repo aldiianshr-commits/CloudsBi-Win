@@ -19,26 +19,32 @@ namespace CloudSBiian.Tests;
 /// </summary>
 public sealed class TestEnv : IAsyncDisposable
 {
+    private static readonly Lazy<Core.Logging.AppLog> SharedLog = new(() =>
+        new Core.Logging.AppLog(Path.Combine(AppContext.BaseDirectory, "test-logs"), Core.Logging.LogLevel.Debug));
+
     private TestEnv(string root, AppSettings settings)
     {
         Root = root;
         Settings = settings;
+        Log = SharedLog.Value;
         Db = new AppDatabase(Path.Combine(root, "test.db"));
         Metrics = new MetricsRegistry();
         Transfers = new TransferTracker(Metrics);
         Secrets = new InMemorySecretStore();
         Store = new AccountStore(Db);
-        Accounts = new AccountManager(Store, Secrets, () => null)
+        Accounts = new AccountManager(Store, Secrets, () => null, Log)
         {
             MockFactory = a => Providers.TryGetValue(a.Id, out var p) ? p : null,
         };
-        Cache = new CacheService(Path.Combine(root, "cache"), Db, Accounts, Metrics, Transfers, () => Settings);
+        Cache = new CacheService(Path.Combine(root, "cache"), Db, Accounts, Metrics, Transfers, () => Settings, Log);
         Staging = new StagingManager(Cache.StagingRoot);
-        Uploads = new UploadQueue(Db, Staging, Accounts, Transfers, Cache.Metadata, Cache.Store, () => Settings.MaxUploadAttempts);
+        Uploads = new UploadQueue(Db, Staging, Accounts, Transfers, Cache.Metadata, Cache.Store, () => Settings.MaxUploadAttempts, Log);
         Profiles = new AccessProfileStore(Db);
     }
 
     public string Root { get; }
+
+    public Core.Logging.IAppLog Log { get; }
 
     public AppSettings Settings { get; }
 
@@ -96,6 +102,7 @@ public sealed class TestEnv : IAsyncDisposable
         Uploads = Uploads,
         Prediction = prediction,
         Settings = () => Settings,
+        Log = Log,
     };
 
     public async Task<(string Id, InMemoryProvider Provider)> AddAccountAsync(string name, ProviderKind kind = ProviderKind.Mock, bool supportsRange = true, IReadOnlyDictionary<string, string>? secrets = null)

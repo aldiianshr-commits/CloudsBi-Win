@@ -198,6 +198,11 @@ internal sealed class CloudFileSystem : FileSystemBase
         var node = (DriveNode)fileNode;
         try
         {
+            if ((flags & NtStatus.CleanupDelete) != 0)
+            {
+                _log.Debug("winfsp", $"Cleanup with delete: {fileName} (node path {node.CloudPath})");
+            }
+
             _core.Cleanup(node, (flags & NtStatus.CleanupDelete) != 0);
         }
         catch (Exception ex)
@@ -381,7 +386,9 @@ internal sealed class CloudFileSystem : FileSystemBase
         var node = (DriveNode)fileNode;
         try
         {
-            return _core.Rename(node, newFileName, replaceIfExists);
+            var status = _core.Rename(node, newFileName, replaceIfExists);
+            _log.Debug("winfsp", $"Rename {fileName} -> {newFileName} (replace={replaceIfExists}) = 0x{status:X8}");
+            return status;
         }
         catch (Exception ex)
         {
