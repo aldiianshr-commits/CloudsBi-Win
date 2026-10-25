@@ -70,5 +70,5 @@ end;
 function InitializeUninstall(): Boolean;
 begin
   Result := True;
-  MsgBox('CloudSBiian will be removed. Your settings, cache and any changes not yet uploaded stay in %LOCALAPPDATA%\CloudSBiian, and no file in your cloud accounts is touched.', mbInformation, MB_OK);
+  SuppressibleMsgBox('CloudSBiian will be removed. Your settings, cache and any changes not yet uploaded stay in %LOCALAPPDATA%\CloudSBiian, and no file in your cloud accounts is touched.', mbInformation, MB_OK, IDOK);
 end;

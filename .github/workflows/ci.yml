@@ -83,31 +83,35 @@ jobs:
       - name: Installer and single-file smoke test
         id: installtest
         if: always() && steps.package.outcome == 'success'
+        timeout-minutes: 20
         shell: pwsh
         run: |
           $log = "ci/install-test.txt"
           $dir = "C:\CSBInstallTest"
-          $p = Start-Process "artifacts/CloudSBiian-Setup.exe" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/DIR=$dir" -PassThru -Wait
-          "setup exit code: $($p.ExitCode)" | Out-File $log
+          function Run($file, $args, $seconds) {
+            $p = Start-Process $file -ArgumentList $args -PassThru
+            if (-not $p.WaitForExit($seconds * 1000)) { $p.Kill($true); return "TIMEOUT" }
+            return $p.ExitCode
+          }
+          $setup = Run "artifacts/CloudSBiian-Setup.exe" @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/DIR=$dir") 300
+          "setup exit code: $setup" | Out-File $log
           foreach ($f in "CloudSBiian.exe", "rclone\rclone.exe", "dependencies\winfsp.msi", "LICENSE", "THIRD_PARTY_NOTICES.md") { "installed $f : $(Test-Path (Join-Path $dir $f))" | Out-File -Append $log }
           $out = Join-Path (Get-Location) "ci/ui-selftest-installed.txt"
-          $a = Start-Process (Join-Path $dir "CloudSBiian.exe") -ArgumentList "--ui-selftest", "`"$out`"" -PassThru
-          if (-not $a.WaitForExit(240000)) { $a.Kill($true) }
-          "installed app self-test exit code: $($a.ExitCode)" | Out-File -Append $log
-          $settings = Join-Path $env:LOCALAPPDATA "CloudSBiian\cloudsbiian.db"
-          "user data exists before uninstall: $(Test-Path $settings)" | Out-File -Append $log
-          $u = Start-Process (Join-Path $dir "unins000.exe") -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -PassThru -Wait
-          Start-Sleep -Seconds 5
-          "uninstall exit code: $($u.ExitCode)" | Out-File -Append $log
+          $app = Run (Join-Path $dir "CloudSBiian.exe") @("--ui-selftest", "`"$out`"") 240
+          "installed app self-test exit code: $app" | Out-File -Append $log
+          $data = Join-Path $env:LOCALAPPDATA "CloudSBiian\cloudsbiian.db"
+          "user data exists before uninstall: $(Test-Path $data)" | Out-File -Append $log
+          $un = Run (Join-Path $dir "unins000.exe") @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART") 300
+          for ($i = 0; $i -lt 30 -and (Test-Path (Join-Path $dir 'CloudSBiian.exe')); $i++) { Start-Sleep -Seconds 2 }
+          "uninstall exit code: $un" | Out-File -Append $log
           "program removed: $(-not (Test-Path (Join-Path $dir 'CloudSBiian.exe')))" | Out-File -Append $log
-          "user data kept after uninstall: $(Test-Path $settings)" | Out-File -Append $log
+          "user data kept after uninstall: $(Test-Path $data)" | Out-File -Append $log
           $out2 = Join-Path (Get-Location) "ci/ui-selftest-singlefile.txt"
-          $sf = Start-Process "artifacts/CloudSBiian.exe" -ArgumentList "--ui-selftest", "`"$out2`"" -PassThru
-          if (-not $sf.WaitForExit(240000)) { $sf.Kill($true) }
-          "single-file self-test exit code: $($sf.ExitCode)" | Out-File -Append $log
+          $sf = Run "artifacts/CloudSBiian.exe" @("--ui-selftest", "`"$out2`"") 240
+          "single-file self-test exit code: $sf" | Out-File -Append $log
           Get-Content $log
           $text = Get-Content $log -Raw
-          if ($p.ExitCode -ne 0 -or $a.ExitCode -ne 0 -or $u.ExitCode -ne 0 -or $sf.ExitCode -ne 0 -or $text -match ': False') { exit 1 }
+          if ($text -match ': False' -or $text -match 'TIMEOUT' -or $setup -ne 0 -or $app -ne 0 -or $un -ne 0 -or $sf -ne 0) { exit 1 }
 
       - name: Upload artifacts
         if: always() && steps.package.outcome == 'success'
