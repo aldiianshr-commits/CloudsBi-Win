@@ -30,3 +30,7 @@ Lihat tabel status di [README.md](README.md#status-provider-jujur). Ringkas: Web
 | Anti-cheat (EAC, BattlEye, EA AC) | Kemungkinan besar gagal | Gunakan instalasi lokal resmi |
 
 Tidak ada game tertentu yang telah diuji oleh proyek ini; tes otomatis menjalankan `cmd.exe` sebagai aplikasi uji yang aman.
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

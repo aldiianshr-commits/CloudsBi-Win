@@ -29,3 +29,7 @@ Memeriksa: argumen, koneksi & kredensial akun, keberadaan executable di cloud, k
 ## Kompatibilitas
 
 Pemindai mencari penanda EasyAntiCheat, BattlEye, EA Anti-Cheat, Steamworks, Epic Online Services, Ubisoft Connect, EA activation, redistributable VC++/DirectX dan memberi saran (biasanya: Full Local / jalankan launcher resmi). Tidak ada dukungan universal untuk Steam, EA app, Epic Games, Ubisoft; tidak ada upaya melewati DRM atau anti-cheat.
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

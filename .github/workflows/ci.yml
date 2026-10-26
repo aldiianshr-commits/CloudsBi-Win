@@ -2,6 +2,10 @@ name: ci
 on:
   push:
     branches: [main]
+  # Pull requests run build, tests, packaging and self-tests, but never touch the
+  # latest-build release or the ci-logs branch (see the guards on those steps).
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
@@ -128,7 +132,7 @@ jobs:
             artifacts/CloudSBiian-Portable-x64.zip
 
       - name: Publish rolling pre-release
-        if: success()
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: pwsh
         run: |
           $notes = "Automated build $env:VERSION from commit ${{ github.sha }}. All unit, integration and UI self-tests passed on windows-latest. See BUILD_STATUS.md and TEST_REPORT.md for what is and is not verified."
@@ -165,7 +169,7 @@ jobs:
           if ($lines) { Write-Output ("::warning title=compile-digest::" + ($lines -join '%0A')) }
 
       - name: Publish CI logs
-        if: always()
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         continue-on-error: true
         shell: pwsh
         run: |

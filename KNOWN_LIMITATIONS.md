@@ -47,3 +47,7 @@ Daftar ini sengaja ditulis lengkap. Jika sesuatu tidak ada di sini dan tidak ter
 - CI berjalan di Windows Server 2025 (runner GitHub `windows-latest`). Windows 10/11 desktop tidak diuji secara langsung; API yang dipakai tersedia sejak Windows 10 1809.
 - Tidak ada penandatanganan kode (code signing): SmartScreen dapat memperingatkan saat menjalankan installer.
 - Antarmuka hanya berbahasa Inggris.
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

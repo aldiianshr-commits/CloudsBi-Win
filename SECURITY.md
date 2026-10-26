@@ -30,3 +30,7 @@
 ## Melaporkan kerentanan
 
 Buka issue privat (Security advisory) di repositori GitHub. Jangan menyertakan token atau password dalam laporan.
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

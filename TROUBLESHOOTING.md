@@ -19,3 +19,7 @@
 | Ingin melaporkan bug | — | Logs & Diagnostics → **Dependency check** dan **Export diagnostics…** (tanpa password/token). |
 
 Lokasi data: `%LOCALAPPDATA%\CloudSBiian` (installer) atau `data\` (portable). Uninstall tidak menghapus folder ini dan tidak menyentuh data cloud; hapus manual jika perlu (pastikan Transfer Queue kosong dulu).
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).
