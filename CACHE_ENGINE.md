@@ -43,3 +43,7 @@ Data staging tidak pernah dihapus oleh eviction, "Clear cache", atau uninstall. 
 ## Prioritas unduhan
 
 Per akun ada pembatas konkurensi (default 4). Satu slot selalu dicadangkan untuk P0/P1; P2/P3 menunggu bila ada permintaan aktif; permintaan P0 yang menunggu membatalkan prefetch berprioritas terendah. Prefetch dibatasi bandwidth (default 8 MB/s, 0 = tanpa batas).
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

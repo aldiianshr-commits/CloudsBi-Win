@@ -78,3 +78,7 @@ Kemampuan yang tersedia (list, baca Range, upload, rename, delete, kuota) sepenu
 ## Other rclone backend
 
 Semua backend yang dilaporkan rclone (pCloud, Box, Mega, …) dapat dicoba. Status: Experimental.
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

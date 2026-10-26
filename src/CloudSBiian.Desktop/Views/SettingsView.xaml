@@ -64,6 +64,22 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+
+            <!-- Required by the WinFsp FLOSS exception (License.txt, condition 2): the notice and a link to the
+                 WinFsp repository must appear in the user interface and in user-facing documentation. -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel MaxWidth="720" HorizontalAlignment="Left">
+                    <TextBlock Text="About &amp; licenses" Style="{StaticResource SectionTitle}" />
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,6"
+                               Text="CloudSBiian is free software under the MIT License." />
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,6"
+                               Text="WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos. https://github.com/winfsp/winfsp. Used under the GPLv3 FLOSS exception." />
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,6"
+                               Text="rclone, Copyright (C) 2012 by Nick Craig-Wood. https://github.com/rclone/rclone. MIT License." />
+                    <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap"
+                               Text="Full license texts: LICENSE and THIRD_PARTY_NOTICES.md (installed with the setup and included in the portable zip) and https://github.com/aldiianshr-commits/CloudsBi-Win." />
+                </StackPanel>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

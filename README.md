@@ -62,3 +62,7 @@ Butuh .NET SDK 10. Lihat [BUILD_STATUS.md](BUILD_STATUS.md), [CONTRIBUTING.md](C
 ## Lisensi
 
 MIT — lihat [LICENSE](LICENSE). Komponen pihak ketiga (WinFsp, rclone, SQLite, dll.) memakai lisensinya masing-masing, lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

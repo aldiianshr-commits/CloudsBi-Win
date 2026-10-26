@@ -31,3 +31,7 @@ Catatan: hasil "warm" untuk file ≤ 96 MB sebagian besar dilayani dari cache RA
 - Kinerja di Windows 10/11 desktop dengan SSD/HDD konsumen.
 
 Pengguna dapat melihat metrik terukur mereka sendiri di halaman **Monitoring** dan **Dashboard** (kecepatan aktual, hit rate, latensi p50/p95, akurasi prefetch).
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).

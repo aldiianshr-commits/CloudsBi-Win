@@ -37,3 +37,7 @@ Provider tanpa izin upload, atau drive read-only, mengembalikan *media write pro
 ## Diuji (integrasi, WinFsp asli)
 
 Mount/browse/baca berurutan & acak/unmount, 8 pembaca paralel, tulis–overwrite–rename–mkdir–delete via `System.IO` sampai ke backend, huruf terpakai ditolak, isolasi folder multi-akun + move antar akun, mount read-only, putus/sambung koneksi, benchmark. Lihat [TEST_REPORT.md](TEST_REPORT.md).
+
+---
+
+WinFsp - Windows File System Proxy, Copyright (C) Bill Zissimopoulos — https://github.com/winfsp/winfsp (dipakai di bawah GPLv3 FLOSS exception; lihat [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).
