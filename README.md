@@ -13,9 +13,9 @@ Build terbaru (dibuat dan diuji otomatis di GitHub Actions `windows-latest`) ada
 
 | Artefak | Isi |
 |---|---|
-| `CloudSBiian-Setup.exe` | Installer (Inno Setup). Memasang aplikasi, `rclone.exe`, dan (opsional, terlihat sebagai task) driver WinFsp. |
+| `CloudSBiian-Setup.exe` | Installer (Inno Setup). Memasang aplikasi, `rclone\rclone.exe` resmi, dan (opsional, terlihat sebagai task) driver WinFsp. |
 | `CloudSBiian-Portable-x64.zip` | Versi portable. Data disimpan di folder `data` di sebelah exe. WinFsp MSI disertakan di `dependencies\`. |
-| `CloudSBiian.exe` | Executable tunggal self-contained (tanpa rclone bawaan; pakai rclone dari PATH atau atur di Settings). |
+| `CloudSBiian.exe` | Executable tunggal self-contained, rclone resmi tertanam di dalamnya (diekstrak saat start). |
 
 Persyaratan: Windows 10 1809+ / Windows 11 x64, **WinFsp 2.0 atau lebih baru** untuk virtual drive (tanpa WinFsp, fitur lain tetap berjalan dan aplikasi menjelaskan cara memasangnya).
 

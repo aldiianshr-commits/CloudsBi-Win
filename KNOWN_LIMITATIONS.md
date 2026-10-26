@@ -9,6 +9,7 @@ Daftar ini sengaja ditulis lengkap. Jika sesuatu tidak ada di sini dan tidak ter
 - **OneDrive**: rclone dapat merotasi refresh token; CloudSBiian menyimpan token terbaru setiap 10 menit, saat sleep, saat disconnect dan saat keluar. Jika aplikasi crash tepat setelah rotasi, Reconnect mungkin diperlukan.
 - **Identitas akun** (e-mail) tidak dilaporkan oleh adapter rclone; ditampilkan "not reported".
 - **Kuota**: hanya ditampilkan jika backend melaporkannya. Bila tidak, Windows menampilkan kapasitas placeholder dari Settings (default 1 TB) — angka ini bukan kuota sebenarnya.
+- **rclone**: wajib untuk semua provider kecuali WebDAV dan Local/NAS. Disertakan di semua paket; bila hilang, aplikasi dapat mengunduh rilis resmi (butuh akses internet ke `downloads.rclone.org`). Tanda tangan PGP `SHA256SUMS` tidak diverifikasi (lihat SECURITY.md). Unduhan dalam aplikasi selalu mengambil rilis stabil terbaru; versi tidak di-pin. Versi minimum yang diterima: v1.60.
 - **SMB via rclone**: belum ada tes otomatis. Untuk NAS yang sudah dapat diakses Windows, gunakan provider "Local / NAS folder".
 
 ## Virtual drive

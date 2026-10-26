@@ -52,6 +52,8 @@ UploadWorker → stat remote → identity berbeda? → Conflict (tidak menimpa)
 
 `RcloneDaemon` menjalankan `rclone rcd` pada `127.0.0.1:<port acak>` dengan user/password acak lewat variabel lingkungan (tidak terlihat di daftar proses), `--rc-serve` untuk baca Range, `--config ""` (tanpa file konfigurasi). Proses diikat ke Job Object sehingga ikut berhenti jika CloudSBiian berhenti/crash. Token OAuth yang diperbarui rclone disimpan kembali ke DPAPI secara berkala.
 
+Dependensi rclone dikelola oleh `AccountManager.CheckRcloneAsync`: `RcloneLocator.Locate` (Settings → salinan bawaan → `tools\rclone` hasil unduhan → CloudSBiian terinstal → winget/Scoop/Chocolatey/Program Files → PATH proses & registry) → `rclone version` (≥ v1.60) → start daemon → `config/providers`. Hasilnya `RcloneStatus` (`Missing`/`Unusable`/`StartFailed`/`Ready`, path, sumber, versi, semua lokasi yang diperiksa) dengan event `RcloneStatusChanged`; `ProviderRegistry.Effective` memakai status itu dan daftar backend nyata. `RcloneInstaller` mengunduh rilis resmi (verifikasi `SHA256SUMS`, validasi exe) ke `tools\rclone`. UI: `RcloneDependencyViewModel` + `RcloneDependencyPanel` (Download / Browse / Re-check / Details) di Cloud Accounts, Settings, dan Add Account.
+
 ## Data aplikasi
 
-`%LOCALAPPDATA%\CloudSBiian\` (atau `data\` pada mode portable): `cloudsbiian.db` (SQLite WAL), `settings.json`, `secrets\*.secret` (DPAPI), `logs\`, `cache\blocks\<akun>\`, `cache\staging\<akun>\`.
+`%LOCALAPPDATA%\CloudSBiian\` (atau `data\` pada mode portable): `cloudsbiian.db` (SQLite WAL), `settings.json`, `secrets\*.secret` (DPAPI), `logs\`, `tools\rclone\` (hanya bila "Download rclone" dipakai), `cache\blocks\<akun>\`, `cache\staging\<akun>\`.

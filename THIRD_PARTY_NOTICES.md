@@ -5,7 +5,7 @@ CloudSBiian itself is licensed under the MIT License (see `LICENSE`). It uses or
 | Component | Used as | License | Notes |
 |---|---|---|---|
 | **WinFsp** (Windows File System Proxy) — https://github.com/winfsp/winfsp | Kernel driver installed separately (`dependencies\winfsp.msi` is the unmodified official MSI) and the `winfsp.net` 2.0 .NET binding (NuGet) | GPLv3 **with FLOSS exception** | The FLOSS exception allows free/open-source software under an OSI license such as MIT to use WinFsp. Distributing CloudSBiian under a non-OSI license would require a commercial WinFsp license. Source: https://github.com/winfsp/winfsp |
-| **rclone** — https://rclone.org | Separate executable `rclone\rclone.exe`, launched as a child process | MIT | Unmodified official build (`rclone-current-windows-amd64.zip`). |
+| **rclone** — https://rclone.org | Separate executable `rclone\rclone.exe`, launched as a child process. Shipped in the installer, the portable zip and embedded in the single-file `CloudSBiian.exe`; can also be downloaded on request by the app ("Download rclone") into `%LOCALAPPDATA%\CloudSBiian\tools\rclone` | MIT | Unmodified official Windows build from `downloads.rclone.org`, SHA-256 checked against the release `SHA256SUMS`. The license text is shipped as `rclone\COPYING.txt` (in-app downloads keep rclone's `README.txt` and a `SOURCE.txt` with the license link). |
 | **Microsoft.Data.Sqlite** / **SQLitePCLRaw** / **SQLite** | Database | MIT / Apache-2.0 / Public domain | NuGet packages. |
 | **System.Security.Cryptography.ProtectedData** | DPAPI wrapper | MIT | NuGet package (.NET). |
 | **.NET runtime & WPF** | Self-contained runtime in the packages | MIT | https://github.com/dotnet |

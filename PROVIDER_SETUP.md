@@ -8,10 +8,28 @@ Kolom umum:
 
 ## rclone
 
-Provider Google Drive, OneDrive, Dropbox, SFTP, S3, SMB, TeraBox, dan "Other rclone backend" memakai [rclone](https://rclone.org) sebagai proses terpisah.
-- Installer dan paket portable menyertakan `rclone\rclone.exe` (build resmi).
-- `CloudSBiian.exe` single-file memakai rclone dari PATH atau path yang Anda pilih di **Settings → rclone**.
-- Form opsi dibuat dari skema yang dilaporkan rclone sendiri (`config/providers`), jadi selalu sesuai versi rclone yang dipakai.
+Provider Google Drive, OneDrive, Dropbox, SFTP, S3, SMB, TeraBox, dan "Other rclone backend" memakai [rclone](https://rclone.org) (MIT) sebagai proses terpisah. WebDAV dan Local / NAS folder **tidak** membutuhkan rclone.
+
+**Disertakan di semua paket.** `CloudSBiian-Setup.exe`, `CloudSBiian-Portable-x64.zip`, dan `CloudSBiian.exe` single-file berisi `rclone\rclone.exe` resmi (+ `rclone\COPYING.txt`). Saat packaging, arsip rclone diunduh dari `downloads.rclone.org` dan dicocokkan dengan `SHA256SUMS` rilis tersebut; build gagal bila checksum tidak cocok. Exe single-file mengekstrak rclone bersama komponen lain ke folder ekstraksi .NET saat dijalankan.
+
+**Urutan pencarian** (panel rclone → **Details** menampilkan semua lokasi yang diperiksa):
+1. Path di **Settings → rclone** (bila diisi dan ada; bila diisi tapi tidak ada, hal itu dilaporkan dan pencarian lanjut).
+2. Salinan bawaan CloudSBiian: `<folder aplikasi>\rclone\rclone.exe`, `<folder aplikasi>\rclone.exe`, dan folder `CloudSBiian.exe` itu sendiri.
+3. Salinan hasil **Download rclone**: `%LOCALAPPDATA%\CloudSBiian\tools\rclone\rclone.exe` (portable: `data\tools\rclone`).
+4. CloudSBiian terinstal (`InstallLocation` dari registry uninstall) dan `Program Files\CloudSBiian\rclone`.
+5. `Program Files\rclone`, winget (`%LOCALAPPDATA%\Microsoft\WinGet\Links` dan `Packages\Rclone.Rclone*`), Scoop (`~\scoop\apps\rclone\current`, `~\scoop\shims`), Chocolatey (`ProgramData\chocolatey\lib\rclone.portable\tools\rclone-*`, `ProgramData\chocolatey\bin`).
+6. PATH proses dan PATH user/mesin terbaru dari registry (rclone yang baru dipasang terdeteksi tanpa logout).
+
+**Pemeriksaan dependensi** (saat start, tombol **Re-check**, setelah Download/Browse, dan saat path di Settings berubah): `rclone version` harus berjalan dan ≥ **v1.60**, daemon `rclone rcd` harus start, lalu daftar backend dibaca (`config/providers`). Salinan yang rusak/terlalu lama dilewati dan salinan berikutnya dicoba; path dari Settings dipakai secara eksklusif. Hasilnya: `Ready`, `Missing`, `Unusable`, atau `StartFailed`, dengan alasan yang ditampilkan di panel rclone (halaman Cloud Accounts, Settings, dan dialog Add Account) dan di Logs → Dependency check.
+
+**Status provider** berasal dari pemeriksaan itu: selama rclone belum `Ready`, provider berbasis rclone *Blocked* dengan alasan sebenarnya (tidak terpasang / terlalu lama / gagal start). Setelah `Ready`, setiap provider dicek terhadap daftar backend rclone yang berjalan; backend yang tidak ada tetap *Blocked*. Status tidak pernah menjadi *Supported* hanya karena rclone ditemukan.
+
+**Jika rclone tidak tersedia** (mis. dihapus antivirus):
+- **Download rclone** — unduh rilis resmi terbaru untuk Windows dari `downloads.rclone.org` (±25 MB), verifikasi SHA-256 terhadap `SHA256SUMS`, cek `rclone version`, lalu simpan di folder tools di atas. Tidak ada data akun yang dikirim.
+- **Browse for rclone.exe…** — pilih `rclone.exe` yang sudah ada; versinya dicek sebelum disimpan ke Settings.
+- **Re-check** — jalankan pemeriksaan ulang (mis. setelah memasang rclone dengan winget: `winget install Rclone.Rclone`).
+
+Akun yang sudah ditambahkan terhubung otomatis setelah rclone menjadi `Ready`. Form opsi dibuat dari skema yang dilaporkan rclone sendiri (`config/providers`), jadi selalu sesuai versi rclone yang dipakai.
 
 ## Google Drive / OneDrive / Dropbox (OAuth)
 
@@ -50,7 +68,7 @@ Folder lokal atau share jaringan `\\nas\share` yang sudah dapat diakses Windows.
 
 **Langkah (opsional, eksperimental):**
 1. Dapatkan build rclone yang menyertakan backend `terabox` dari sumber yang Anda percayai.
-2. **Settings → rclone → Browse…** pilih `rclone.exe` tersebut → **Save**. Status TeraBox berubah dari *Blocked* menjadi *Experimental* jika backend `terabox` terdeteksi.
+2. **Settings → rclone → Browse…** pilih `rclone.exe` tersebut → **Save** (atau **Browse for rclone.exe…** di panel rclone). Status TeraBox berubah dari *Blocked* menjadi *Experimental* hanya jika daftar backend rclone tersebut benar-benar berisi `terabox`. rclone resmi (yang disertakan dan yang diunduh oleh **Download rclone**) tidak memilikinya, jadi TeraBox tetap *Blocked* dengan rclone resmi.
 3. **Cloud Accounts → + Add TeraBox Account**. Form menampilkan opsi yang diminta backend tersebut (misalnya cookie sesi yang Anda salin sendiri dari browser Anda). CloudSBiian tidak mengambil cookie secara otomatis.
 4. Ulangi untuk akun TeraBox lain. Setiap akun: ID, remote rclone (`csb_<id>`), kredensial, cache, staging, antrean, dan status error terpisah. Akun-akun dapat terhubung bersamaan karena setiap akun adalah remote rclone tersendiri.
 5. **Remove** meminta konfirmasi, menghentikan transfer akun itu, membersihkan cache akun itu, dan (opsional) menghapus kredensial. File di TeraBox tidak dihapus. Akun lain tidak terpengaruh.

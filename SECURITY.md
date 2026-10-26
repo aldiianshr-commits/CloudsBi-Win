@@ -18,6 +18,7 @@
 - Daemon rclone hanya listen di `127.0.0.1` pada port acak, dengan user/password acak 192-bit yang diberikan lewat variabel lingkungan. Proses rclone diikat ke Job Object (ikut berhenti bila CloudSBiian crash).
 - Login OAuth (Google Drive/OneDrive/Dropbox) dilakukan di browser Anda pada halaman resmi provider melalui `rclone authorize`; CloudSBiian tidak pernah melihat password akun cloud.
 - CloudSBiian tidak mengirim kredensial ke server selain provider (langsung atau melalui proses rclone lokal). Tidak ada telemetri.
+- **Download rclone** hanya menghubungi `downloads.rclone.org` (HTTPS) untuk `version.txt`, `SHA256SUMS`, dan arsip Windows resmi; tidak ada data akun yang dikirim. Arsip ditolak bila SHA-256 tidak cocok dengan `SHA256SUMS`, dan exe hanya dipasang bila `rclone version` berjalan dan melaporkan versi yang diunduh. Batasan: tanda tangan PGP `SHA256SUMS` belum diverifikasi (checksum dan arsip berasal dari origin HTTPS yang sama), jadi perlindungannya terhadap unduhan rusak/terpotong dan mirror yang salah, bukan terhadap kompromi server rclone itu sendiri.
 - Layanan eksternal yang dihubungi: endpoint provider yang Anda tambahkan; `winfsp.dev` hanya jika Anda menekan "Install WinFsp" tanpa MSI bawaan.
 
 ## Sistem file
