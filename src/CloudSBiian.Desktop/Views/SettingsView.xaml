@@ -1,6 +1,7 @@
 <UserControl x:Class="CloudSBiian.Desktop.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:CloudSBiian.Desktop.Controls">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <TextBlock Text="Settings" Style="{StaticResource PageTitle}" />
@@ -14,15 +15,15 @@
                 <StackPanel MaxWidth="720" HorizontalAlignment="Left">
                     <TextBlock Text="rclone" Style="{StaticResource SectionTitle}" />
                     <TextBlock Style="{StaticResource Muted}" Margin="0,0,0,8"
-                               Text="rclone (MIT license) provides the Google Drive, OneDrive, Dropbox, SFTP, S3, SMB and TeraBox backends. Leave empty to use the bundled copy or the one on PATH. To use TeraBox you must point this to an rclone build that includes a 'terabox' backend." />
+                               Text="rclone (MIT license) provides the Google Drive, OneDrive, Dropbox, SFTP, S3, SMB and TeraBox backends. Leave the path empty to use the copy bundled with CloudSBiian, the one downloaded with 'Download rclone', or one installed with winget / Scoop / Chocolatey / on PATH. Set a path only to force a specific rclone.exe (e.g. a build that includes a 'terabox' backend). Click Save to apply a changed path." />
                     <DockPanel>
                         <Button DockPanel.Dock="Right" Content="Browse…" Command="{Binding BrowseRclone}" Margin="8,0,0,8" />
-                        <Button DockPanel.Dock="Right" Content="Check" Command="{Binding DetectRclone}" Margin="8,0,0,8" />
                         <TextBox Text="{Binding RclonePath, UpdateSourceTrigger=PropertyChanged}" />
                     </DockPanel>
-                    <TextBlock Text="{Binding RcloneInfo}" Style="{StaticResource Muted}" />
                 </StackPanel>
             </Border>
+
+            <c:RcloneDependencyPanel DataContext="{Binding Rclone}" />
 
             <Border Style="{StaticResource Card}">
                 <StackPanel MaxWidth="720" HorizontalAlignment="Left">

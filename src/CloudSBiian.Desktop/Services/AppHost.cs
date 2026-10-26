@@ -38,6 +38,7 @@ public sealed class AppHost : IAsyncDisposable
         Sampler = new MetricsSampler(Metrics, Transfers);
         Secrets = new DpapiSecretStore(paths.SecretsDirectory);
         AccountStore = new AccountStore(Database);
+        CloudProviders.Rclone.RcloneLocator.ManagedDirectory = Path.Combine(paths.ToolsDirectory, "rclone");
         Accounts = new AccountManager(AccountStore, Secrets, () => Settings.Current.RclonePath, Log);
 
         var cacheDir = string.IsNullOrWhiteSpace(Settings.Current.CacheDirectory) ? paths.DefaultCacheDirectory : Settings.Current.CacheDirectory!;
@@ -126,13 +127,10 @@ public sealed class AppHost : IAsyncDisposable
         SystemEvents.PowerModeChanged += OnPowerModeChanged;
         NetworkChange.NetworkAvailabilityChanged += OnNetworkAvailabilityChanged;
 
-        try
+        var rclone = await Accounts.CheckRcloneAsync(_shutdown.Token);
+        if (!rclone.IsReady)
         {
-            await Accounts.GetCatalogAsync(_shutdown.Token);
-        }
-        catch (Exception ex)
-        {
-            Log.Warn("rclone", "rclone is not available; rclone-based providers are blocked until it is configured.", ex);
+            Log.Warn("rclone", $"rclone-based providers are blocked: {rclone.Message}");
         }
 
         await Accounts.ConnectAllAsync(_shutdown.Token);
@@ -268,6 +266,46 @@ public sealed class AppHost : IAsyncDisposable
         await Accounts.RemoveAsync(accountId, deleteCredentials);
     }
 
+    /// <summary>Runs the rclone dependency check again and connects accounts that were waiting for it.</summary>
+    public async Task<CloudProviders.Rclone.RcloneStatus> RecheckRcloneAsync()
+    {
+        var status = await Accounts.CheckRcloneAsync(_shutdown.Token);
+        if (status.IsReady)
+        {
+            await Accounts.ConnectAllAsync(_shutdown.Token);
+        }
+
+        return status;
+    }
+
+    /// <summary>Downloads the official rclone into the tools folder, checks it and connects waiting accounts.</summary>
+    public async Task<CloudProviders.Rclone.RcloneStatus> InstallRcloneAsync(IProgress<CloudProviders.Rclone.RcloneDownloadProgress>? progress, CancellationToken ct)
+    {
+        var status = await Accounts.InstallRcloneAsync(progress, ct);
+        if (status.IsReady)
+        {
+            await Accounts.ConnectAllAsync(_shutdown.Token);
+        }
+
+        return status;
+    }
+
+    /// <summary>Stores a user-selected (already validated) rclone.exe in Settings and switches to it.</summary>
+    public async Task UseRcloneExecutableAsync(string path)
+    {
+        var previous = Settings.Current.Clone();
+        if (string.Equals(previous.RclonePath, path, StringComparison.OrdinalIgnoreCase))
+        {
+            await Accounts.ResetRcloneAsync();
+            await RecheckRcloneAsync();
+            return;
+        }
+
+        var updated = Settings.Current.Clone();
+        updated.RclonePath = path;
+        await ApplySettingsAsync(updated, previous);
+    }
+
     /// <summary>Applies changed settings that need live reconfiguration.</summary>
     public async Task ApplySettingsAsync(AppSettings updated, AppSettings previous)
     {
@@ -275,16 +313,7 @@ public sealed class AppHost : IAsyncDisposable
         if (!string.Equals(updated.RclonePath ?? string.Empty, previous.RclonePath ?? string.Empty, StringComparison.OrdinalIgnoreCase))
         {
             await Accounts.ResetRcloneAsync();
-            try
-            {
-                await Accounts.GetCatalogAsync(_shutdown.Token);
-            }
-            catch (Exception ex)
-            {
-                Log.Warn("rclone", "rclone could not be started with the new path.", ex);
-            }
-
-            await Accounts.ConnectAllAsync(_shutdown.Token);
+            await RecheckRcloneAsync();
         }
 
         if (updated.CacheBudgetBytes < previous.CacheBudgetBytes)

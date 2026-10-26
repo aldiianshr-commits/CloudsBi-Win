@@ -86,9 +86,9 @@ public sealed class StatusBrushConverter : IValueConverter
         var s = value?.ToString() ?? string.Empty;
         var key = s switch
         {
-            "Connected" or "Supported" or "Synced" or "Ok" or "Mounted" or "Running" => "OkBrush",
-            "Connecting" or "Experimental" or "PendingUpload" or "Uploading" or "Warning" or "Info" or "Offline" => "WarnBrush",
-            "Error" or "Blocked" or "AuthenticationExpired" or "AuthenticationFailed" or "RetryRequired" or "Conflict" => "ErrorBrush",
+            "Connected" or "Supported" or "Synced" or "Ok" or "Mounted" or "Running" or "Ready" => "OkBrush",
+            "Connecting" or "Experimental" or "PendingUpload" or "Uploading" or "Warning" or "Info" or "Offline" or "Checking" => "WarnBrush",
+            "Error" or "Blocked" or "AuthenticationExpired" or "AuthenticationFailed" or "RetryRequired" or "Conflict" or "Missing" or "Unusable" or "StartFailed" => "ErrorBrush",
             _ => "MutedBrush",
         };
         return Application.Current.TryFindResource(key) as Brush ?? Brushes.Gray;

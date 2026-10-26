@@ -123,12 +123,14 @@ public sealed class LogsViewModel : PageViewModel
         sb.AppendLine($"Process: {(Environment.Is64BitProcess ? "64-bit" : "32-bit")}, {Environment.ProcessorCount} logical CPUs");
         var winfsp = DriveManager.CheckWinFsp();
         sb.AppendLine($"WinFsp: {(winfsp.Installed ? "OK" : "MISSING")} — {winfsp.Message}");
-        var rclone = RcloneLocator.Find(_host.Settings.Current.RclonePath);
-        sb.AppendLine($"rclone: {(rclone == null ? "MISSING (rclone-based providers blocked)" : $"{rclone} — {await RcloneLocator.GetVersionAsync(rclone, CancellationToken.None) ?? "version unknown"}")}");
-        var catalog = _host.Accounts.Catalog;
-        if (catalog != null)
+        var rclone = _host.Accounts.RcloneStatus.State is RcloneState.NotChecked
+            ? await _host.Accounts.CheckRcloneAsync(CancellationToken.None)
+            : _host.Accounts.RcloneStatus;
+        sb.AppendLine($"rclone: {rclone.State} — {rclone.Message}");
+        sb.AppendLine("rclone dependency details:");
+        foreach (var line in RcloneDependencyViewModel.For(_host).BuildReport().Split('\n'))
         {
-            sb.AppendLine($"rclone backends: {catalog.Backends.Count} (terabox: {(catalog.Has("terabox") ? "yes" : "no")})");
+            sb.AppendLine("  " + line.TrimEnd('\r'));
         }
 
         sb.AppendLine($"Data folder: {_host.Paths.DataRoot}{(_host.Paths.IsPortable ? " (portable)" : string.Empty)}");

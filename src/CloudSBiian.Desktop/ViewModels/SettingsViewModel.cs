@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Globalization;
-using CloudSBiian.CloudProviders.Rclone;
 using CloudSBiian.Core.Configuration;
 using CloudSBiian.Desktop.Mvvm;
 using CloudSBiian.Desktop.Services;
@@ -13,7 +12,6 @@ public sealed class SettingsViewModel : PageViewModel
     private const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
     private readonly AppHost _host;
     private string _rclonePath = string.Empty;
-    private string _rcloneInfo = string.Empty;
     private AppTheme _theme;
     private string _metadataTtl = "30";
     private string _concurrency = "4";
@@ -35,7 +33,8 @@ public sealed class SettingsViewModel : PageViewModel
                 RclonePath = dlg.FileName;
             }
         });
-        DetectRclone = new AsyncCommand(DetectAsync);
+        Rclone = RcloneDependencyViewModel.For(host);
+        Rclone.StatusChanged += (_, _) => RclonePath = _host.Settings.Current.RclonePath ?? string.Empty;
         BrowseFullLocal = new RelayCommand(() =>
         {
             var dlg = new OpenFolderDialog { Title = "Default folder for Full Local installs" };
@@ -55,7 +54,8 @@ public sealed class SettingsViewModel : PageViewModel
 
     public string RclonePath { get => _rclonePath; set => SetProperty(ref _rclonePath, value); }
 
-    public string RcloneInfo { get => _rcloneInfo; private set => SetProperty(ref _rcloneInfo, value); }
+    /// <summary>Result of the real rclone check, with Download / Browse / Re-check.</summary>
+    public RcloneDependencyViewModel Rclone { get; }
 
     public AppTheme Theme
     {
@@ -87,7 +87,6 @@ public sealed class SettingsViewModel : PageViewModel
 
     public RelayCommand BrowseRclone { get; }
 
-    public AsyncCommand DetectRclone { get; }
 
     public RelayCommand BrowseFullLocal { get; }
 
@@ -98,7 +97,6 @@ public sealed class SettingsViewModel : PageViewModel
     public override void OnActivated()
     {
         Load();
-        _ = DetectAsync();
         base.OnActivated();
     }
 
@@ -116,23 +114,6 @@ public sealed class SettingsViewModel : PageViewModel
         LogLevel = s.LogLevel;
         using var key = Registry.CurrentUser.OpenSubKey(RunKey);
         StartWithWindows = key?.GetValue("CloudSBiian") != null;
-    }
-
-    private async Task DetectAsync()
-    {
-        var path = RcloneLocator.Find(string.IsNullOrWhiteSpace(RclonePath) ? null : RclonePath);
-        if (path == null)
-        {
-            RcloneInfo = string.IsNullOrWhiteSpace(RclonePath)
-                ? "rclone not found (not bundled, not on PATH). Google Drive, OneDrive, Dropbox, SFTP, S3, SMB and TeraBox need it."
-                : "The selected file does not exist.";
-            return;
-        }
-
-        var version = await RcloneLocator.GetVersionAsync(path, CancellationToken.None);
-        var catalog = _host.Accounts.Catalog;
-        var tera = catalog == null ? "unknown until rclone is started" : catalog.Has("terabox") ? "available (unofficial backend)" : "not available in this build";
-        RcloneInfo = $"{path} — {version ?? "version unknown"} · TeraBox backend: {tera}";
     }
 
     private static int ParseInt(string text, string field, int min, int max)
@@ -177,7 +158,6 @@ public sealed class SettingsViewModel : PageViewModel
 
         Status = "Saving…";
         await _host.ApplySettingsAsync(s, previous);
-        await DetectAsync();
         Status = "Settings saved.";
     }
 }

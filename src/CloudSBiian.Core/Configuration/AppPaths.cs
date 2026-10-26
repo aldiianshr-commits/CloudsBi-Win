@@ -28,6 +28,9 @@ public sealed class AppPaths
 
     public string RuntimeDirectory => Path.Combine(DataRoot, "runtime");
 
+    /// <summary>Helper programs CloudSBiian downloads on request (e.g. tools\rclone\rclone.exe).</summary>
+    public string ToolsDirectory => Path.Combine(DataRoot, "tools");
+
     public bool IsPortable { get; init; }
 
     public static AppPaths Resolve()

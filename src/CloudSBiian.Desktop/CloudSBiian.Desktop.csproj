@@ -27,4 +27,12 @@
   <ItemGroup>
     <Resource Include="Assets\cloudsbiian.ico" />
   </ItemGroup>
+  <!-- Packaging only (build/package.ps1): bundle the verified official rclone.exe and its license as
+       rclone\rclone.exe / rclone\COPYING.txt. Also embedded in the single-file exe (extracted at start). -->
+  <ItemGroup Condition="'$(BundleRcloneFrom)' != ''">
+    <Content Include="$(BundleRcloneFrom)" Link="rclone\rclone.exe" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(BundleRcloneLicenseFrom)' != ''">
+    <Content Include="$(BundleRcloneLicenseFrom)" Link="rclone\COPYING.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ namespace CloudSBiian.Desktop.Dialogs;
 public sealed class AddAccountWindow : DialogBase
 {
     private readonly AppHost _host;
-    private readonly RcloneBackendCatalog? _catalog;
+    private RcloneBackendCatalog? _catalog;
     private readonly ComboBox _provider = new();
     private readonly TextBlock _statusNote = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 0, 0, 12) };
     private readonly StackPanel _form = new();
@@ -60,6 +60,17 @@ public sealed class AddAccountWindow : DialogBase
         }, isCancel: true);
         _addButton = AddButton("Add account", async (_, _) => await AddAsync(), primary: true);
 
+        // Rebuild when rclone becomes available (Download / Browse / Re-check from this dialog or elsewhere).
+        var rclone = ViewModels.RcloneDependencyViewModel.For(host);
+        EventHandler onRcloneChanged = (_, _) =>
+        {
+            _catalog = _host.Accounts.RcloneStatus.IsReady ? _host.Accounts.Catalog : null;
+            _genericBackend = null;
+            BuildForm();
+        };
+        rclone.StatusChanged += onRcloneChanged;
+        Closed += (_, _) => rclone.StatusChanged -= onRcloneChanged;
+
         var index = ProviderRegistry.All.ToList().FindIndex(d => d.Kind == (preselect ?? ProviderKind.GoogleDrive));
         _provider.SelectedIndex = Math.Max(0, index);
     }
@@ -74,7 +85,7 @@ public sealed class AddAccountWindow : DialogBase
         _fields.Clear();
         _secretFields.Clear();
         var d = Selected;
-        var (status, note) = ProviderRegistry.Effective(d, _catalog);
+        var (status, note) = ProviderRegistry.Effective(d, _catalog, _host.Accounts.RcloneStatus);
         _statusNote.Text = $"Status: {status}. {note}";
         _addButton.IsEnabled = status != ImplementationStatus.Blocked && status != ImplementationStatus.Planned;
 
@@ -84,9 +95,25 @@ public sealed class AddAccountWindow : DialogBase
 
         if (status == ImplementationStatus.Blocked)
         {
-            var blocked = new TextBlock { Text = "This provider cannot be added right now. See the status above and PROVIDER_SETUP.md.", TextWrapping = TextWrapping.Wrap };
+            var rcloneMissing = d.UsesRclone && !_host.Accounts.RcloneStatus.IsReady;
+            var blocked = new TextBlock
+            {
+                Text = rcloneMissing
+                    ? "This provider needs rclone. Download it, select an existing rclone.exe, or re-check below; the form appears as soon as rclone is ready."
+                    : "This provider cannot be added right now. See the status above and PROVIDER_SETUP.md.",
+                TextWrapping = TextWrapping.Wrap,
+            };
             blocked.SetResourceReference(TextBlock.ForegroundProperty, "WarnBrush");
             _form.Children.Add(blocked);
+            if (rcloneMissing)
+            {
+                _form.Children.Add(new Controls.RcloneDependencyPanel
+                {
+                    DataContext = ViewModels.RcloneDependencyViewModel.For(_host),
+                    Margin = new Thickness(0, 8, 0, 0),
+                });
+            }
+
             return;
         }
 

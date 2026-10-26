@@ -66,10 +66,12 @@ public static class ProviderRegistry
         new ProviderDescriptor(kind, kind.ToString(), null, ProviderAuthKind.None, ImplementationStatus.Planned, "Not implemented.", false);
 
     /// <summary>
-    /// Effective status at runtime: rclone-based providers become Blocked when no usable rclone
-    /// binary is present, and TeraBox becomes Experimental when the binary offers a terabox backend.
+    /// Effective status at runtime. rclone-based providers are Blocked while no usable rclone is
+    /// running (the note says exactly why: missing, too old, failed to start), or when the
+    /// running rclone has no backend for the provider (checked against its real backend list).
+    /// TeraBox is only ever Experimental, and only when that list contains a 'terabox' backend.
     /// </summary>
-    public static (ImplementationStatus Status, string Note) Effective(ProviderDescriptor d, RcloneBackendCatalog? catalog)
+    public static (ImplementationStatus Status, string Note) Effective(ProviderDescriptor d, RcloneBackendCatalog? catalog, RcloneStatus? rclone = null)
     {
         if (!d.UsesRclone)
         {
@@ -78,12 +80,15 @@ public static class ProviderRegistry
 
         if (catalog == null)
         {
-            return (ImplementationStatus.Blocked, "rclone was not found. Install it or bundle it next to CloudSBiian.exe (see PROVIDER_SETUP.md).");
+            return (ImplementationStatus.Blocked, rclone is { IsReady: false } ? rclone.BlockedNote : "rclone is not running yet; it will be checked again.");
         }
 
         if (d.RcloneBackend != null && !catalog.Has(d.RcloneBackend))
         {
-            return (ImplementationStatus.Blocked, $"The configured rclone ({catalog.Version}) has no '{d.RcloneBackend}' backend. {d.StatusNote}");
+            var why = d.Kind == ProviderKind.TeraBox
+                ? $"rclone {catalog.Version} has no 'terabox' backend (official rclone does not include one). {d.StatusNote}"
+                : $"rclone {catalog.Version} has no '{d.RcloneBackend}' backend. Update rclone (Download rclone) or choose another build in Settings.";
+            return (ImplementationStatus.Blocked, why);
         }
 
         if (d.Kind == ProviderKind.TeraBox)

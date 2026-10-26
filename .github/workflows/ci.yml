@@ -79,6 +79,7 @@ jobs:
           Get-Content $out
           Get-ChildItem artifacts/portable/CloudSBiian/data/logs -Filter *.log -ErrorAction SilentlyContinue | ForEach-Object { Copy-Item $_.FullName "ci/app-$($_.Name)" }
           if ($p.ExitCode -ne 0) { exit 1 }
+          if (-not (Select-String -Path $out -SimpleMatch "rclone: Ready | bundled with CloudSBiian")) { "portable build did not use its bundled rclone" | Out-File -Append $out; exit 1 }
 
       - name: Installer and single-file smoke test
         id: installtest
@@ -95,10 +96,11 @@ jobs:
           }
           $setup = Run "artifacts/CloudSBiian-Setup.exe" @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/DIR=$dir") 300
           "setup exit code: $setup" | Out-File $log
-          foreach ($f in "CloudSBiian.exe", "rclone\rclone.exe", "dependencies\winfsp.msi", "LICENSE", "THIRD_PARTY_NOTICES.md") { "installed $f : $(Test-Path (Join-Path $dir $f))" | Out-File -Append $log }
+          foreach ($f in "CloudSBiian.exe", "rclone\rclone.exe", "rclone\COPYING.txt", "dependencies\winfsp.msi", "LICENSE", "THIRD_PARTY_NOTICES.md") { "installed $f : $(Test-Path (Join-Path $dir $f))" | Out-File -Append $log }
           $out = Join-Path (Get-Location) "ci/ui-selftest-installed.txt"
           $app = Run (Join-Path $dir "CloudSBiian.exe") @("--ui-selftest", "`"$out`"") 240
           "installed app self-test exit code: $app" | Out-File -Append $log
+          "installed app uses bundled rclone: $([bool](Select-String -Path $out -SimpleMatch 'rclone: Ready | bundled with CloudSBiian'))" | Out-File -Append $log
           $data = Join-Path $env:LOCALAPPDATA "CloudSBiian\cloudsbiian.db"
           "user data exists before uninstall: $(Test-Path $data)" | Out-File -Append $log
           $un = Run (Join-Path $dir "unins000.exe") @("/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART") 300
@@ -109,6 +111,8 @@ jobs:
           $out2 = Join-Path (Get-Location) "ci/ui-selftest-singlefile.txt"
           $sf = Run "artifacts/CloudSBiian.exe" @("--ui-selftest", "`"$out2`"") 240
           "single-file self-test exit code: $sf" | Out-File -Append $log
+          "single-file uses embedded rclone: $([bool](Select-String -Path $out2 -SimpleMatch 'rclone: Ready | bundled with CloudSBiian'))" | Out-File -Append $log
+          Get-Content $out2 | Select-String '^rclone' | ForEach-Object { "  $_" } | Out-File -Append $log
           Get-Content $log
           $text = Get-Content $log -Raw
           if ($text -match ': False' -or $text -match 'TIMEOUT' -or $setup -ne 0 -or $app -ne 0 -or $un -ne 0 -or $sf -ne 0) { exit 1 }
@@ -153,6 +157,8 @@ jobs:
           Get-Content ci/summary.txt | Select-Object -First 400
           $fails = $summary | Where-Object { $_ -match '\[Failed\]|: error ' } | Select-Object -First 60
           if ($fails) { Write-Output ("::warning title=error-digest::" + ($fails -join '%0A')) }
+          $rc = @(Get-Content ci/package.log -ErrorAction SilentlyContinue | Where-Object { $_ -match 'rclone' }) + @(Get-Content ci/ui-selftest*.txt, ci/install-test.txt -ErrorAction SilentlyContinue | Where-Object { $_ -match 'rclone|^provider' })
+          if ($rc) { Write-Output ("::notice title=rclone-status::" + (($rc | Select-Object -First 60) -join '%0A')) }
           $trace = Get-Content ci/testlog-CloudSBiian.IntegrationTests-*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match 'docs' } | Select-Object -Last 80
           if ($trace) { Write-Output ("::notice title=drive-trace::" + ($trace -join '%0A')) }
           $lines = Get-Content ci/*.log -ErrorAction SilentlyContinue | Where-Object { $_ -match ': error ' } | ForEach-Object { $l = $_; $i = $l.IndexOf('src\'); if ($i -lt 0) { $i = $l.IndexOf('tests\') }; if ($i -ge 0) { $l = $l.Substring($i) }; $j = $l.LastIndexOf(' ['); if ($j -gt 0) { $l = $l.Substring(0, $j) }; $l.Trim() } | Sort-Object -Unique | Select-Object -First 150

@@ -1,0 +1,35 @@
+<UserControl x:Class="CloudSBiian.Desktop.Controls.RcloneDependencyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- DataContext: RcloneDependencyViewModel -->
+    <Border Style="{StaticResource Card}">
+        <StackPanel>
+            <DockPanel>
+                <Ellipse Style="{StaticResource StatusDot}" Fill="{Binding State, Converter={StaticResource StatusBrush}}" />
+                <TextBlock Text="{Binding State}" DockPanel.Dock="Right" Foreground="{Binding State, Converter={StaticResource StatusBrush}}" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Headline}" FontWeight="SemiBold" VerticalAlignment="Center" />
+            </DockPanel>
+            <TextBlock Text="{Binding Message}" Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="16,4,0,0" />
+            <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="16,2,0,0">
+                <Run Text="Executable:" /> <Run Text="{Binding Location, Mode=OneWay}" />
+            </TextBlock>
+            <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="16,2,0,0"
+                       Visibility="{Binding NeedsAction, Converter={StaticResource Visible}}"
+                       Text="Google Drive, OneDrive, Dropbox, SFTP, S3, SMB/NAS (rclone), TeraBox and other rclone backends stay Blocked until a working rclone is available. WebDAV and Local / NAS folder do not need rclone." />
+            <StackPanel Margin="16,8,0,0" Visibility="{Binding Progress, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding Progress}" Style="{StaticResource Muted}" />
+                <ProgressBar Value="{Binding ProgressPercent, Mode=OneWay}" Maximum="100" IsIndeterminate="{Binding ProgressIndeterminate}" Height="6" Margin="0,4,0,0" />
+            </StackPanel>
+            <WrapPanel Margin="12,8,0,0">
+                <Button Content="Download rclone" Command="{Binding Download}" Style="{StaticResource PrimaryButton}"
+                        Visibility="{Binding NeedsAction, Converter={StaticResource Visible}}"
+                        ToolTip="Downloads the official rclone release from downloads.rclone.org, verifies its SHA-256 checksum and stores it in CloudSBiian's tools folder." />
+                <Button Content="Cancel download" Command="{Binding CancelDownload}"
+                        Visibility="{Binding IsDownloading, Converter={StaticResource Visible}}" />
+                <Button Content="Browse for rclone.exe…" Command="{Binding Browse}" ToolTip="Use an rclone.exe that is already on this PC (version is checked before it is used)." />
+                <Button Content="Re-check" Command="{Binding Recheck}" />
+                <Button Content="Details" Command="{Binding ShowDetails}" ToolTip="Shows every location that was searched and which backends this rclone offers." />
+            </WrapPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

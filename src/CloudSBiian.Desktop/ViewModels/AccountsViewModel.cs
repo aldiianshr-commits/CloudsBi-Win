@@ -17,19 +17,20 @@ public sealed class AccountRow : ObservableObject
     private string _detail = string.Empty;
     private string _quota = string.Empty;
     private string _activity = string.Empty;
+    private string _providerStatus;
 
     public AccountRow(string id, string provider, string providerStatus)
     {
         Id = id;
         Provider = provider;
-        ProviderStatus = providerStatus;
+        _providerStatus = providerStatus;
     }
 
     public string Id { get; }
 
     public string Provider { get; }
 
-    public string ProviderStatus { get; }
+    public string ProviderStatus { get => _providerStatus; set => SetProperty(ref _providerStatus, value); }
 
     public string Name { get => _name; set => SetProperty(ref _name, value); }
 
@@ -72,8 +73,17 @@ public sealed class AccountsViewModel : PageViewModel
                 MainWindow.Current!.Navigate<TransfersViewModel>();
             }
         }, HasSelection);
+        Rclone = RcloneDependencyViewModel.For(host);
+        Rclone.StatusChanged += (_, _) =>
+        {
+            RefreshProviders();
+            Refresh();
+        };
         RefreshProviders();
     }
+
+    /// <summary>rclone dependency panel (status, Download / Browse / Re-check).</summary>
+    public RcloneDependencyViewModel Rclone { get; }
 
     public ObservableCollection<AccountRow> Accounts { get; } = new();
 
@@ -137,6 +147,7 @@ public sealed class AccountsViewModel : PageViewModel
                 Accounts.Add(row);
             }
 
+            row.ProviderStatus = _host.Accounts.EffectiveStatus(r.Account.Kind).Status.ToString();
             row.Name = r.Account.DisplayName;
             row.State = r.State.ToString();
             var identity = string.IsNullOrEmpty(r.Account.Identity) ? string.Empty : SecretRedactor.MaskIdentity(r.Account.Identity) + " · ";

@@ -52,8 +52,11 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
     private readonly ConcurrentDictionary<string, AccountRuntime> _runtimes = new();
     private readonly SemaphoreSlim _rcloneGate = new(1, 1);
     private RcloneDaemon? _daemon;
+    private readonly SemaphoreSlim _checkGate = new(1, 1);
+    private readonly Dictionary<string, (Version? Version, string? Line, string? Error)> _versionCache = new(StringComparer.OrdinalIgnoreCase);
     private RcloneBackendCatalog? _catalog;
     private string? _daemonPath;
+    private RcloneStatus _rcloneStatus = RcloneStatus.NotChecked;
 
     public AccountManager(AccountStore store, ISecretStore secrets, Func<string?> rclonePath, IAppLog? log = null)
     {
@@ -69,6 +72,9 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
 
     /// <summary>Hook for automated tests: returns an in-memory provider for an account (null = normal behaviour).</summary>
     public Func<CloudAccount, ICloudStorageProvider?>? MockFactory { get; set; }
+
+    /// <summary>How rclone is located (replaceable in tests). Argument: the path set in Settings.</summary>
+    public Func<string?, RcloneLocation> RcloneLocate { get; set; } = RcloneLocator.Locate;
 
     public event EventHandler<AccountRuntime>? RuntimeChanged;
 
@@ -86,27 +92,173 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
 
     public string? RcloneVersion => _daemon?.Version;
 
-    public string? RcloneExecutable => RcloneLocator.Find(_rclonePath());
+    /// <summary>Path of the rclone that is (or would be) used: the checked one, else the first one found on disk.</summary>
+    public string? RcloneExecutable => _rcloneStatus.IsReady ? _rcloneStatus.ExecutablePath : RcloneLocate(_rclonePath()).Path;
 
-    /// <summary>Starts rclone (if available) and reads its backend catalog. Returns null when rclone is missing.</summary>
+    /// <summary>Result of the last rclone dependency check (see <see cref="CheckRcloneAsync"/>).</summary>
+    public RcloneStatus RcloneStatus => _rcloneStatus;
+
+    /// <summary>Raised whenever the rclone dependency state changes (any thread).</summary>
+    public event EventHandler<RcloneStatus>? RcloneStatusChanged;
+
+    /// <summary>Starts rclone (if usable) and reads its backend catalog. Returns null when rclone is not usable; see <see cref="RcloneStatus"/>.</summary>
     public async Task<RcloneBackendCatalog?> GetCatalogAsync(CancellationToken ct)
     {
-        var daemon = await GetDaemonAsync(ct).ConfigureAwait(false);
-        if (daemon == null)
+        if (_catalog != null && _daemon is { IsRunning: true } && _rcloneStatus.IsReady)
         {
-            return null;
+            return _catalog;
         }
 
-        if (_catalog == null)
+        var status = await CheckRcloneAsync(ct).ConfigureAwait(false);
+        return status.IsReady ? _catalog : null;
+    }
+
+    /// <summary>
+    /// Real dependency check: locate rclone (Settings path, bundled copy, CloudSBiian's own
+    /// download, installed CloudSBiian, package managers, PATH), run "rclone version", check the
+    /// minimum version, start the rc daemon and read the backend list. The first usable
+    /// executable wins; a path chosen in Settings is used exclusively when it exists.
+    /// </summary>
+    public async Task<RcloneStatus> CheckRcloneAsync(CancellationToken ct)
+    {
+        await _checkGate.WaitAsync(ct).ConfigureAwait(false);
+        try
         {
-            _catalog = await RcloneBackendCatalog.LoadAsync(daemon, ct).ConfigureAwait(false);
+            var previous = _rcloneStatus;
+            SetRcloneStatus(previous with { State = RcloneState.Checking, Message = "Checking rclone…" });
+            var location = RcloneLocate(_rclonePath());
+            var existing = location.Searched.Where(c => c.Exists).ToList();
+            if (existing.Count > 0 && existing[0].Source == RcloneLocator.SettingsSource)
+            {
+                existing = [existing[0]];
+            }
+
+            if (existing.Count == 0)
+            {
+                await StopDaemonAsync().ConfigureAwait(false);
+                var msg = $"rclone was not found in any of the {location.Searched.Count} locations checked (bundled folder, CloudSBiian tools folder, Program Files, winget, Scoop, Chocolatey, PATH).";
+                if (location.ConfiguredPathProblem != null)
+                {
+                    msg = location.ConfiguredPathProblem + " " + msg;
+                }
+
+                _log.Warn("rclone", msg);
+                return SetRcloneStatus(new RcloneStatus(RcloneState.Missing, null, null, null, 0, location.Searched, msg, DateTimeOffset.Now));
+            }
+
+            string? firstError = null;
+            RcloneCandidate? firstCandidate = null;
+            foreach (var candidate in existing)
+            {
+                var (version, line, error) = await ValidateCachedAsync(candidate.Path, ct).ConfigureAwait(false);
+                if (error != null)
+                {
+                    _log.Warn("rclone", $"Skipping {candidate.Path} ({candidate.Source}): {error}");
+                    firstError ??= error;
+                    firstCandidate ??= candidate;
+                    continue;
+                }
+
+                try
+                {
+                    var daemon = await GetDaemonAsync(candidate.Path, ct).ConfigureAwait(false);
+                    _catalog ??= await RcloneBackendCatalog.LoadAsync(daemon, ct).ConfigureAwait(false);
+                    var ready = new RcloneStatus(RcloneState.Ready, candidate.Path, candidate.Source, daemon.Version ?? line,
+                        _catalog.Backends.Count, location.Searched,
+                        $"rclone {daemon.Version ?? version?.ToString()} ({candidate.Source}) is running; {_catalog.Backends.Count} backends available." +
+                        (location.ConfiguredPathProblem == null ? string.Empty : " Note: " + location.ConfiguredPathProblem + " — using the copy found automatically."),
+                        DateTimeOffset.Now);
+                    _log.Info("rclone", $"{ready.Message} Path: {candidate.Path}");
+                    return SetRcloneStatus(ready);
+                }
+                catch (Exception ex) when (ex is not OperationCanceledException)
+                {
+                    await StopDaemonAsync().ConfigureAwait(false);
+                    var msg = $"rclone at {candidate.Path} could not be started: {ex.Message}";
+                    _log.Error("rclone", msg, ex);
+                    return SetRcloneStatus(new RcloneStatus(RcloneState.StartFailed, candidate.Path, candidate.Source, line, 0, location.Searched, msg, DateTimeOffset.Now));
+                }
+            }
+
+            await StopDaemonAsync().ConfigureAwait(false);
+            return SetRcloneStatus(new RcloneStatus(RcloneState.Unusable, firstCandidate!.Path, firstCandidate.Source, null, 0, location.Searched,
+                firstError + (existing.Count > 1 ? $" ({existing.Count} copies found, none usable.)" : string.Empty), DateTimeOffset.Now));
+        }
+        catch (OperationCanceledException)
+        {
+            SetRcloneStatus(_rcloneStatus with { State = RcloneState.NotChecked, Message = "rclone check was cancelled." });
+            throw;
+        }
+        finally
+        {
+            _checkGate.Release();
+        }
+    }
+
+    /// <summary>
+    /// Downloads the official rclone release (SHA-256 verified) into the CloudSBiian tools folder
+    /// and re-runs the dependency check.
+    /// </summary>
+    public async Task<RcloneStatus> InstallRcloneAsync(IProgress<RcloneDownloadProgress>? progress, CancellationToken ct, Uri? baseUri = null)
+    {
+        var target = RcloneLocator.ManagedDirectory ?? throw new InvalidOperationException("No tools folder configured.");
+        using var http = new HttpClient { Timeout = TimeSpan.FromMinutes(15) };
+        http.DefaultRequestHeaders.UserAgent.ParseAdd("CloudSBiian/" + (typeof(AccountManager).Assembly.GetName().Version?.ToString(3) ?? "0"));
+        var staged = await new RcloneInstaller(http, baseUri, _log)
+            .DownloadAndVerifyAsync(Path.GetDirectoryName(target.TrimEnd(Path.DirectorySeparatorChar))!, progress, ct).ConfigureAwait(false);
+        if (_daemonPath != null && string.Equals(Path.GetDirectoryName(_daemonPath), target.TrimEnd(Path.DirectorySeparatorChar), StringComparison.OrdinalIgnoreCase))
+        {
+            await ResetRcloneAsync().ConfigureAwait(false);
         }
 
-        return _catalog;
+        var exe = RcloneInstaller.Commit(staged, target);
+        lock (_versionCache)
+        {
+            _versionCache.Clear();
+        }
+
+        _log.Info("rclone", $"Installed rclone {staged.Version} to {exe}.");
+        progress?.Report(new RcloneDownloadProgress("Checking rclone", 0, null));
+        return await CheckRcloneAsync(ct).ConfigureAwait(false);
+    }
+
+    private async Task<(Version? Version, string? Line, string? Error)> ValidateCachedAsync(string path, CancellationToken ct)
+    {
+        var key = path + "|" + File.GetLastWriteTimeUtc(path).Ticks + "|" + new FileInfo(path).Length;
+        lock (_versionCache)
+        {
+            if (_versionCache.TryGetValue(key, out var cached))
+            {
+                return cached;
+            }
+        }
+
+        var result = await RcloneLocator.ValidateAsync(path, ct).ConfigureAwait(false);
+        lock (_versionCache)
+        {
+            _versionCache[key] = result;
+        }
+
+        return result;
+    }
+
+    private RcloneStatus SetRcloneStatus(RcloneStatus status)
+    {
+        _rcloneStatus = status;
+        try
+        {
+            RcloneStatusChanged?.Invoke(this, status);
+        }
+        catch (Exception ex)
+        {
+            _log.Debug("rclone", $"Status handler failed: {ex.Message}");
+        }
+
+        return status;
     }
 
     public (ImplementationStatus Status, string Note) EffectiveStatus(ProviderKind kind) =>
-        ProviderRegistry.Effective(ProviderRegistry.Get(kind), _catalog);
+        ProviderRegistry.Effective(ProviderRegistry.Get(kind), _rcloneStatus.IsReady ? _catalog : null, _rcloneStatus);
 
     /// <summary>Connects every enabled auto-connect account in parallel. One failure never blocks the others.</summary>
     public async Task ConnectAllAsync(CancellationToken ct)
@@ -265,8 +417,13 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
 
     public async Task<string> AuthorizeAsync(string backend, IReadOnlyDictionary<string, string>? options, CancellationToken ct)
     {
-        var exe = RcloneExecutable ?? throw new CloudProviderException(CloudErrorKind.DependencyMissing, "rclone was not found.");
-        return await new RcloneAuthorizer(exe).AuthorizeAsync(backend, options, ct).ConfigureAwait(false);
+        var status = _rcloneStatus.IsReady ? _rcloneStatus : await CheckRcloneAsync(ct).ConfigureAwait(false);
+        if (!status.IsReady || status.ExecutablePath == null)
+        {
+            throw new CloudProviderException(CloudErrorKind.DependencyMissing, status.BlockedNote);
+        }
+
+        return await new RcloneAuthorizer(status.ExecutablePath).AuthorizeAsync(backend, options, ct).ConfigureAwait(false);
     }
 
     public async Task<ConnectionTestResult> TestAsync(string accountId, CancellationToken ct)
@@ -485,7 +642,7 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
         var backend = account.Backend ?? ProviderRegistry.Get(account.Kind).RcloneBackend
             ?? throw new CloudProviderException(CloudErrorKind.NotSupported, $"No backend for {account.Kind}.");
         var catalog = await GetCatalogAsync(ct).ConfigureAwait(false)
-            ?? throw new CloudProviderException(CloudErrorKind.DependencyMissing, "rclone was not found. Configure it in Settings or install it (see PROVIDER_SETUP.md).");
+            ?? throw new CloudProviderException(CloudErrorKind.DependencyMissing, _rcloneStatus.BlockedNote);
         if (!catalog.Has(backend))
         {
             throw new CloudProviderException(CloudErrorKind.DependencyMissing,
@@ -519,19 +676,14 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
         }
     }
 
-    private async Task<RcloneDaemon?> GetDaemonAsync(CancellationToken ct)
+    private async Task<RcloneDaemon> GetDaemonAsync(string exe, CancellationToken ct)
     {
         await _rcloneGate.WaitAsync(ct).ConfigureAwait(false);
         try
         {
-            var exe = RcloneExecutable;
-            if (exe == null)
+            if (_daemon != null && !string.Equals(_daemonPath, exe, StringComparison.OrdinalIgnoreCase))
             {
-                return null;
-            }
-
-            if (_daemon != null && _daemonPath != exe)
-            {
+                _daemon.Exited -= OnDaemonExited;
                 await _daemon.DisposeAsync().ConfigureAwait(false);
                 _daemon = null;
                 _catalog = null;
@@ -542,6 +694,7 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
                 _daemon = new RcloneDaemon(exe, _log);
                 _daemon.Exited += OnDaemonExited;
                 _daemonPath = exe;
+                _catalog = null;
             }
 
             await _daemon.EnsureStartedAsync(ct).ConfigureAwait(false);
@@ -551,6 +704,16 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
         {
             _rcloneGate.Release();
         }
+    }
+
+    private async Task StopDaemonAsync()
+    {
+        if (_daemon == null)
+        {
+            return;
+        }
+
+        await ResetRcloneAsync().ConfigureAwait(false);
     }
 
     private void OnDaemonExited(object? sender, EventArgs e)
@@ -581,11 +744,17 @@ public sealed class AccountManager : IAsyncDisposable, IProviderResolver
             }
 
             _daemon = null;
+            _daemonPath = null;
             _catalog = null;
         }
         finally
         {
             _rcloneGate.Release();
+        }
+
+        if (_rcloneStatus.IsReady)
+        {
+            SetRcloneStatus(_rcloneStatus with { State = RcloneState.NotChecked, BackendCount = 0, Message = "rclone was stopped; it will be checked again." });
         }
     }
 

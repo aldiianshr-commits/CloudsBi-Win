@@ -39,7 +39,7 @@ Name: "winfsp"; Description: "Install the WinFsp file system driver (required fo
 
 [Files]
 Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#DepsDir}\rclone.exe"; DestDir: "{app}\rclone"; Flags: ignoreversion
+; rclone\rclone.exe and rclone\COPYING.txt are part of the publish folder (bundled by package.ps1).
 Source: "{#DepsDir}\winfsp.msi"; DestDir: "{app}\dependencies"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\THIRD_PARTY_NOTICES.md"; DestDir: "{app}"; Flags: ignoreversion
