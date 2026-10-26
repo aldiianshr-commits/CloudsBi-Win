@@ -6,17 +6,31 @@ Sumber: GitHub Actions run untuk commit terbaru di `main` (`.github/workflows/ci
 - **[MOCK]** = backend `InMemoryProvider` (tanpa jaringan). Menguji logika CloudSBiian, bukan provider sungguhan.
 - **[REAL-PROTOCOL]** = protokol sungguhan terhadap server lokal (rclone `serve webdav/sftp/s3`, backend rclone `local`) — tanpa akun cloud.
 - **[REAL-DRIVER]** = driver WinFsp sungguhan; operasi lewat API Windows (`System.IO`) pada drive yang di-mount.
+- **[REAL-DOWNLOAD]** = unduhan nyata dari downloads.rclone.org di runner CI.
 - Pengujian terhadap **akun cloud asli (Google Drive, OneDrive, Dropbox, TeraBox) TIDAK dijalankan** — lihat bagian terakhir.
 
-## Ringkasan (build 0.1.17, commit `3e5f11e`)
+## Ringkasan (build 0.1.20, commit `7d0015e`)
 
 | Suite | Total | Lulus | Gagal | Skip |
 |---|---|---|---|---|
-| Unit (`CloudSBiian.Tests`) [MOCK] | 83 | 83 | 0 | 0 |
-| Integrasi (`CloudSBiian.IntegrationTests`) [REAL-PROTOCOL]/[REAL-DRIVER] | 14 | 14 | 0 | 0 |
-| UI self-test (paket portable): 11 halaman × 2 tema + dialog Add Account untuk 10 jenis provider | 32 layar | 32 | 0 | — |
-| Packaging (exe single-file, zip portable, installer Inno Setup) | 3 artefak | 3 | 0 | — |
-| Installer: install diam, self-test aplikasi terinstal, uninstall diam, self-test exe single-file | 12 pemeriksaan | 12 | 0 | — |
+| Unit (`CloudSBiian.Tests`) [MOCK] + dependensi rclone (tanpa jaringan) | 102 | 102 | 0 | 0 |
+| Integrasi (`CloudSBiian.IntegrationTests`) [REAL-PROTOCOL]/[REAL-DRIVER]/[REAL-DOWNLOAD] | 16 | 16 | 0 | 0 |
+| UI self-test (portable, terinstal, single-file): 11 halaman × 2 tema + Add Account 10 provider + simulasi rclone hilang | 35 | 35 | 0 | — |
+| Packaging (exe single-file, zip portable, installer Inno Setup), rclone diverifikasi SHA-256 | 3 artefak | 3 | 0 | — |
+| Installer: install diam, self-test terinstal, rclone bawaan dipakai, uninstall diam, self-test single-file, rclone tertanam dipakai | 15 pemeriksaan | 15 | 0 | — |
+
+## Dependensi rclone (perbaikan "rclone was not found")
+
+Akar masalah: `ProviderRegistry.Effective` menampilkan "rclone was not found" setiap kali katalog backend belum dimuat (`catalog == null`), apa pun penyebabnya. Exe single-file juga tidak membawa rclone, dan pencarian hanya memeriksa folder aplikasi dan PATH proses. Sekarang status berasal dari pemeriksaan nyata (`AccountManager.CheckRcloneAsync`), dan rclone disertakan di ketiga paket.
+
+| Tes | Jenis | Hasil |
+|---|---|---|
+| `DownloadRclone_VerifiesInstallsAndUnblocksProviders` — dari keadaan Missing: unduh rilis resmi dari downloads.rclone.org, cocokkan SHA-256 dengan SHA256SUMS, pasang ke folder tools, `Ready` dengan sumber "downloaded by CloudSBiian"; Google Drive/SFTP jadi Experimental, TeraBox mengikuti katalog nyata; list + upload lewat rclone hasil unduhan | REAL-DOWNLOAD + REAL-PROTOCOL | Lulus |
+| `WrongSettingsPath_FallsBackToInstalledRclone_AndSaysSo` | REAL-PROTOCOL | Lulus |
+| Unit: urutan pencarian (Settings file/folder, folder tools, path Settings hilang dilaporkan), parsing versi, `where.exe` ditolak sebagai rclone, status Missing → hanya provider rclone yang Blocked (WebDAV & Local tetap Supported), path Settings salah → Unusable tanpa fallback diam-diam, salinan rusak dilewati, katalog nyata menentukan status (TeraBox tidak pernah Supported), checksum salah / exe tidak bisa jalan / entri SHA256SUMS hilang → ditolak tanpa sisa file | MOCK (tanpa jaringan) | Lulus (19) |
+| UI self-test: status rclone dan provider pada aplikasi terpaket; simulasi rclone hilang (halaman Accounts + dialog Add Account Google Drive dirender dalam keadaan Blocked) lalu Re-check kembali Ready | REAL (aplikasi terpaket) | Lulus |
+
+Hasil aplikasi terpaket di CI (ketiga artefak sama): `rclone: Ready | bundled with CloudSBiian | v1.75.2 | backends 69`; provider: Google Drive, OneDrive, Dropbox, SFTP, S3, SMB, Other rclone = Experimental; WebDAV, Local/NAS = Supported; **TeraBox = Blocked** (rclone resmi tidak punya backend `terabox`).
 
 ## Unit test [MOCK]
 
@@ -65,21 +79,24 @@ Bug nyata yang ditemukan oleh tes integrasi dan diperbaiki selama pengembangan: 
 
 ## Installer
 
-Diuji di CI (build 0.1.17, `ci/install-test.txt`):
+Diuji di CI (build 0.1.20, `ci/install-test.txt`):
 
 ```
 setup exit code: 0
 installed CloudSBiian.exe : True
 installed rclone\rclone.exe : True
+installed rclone\COPYING.txt : True
 installed dependencies\winfsp.msi : True
 installed LICENSE : True
 installed THIRD_PARTY_NOTICES.md : True
 installed app self-test exit code: 0
+installed app uses bundled rclone: True
 user data exists before uninstall: True
 uninstall exit code: 0
 program removed: True
 user data kept after uninstall: True
 single-file self-test exit code: 0
+single-file uses embedded rclone: True
 ```
 
 Bug yang ditemukan di sini dan diperbaiki: pesan uninstall memakai `MsgBox` yang tidak dapat ditekan pada mode diam sehingga uninstall diam menggantung; kini `SuppressibleMsgBox`.
@@ -88,6 +105,8 @@ Bug yang ditemukan di sini dan diperbaiki: pesan uninstall memakai `MsgBox` yang
 
 - Akun Google Drive, OneDrive, Dropbox **asli** (OAuth interaktif tidak dapat dijalankan di CI).
 - **TeraBox asli** dengan backend rclone pihak ketiga (tidak tersedia/terverifikasi; status Blocked).
+- Tombol **Download rclone** / **Browse** diklik manual di desktop (logika yang sama diuji lewat tes integrasi dan unit; dialog konfirmasi/file picker tidak diotomasi).
+- Login OAuth Google Drive/OneDrive/Dropbox dengan rclone bawaan (butuh akun & browser interaktif).
 - SMB melalui rclone.
 - Siklus sleep/resume sungguhan (hanya putus/sambung disimulasikan).
 - Game komersial nyata, anti-cheat, launcher (Steam/Epic/EA).
