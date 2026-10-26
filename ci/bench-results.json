@@ -1,0 +1,7 @@
+{
+  "winfsp_seq_read_64MiB_cold_MBps": 200.1,
+  "winfsp_seq_read_64MiB_warm_MBps": 767.6,
+  "winfsp_cache_hit_rate_after_warm": 0.5,
+  "winfsp_random_4KiB_read_warm_p50_ms": 0.044,
+  "winfsp_random_4KiB_read_warm_p95_ms": 0.062
+}

@@ -1,0 +1,154 @@
+2026-10-26 00:55:41.315 +00:00 [INFO] accounts {mock_9f64efa2afdc}: Account added: A (Mock).
+2026-10-26 00:55:41.315 +00:00 [INFO] accounts {mock_b07dcd111102}: Account added: A (Mock).
+2026-10-26 00:55:41.323 +00:00 [INFO] accounts {mock_b07dcd111102}: Connected A.
+2026-10-26 00:55:41.324 +00:00 [INFO] accounts {mock_9f64efa2afdc}: Connected A.
+2026-10-26 00:55:41.364 +00:00 [INFO] accounts {mock_448806c8b6d1}: Account added: B (Mock).
+2026-10-26 00:55:41.364 +00:00 [INFO] accounts {mock_448806c8b6d1}: Connected B.
+2026-10-26 00:55:41.366 +00:00 [INFO] accounts {mock_9f64efa2afdc}: Disconnected A.
+2026-10-26 00:55:41.366 +00:00 [INFO] accounts {mock_448806c8b6d1}: Disconnected B.
+2026-10-26 00:55:41.371 +00:00 [WARNING] accounts {mock_9f64efa2afdc}: Connect failed. | CloudProviderException: Simulated AuthenticationFailed.
+2026-10-26 00:55:41.371 +00:00 [INFO] accounts {mock_448806c8b6d1}: Connected B.
+2026-10-26 00:55:41.443 +00:00 [INFO] accounts {terabox_8983335cddbc}: Account added: A (TeraBox).
+2026-10-26 00:55:41.443 +00:00 [INFO] accounts {terabox_8983335cddbc}: Connected A.
+2026-10-26 00:55:41.444 +00:00 [INFO] accounts {terabox_618f6628ca26}: Account added: B (TeraBox).
+2026-10-26 00:55:41.444 +00:00 [INFO] accounts {terabox_618f6628ca26}: Connected B.
+2026-10-26 00:55:41.445 +00:00 [INFO] accounts {terabox_8983335cddbc}: Disconnected A.
+2026-10-26 00:55:41.445 +00:00 [INFO] accounts {terabox_8983335cddbc}: Connected A.
+2026-10-26 00:55:41.618 +00:00 [INFO] accounts {terabox_230c1dbaa25e}: Account added: First (TeraBox).
+2026-10-26 00:55:41.618 +00:00 [INFO] accounts {terabox_230c1dbaa25e}: Connected First.
+2026-10-26 00:55:41.619 +00:00 [INFO] accounts {terabox_205dcd7e3564}: Account added: Second (TeraBox).
+2026-10-26 00:55:41.619 +00:00 [INFO] accounts {terabox_205dcd7e3564}: Connected Second.
+2026-10-26 00:55:41.785 +00:00 [INFO] accounts {terabox_843d4ad28689}: Account added: TeraBox (TeraBox).
+2026-10-26 00:55:41.785 +00:00 [INFO] accounts {terabox_843d4ad28689}: Connected TeraBox.
+2026-10-26 00:55:41.797 +00:00 [INFO] accounts {terabox_8719d3c1c454}: Account added: TeraBox 2 (TeraBox).
+2026-10-26 00:55:41.797 +00:00 [INFO] accounts {terabox_8719d3c1c454}: Connected TeraBox 2.
+2026-10-26 00:55:41.967 +00:00 [INFO] accounts {mock_89e670337155}: Account added: A (Mock).
+2026-10-26 00:55:41.968 +00:00 [INFO] accounts {mock_89e670337155}: Connected A.
+2026-10-26 00:55:42.029 +00:00 [INFO] accounts {terabox_0d8fba7ef89b}: Account added: A (TeraBox).
+2026-10-26 00:55:42.029 +00:00 [INFO] accounts {terabox_0d8fba7ef89b}: Connected A.
+2026-10-26 00:55:42.030 +00:00 [INFO] accounts {terabox_73a1086f3fba}: Account added: B (TeraBox).
+2026-10-26 00:55:42.030 +00:00 [INFO] accounts {terabox_73a1086f3fba}: Connected B.
+2026-10-26 00:55:42.491 +00:00 [INFO] accounts {mock_980d107f1297}: Account added: A (Mock).
+2026-10-26 00:55:42.491 +00:00 [INFO] accounts {mock_980d107f1297}: Connected A.
+2026-10-26 00:55:42.516 +00:00 [INFO] accounts {terabox_1755724acc31}: Account added: A (TeraBox).
+2026-10-26 00:55:42.516 +00:00 [INFO] accounts {terabox_1755724acc31}: Connected A.
+2026-10-26 00:55:42.516 +00:00 [INFO] accounts {terabox_9e6b6fb27cc3}: Account added: B (TeraBox).
+2026-10-26 00:55:42.517 +00:00 [INFO] accounts {terabox_9e6b6fb27cc3}: Connected B.
+2026-10-26 00:55:42.666 +00:00 [INFO] accounts {terabox_1755724acc31}: Disconnected A.
+2026-10-26 00:55:42.667 +00:00 [INFO] accounts {terabox_1755724acc31}: Account removed from CloudSBiian (cloud data untouched).
+2026-10-26 00:55:42.808 +00:00 [INFO] accounts {mock_ed81d17e8d2a}: Account added: A (Mock).
+2026-10-26 00:55:42.808 +00:00 [INFO] accounts {mock_ed81d17e8d2a}: Connected A.
+2026-10-26 00:55:42.827 +00:00 [INFO] accounts {terabox_616bdd6cc288}: Account added: TeraBox 1 (TeraBox).
+2026-10-26 00:55:42.827 +00:00 [INFO] accounts {terabox_616bdd6cc288}: Connected TeraBox 1.
+2026-10-26 00:55:42.827 +00:00 [INFO] accounts {terabox_b7882dd781d0}: Account added: TeraBox 2 (TeraBox).
+2026-10-26 00:55:42.828 +00:00 [INFO] accounts {terabox_b7882dd781d0}: Connected TeraBox 2.
+2026-10-26 00:55:42.828 +00:00 [INFO] accounts {terabox_45574b0b2b84}: Account added: TeraBox 3 (TeraBox).
+2026-10-26 00:55:42.828 +00:00 [INFO] accounts {terabox_45574b0b2b84}: Connected TeraBox 3.
+2026-10-26 00:55:43.156 +00:00 [INFO] accounts {mock_ab44eeb8f0ba}: Account added: A (Mock).
+2026-10-26 00:55:43.156 +00:00 [INFO] accounts {mock_ab44eeb8f0ba}: Connected A.
+2026-10-26 00:55:43.331 +00:00 [INFO] accounts {mock_b418549b8b37}: Account added: A (Mock).
+2026-10-26 00:55:43.331 +00:00 [INFO] accounts {mock_b418549b8b37}: Connected A.
+2026-10-26 00:55:43.342 +00:00 [INFO] accounts {mock_b418549b8b37}: Disconnected A.
+2026-10-26 00:55:43.345 +00:00 [INFO] accounts {mock_179c26f6ce22}: Account added: A (Mock).
+2026-10-26 00:55:43.345 +00:00 [INFO] accounts {mock_179c26f6ce22}: Connected A.
+2026-10-26 00:55:43.568 +00:00 [INFO] accounts {mock_1a9020dbe01e}: Account added: A (Mock).
+2026-10-26 00:55:43.568 +00:00 [INFO] accounts {mock_1a9020dbe01e}: Connected A.
+2026-10-26 00:55:43.708 +00:00 [INFO] accounts {mock_6fb2caba78f2}: Account added: A (Mock).
+2026-10-26 00:55:43.708 +00:00 [INFO] accounts {mock_6fb2caba78f2}: Connected A.
+2026-10-26 00:55:43.730 +00:00 [INFO] accounts {mock_4ddc3de95bc9}: Account added: A (Mock).
+2026-10-26 00:55:43.730 +00:00 [INFO] accounts {mock_4ddc3de95bc9}: Connected A.
+2026-10-26 00:55:44.025 +00:00 [INFO] accounts {mock_4ae023b68418}: Account added: A (Mock).
+2026-10-26 00:55:44.025 +00:00 [INFO] accounts {mock_4ae023b68418}: Connected A.
+2026-10-26 00:55:44.030 +00:00 [INFO] drive {mock_4ae023b68418}: Renamed /Docs/Report.TXT -> /Docs/Final.txt
+2026-10-26 00:55:44.031 +00:00 [INFO] drive {mock_4ae023b68418}: Renamed /Docs/Final.txt -> /Docs/FINAL.txt
+2026-10-26 00:55:44.173 +00:00 [INFO] accounts {mock_2c44609037b2}: Account added: A (Mock).
+2026-10-26 00:55:44.173 +00:00 [INFO] accounts {mock_2c44609037b2}: Connected A.
+2026-10-26 00:55:44.299 +00:00 [INFO] accounts {mock_0992bf09a860}: Account added: A (Mock).
+2026-10-26 00:55:44.299 +00:00 [INFO] accounts {mock_0992bf09a860}: Connected A.
+2026-10-26 00:55:44.300 +00:00 [INFO] drive {mock_0992bf09a860}: Renamed /a.txt -> /b.txt
+2026-10-26 00:55:44.302 +00:00 [INFO] drive {mock_0992bf09a860}: Deleted file: /b.txt
+2026-10-26 00:55:44.514 +00:00 [INFO] accounts {mock_25a291d259a9}: Account added: A (Mock).
+2026-10-26 00:55:44.514 +00:00 [INFO] accounts {mock_25a291d259a9}: Connected A.
+2026-10-26 00:55:44.689 +00:00 [INFO] accounts {mock_6f25800cf8a9}: Account added: A (Mock).
+2026-10-26 00:55:44.689 +00:00 [INFO] accounts {mock_6f25800cf8a9}: Connected A.
+2026-10-26 00:55:44.741 +00:00 [INFO] accounts {mock_916459eb83d3}: Account added: NoRange (Mock).
+2026-10-26 00:55:44.741 +00:00 [INFO] accounts {mock_916459eb83d3}: Connected NoRange.
+2026-10-26 00:55:44.909 +00:00 [INFO] drive {mock_6f25800cf8a9}: Queued upload: /config.bin (3000000 bytes).
+2026-10-26 00:55:44.937 +00:00 [INFO] uploads {mock_6f25800cf8a9}: Uploaded /config.bin.
+2026-10-26 00:55:45.149 +00:00 [INFO] accounts {mock_8fad915f1036}: Account added: A (Mock).
+2026-10-26 00:55:45.149 +00:00 [INFO] accounts {mock_8fad915f1036}: Connected A.
+2026-10-26 00:55:46.013 +00:00 [INFO] accounts {mock_0dbdcce5374f}: Account added: A (Mock).
+2026-10-26 00:55:46.013 +00:00 [INFO] accounts {mock_0dbdcce5374f}: Connected A.
+2026-10-26 00:55:46.014 +00:00 [INFO] accounts {mock_c1e6109f38ca}: Account added: A (Mock).
+2026-10-26 00:55:46.014 +00:00 [INFO] accounts {mock_c1e6109f38ca}: Connected A.
+2026-10-26 00:55:46.014 +00:00 [INFO] accounts {mock_2c867824d00e}: Account added: B (Mock).
+2026-10-26 00:55:46.014 +00:00 [INFO] accounts {mock_2c867824d00e}: Connected B.
+2026-10-26 00:55:46.144 +00:00 [INFO] drive {mock_0dbdcce5374f}: Renamed /draft.txt -> /final.txt
+2026-10-26 00:55:46.188 +00:00 [INFO] drive {mock_0dbdcce5374f}: Queued upload: /final.txt (5 bytes).
+2026-10-26 00:55:46.345 +00:00 [INFO] accounts {mock_adcfaa2ab631}: Account added: A (Mock).
+2026-10-26 00:55:46.345 +00:00 [INFO] accounts {mock_adcfaa2ab631}: Connected A.
+2026-10-26 00:55:46.358 +00:00 [INFO] accounts {mock_8ff503ce4435}: Account added: A (Mock).
+2026-10-26 00:55:46.358 +00:00 [INFO] accounts {mock_8ff503ce4435}: Connected A.
+2026-10-26 00:55:46.366 +00:00 [WARNING] uploads {mock_8ff503ce4435}: Upload of /r.bin failed (attempt 1). | CloudProviderException: Simulated RateLimited.
+2026-10-26 00:55:46.370 +00:00 [INFO] accounts {mock_89c860d9d4cc}: Account added: A (Mock).
+2026-10-26 00:55:46.370 +00:00 [INFO] accounts {mock_89c860d9d4cc}: Connected A.
+2026-10-26 00:55:46.372 +00:00 [WARNING] cache {mock_adcfaa2ab631}: Corrupt chunk detected and discarded (b25e8aba798adb8d9a212ef3a858f0f4#0).
+2026-10-26 00:55:46.503 +00:00 [INFO] accounts {mock_bc0ee6abd3bb}: Account added: A (Mock).
+2026-10-26 00:55:46.503 +00:00 [INFO] accounts {mock_bc0ee6abd3bb}: Connected A.
+2026-10-26 00:55:46.566 +00:00 [INFO] accounts {mock_e3d8e2f30730}: Account added: A (Mock).
+2026-10-26 00:55:46.567 +00:00 [INFO] accounts {mock_e3d8e2f30730}: Connected A.
+2026-10-26 00:55:46.581 +00:00 [INFO] accounts {mock_eae39b045975}: Account added: TeraBox (Mock).
+2026-10-26 00:55:46.581 +00:00 [INFO] accounts {mock_eae39b045975}: Connected TeraBox.
+2026-10-26 00:55:46.581 +00:00 [INFO] accounts {mock_3c13d046dea7}: Account added: TeraBox (Mock).
+2026-10-26 00:55:46.581 +00:00 [INFO] accounts {mock_3c13d046dea7}: Connected TeraBox.
+2026-10-26 00:55:46.581 +00:00 [INFO] accounts {mock_ec096f645f9c}: Account added: Work: Drive (Mock).
+2026-10-26 00:55:46.581 +00:00 [INFO] accounts {mock_ec096f645f9c}: Connected Work: Drive.
+2026-10-26 00:55:46.752 +00:00 [INFO] accounts {mock_a228b17ef500}: Account added: A (Mock).
+2026-10-26 00:55:46.752 +00:00 [INFO] accounts {mock_a228b17ef500}: Connected A.
+2026-10-26 00:55:46.808 +00:00 [INFO] accounts {mock_64d493ffd62b}: Account added: A (Mock).
+2026-10-26 00:55:46.808 +00:00 [INFO] accounts {mock_64d493ffd62b}: Connected A.
+2026-10-26 00:55:46.821 +00:00 [INFO] accounts {mock_e084ff112d5a}: Account added: A (Mock).
+2026-10-26 00:55:46.821 +00:00 [INFO] accounts {mock_e084ff112d5a}: Connected A.
+2026-10-26 00:55:46.833 +00:00 [INFO] drive {mock_e084ff112d5a}: Queued upload: /saves/slot1.sav (11 bytes).
+2026-10-26 00:55:46.840 +00:00 [INFO] uploads {mock_e084ff112d5a}: Uploaded /saves/slot1.sav.
+2026-10-26 00:55:46.978 +00:00 [INFO] accounts {mock_3d3a3b9b971a}: Account added: A (Mock).
+2026-10-26 00:55:46.979 +00:00 [INFO] accounts {mock_3d3a3b9b971a}: Connected A.
+2026-10-26 00:55:46.984 +00:00 [DEBUG] cache {mock_3d3a3b9b971a}: Retrying chunk after Network (400 ms).
+2026-10-26 00:55:47.388 +00:00 [DEBUG] cache {mock_3d3a3b9b971a}: Retrying chunk after Network (800 ms).
+2026-10-26 00:55:48.028 +00:00 [INFO] accounts {mock_4d4af3a2b935}: Account added: A (Mock).
+2026-10-26 00:55:48.028 +00:00 [INFO] accounts {mock_4d4af3a2b935}: Connected A.
+2026-10-26 00:55:48.197 +00:00 [DEBUG] cache {mock_3d3a3b9b971a}: Retrying chunk after Network (1600 ms).
+2026-10-26 00:55:48.201 +00:00 [INFO] accounts {mock_0109a1e4f151}: Account added: A (Mock).
+2026-10-26 00:55:48.201 +00:00 [INFO] accounts {mock_0109a1e4f151}: Connected A.
+2026-10-26 00:55:48.283 +00:00 [INFO] accounts {mock_654e15697618}: Account added: A (Mock).
+2026-10-26 00:55:48.283 +00:00 [INFO] accounts {mock_654e15697618}: Connected A.
+2026-10-26 00:55:48.486 +00:00 [INFO] accounts {mock_0eeb83c5861f}: Account added: A (Mock).
+2026-10-26 00:55:48.486 +00:00 [INFO] accounts {mock_0eeb83c5861f}: Connected A.
+2026-10-26 00:55:48.567 +00:00 [INFO] accounts {mock_09b05d18c194}: Account added: A (Mock).
+2026-10-26 00:55:48.567 +00:00 [INFO] accounts {mock_09b05d18c194}: Connected A.
+2026-10-26 00:55:51.375 +00:00 [INFO] uploads {mock_8ff503ce4435}: Uploaded /r.bin.
+2026-10-26 00:55:51.442 +00:00 [INFO] accounts {mock_9220e22115d4}: Account added: A (Mock).
+2026-10-26 00:55:51.442 +00:00 [INFO] accounts {mock_9220e22115d4}: Connected A.
+2026-10-26 00:55:51.444 +00:00 [WARNING] uploads {mock_9220e22115d4}: Upload of /o.bin failed (attempt 1). | CloudProviderException: Simulated offline.
+2026-10-26 00:55:51.496 +00:00 [INFO] uploads {mock_9220e22115d4}: Uploaded /o.bin.
+2026-10-26 00:55:51.607 +00:00 [INFO] accounts {mock_5eb39d5e62f6}: Account added: A (Mock).
+2026-10-26 00:55:51.607 +00:00 [INFO] accounts {mock_5eb39d5e62f6}: Connected A.
+2026-10-26 00:55:51.667 +00:00 [INFO] accounts {mock_8ae025b0b4f3}: Account added: A (Mock).
+2026-10-26 00:55:51.667 +00:00 [INFO] accounts {mock_8ae025b0b4f3}: Connected A.
+2026-10-26 00:55:51.670 +00:00 [INFO] uploads {mock_8ae025b0b4f3}: Uploaded /docs/new.bin.
+2026-10-26 00:55:51.743 +00:00 [INFO] accounts {mock_283f011a2e46}: Account added: A (Mock).
+2026-10-26 00:55:51.743 +00:00 [INFO] accounts {mock_283f011a2e46}: Connected A.
+2026-10-26 00:55:51.744 +00:00 [WARNING] uploads {mock_283f011a2e46}: Conflict detected for /shared.txt.
+2026-10-26 00:55:51.799 +00:00 [INFO] uploads {mock_283f011a2e46}: Uploaded /shared (conflict 2026-10-26 005551).txt.
+2026-10-26 00:55:51.911 +00:00 [INFO] accounts {mock_78bd2c34916d}: Account added: A (Mock).
+2026-10-26 00:55:51.911 +00:00 [INFO] accounts {mock_78bd2c34916d}: Connected A.
+2026-10-26 00:55:51.913 +00:00 [WARNING] uploads {mock_78bd2c34916d}: Upload of /x.bin failed (attempt 1). | CloudProviderException: Simulated expired session.
+2026-10-26 00:55:51.964 +00:00 [INFO] accounts {mock_78bd2c34916d}: Disconnected A.
+2026-10-26 00:55:51.964 +00:00 [INFO] accounts {mock_78bd2c34916d}: Connected A.
+2026-10-26 00:55:51.966 +00:00 [INFO] uploads {mock_78bd2c34916d}: Uploaded /x.bin.
+2026-10-26 00:55:52.076 +00:00 [INFO] accounts {mock_3082d39ce6bb}: Account added: A (Mock).
+2026-10-26 00:55:52.076 +00:00 [INFO] accounts {mock_3082d39ce6bb}: Connected A.
+2026-10-26 00:55:52.078 +00:00 [WARNING] uploads {mock_3082d39ce6bb}: Conflict detected for /s.txt.
+2026-10-26 00:55:52.137 +00:00 [INFO] uploads {mock_3082d39ce6bb}: Uploaded /s.txt.
+2026-10-26 00:55:52.247 +00:00 [INFO] accounts {mock_85307a02eadf}: Account added: A (Mock).
+2026-10-26 00:55:52.247 +00:00 [INFO] accounts {mock_85307a02eadf}: Connected A.

@@ -1,0 +1,9 @@
+2026-10-26 00:58:40.384 +00:00 [INFO] app: CloudSBiian 0.1.21.0 starting (data: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\portable\CloudSBiian\data, portable).
+2026-10-26 00:58:41.180 +00:00 [INFO] rclone: rclone daemon ready (v1.75.2) on 127.0.0.1:59057.
+2026-10-26 00:58:41.241 +00:00 [INFO] rclone: rclone v1.75.2 (bundled with CloudSBiian) is running; 69 backends available. Path: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\portable\CloudSBiian\rclone\rclone.exe
+2026-10-26 00:58:57.672 +00:00 [WARNING] rclone: rclone daemon exited (code 0).
+2026-10-26 00:58:57.674 +00:00 [WARNING] rclone: rclone was not found in any of the 0 locations checked (bundled folder, CloudSBiian tools folder, Program Files, winget, Scoop, Chocolatey, PATH).
+2026-10-26 00:58:59.033 +00:00 [INFO] rclone: rclone daemon ready (v1.75.2) on 127.0.0.1:59067.
+2026-10-26 00:58:59.075 +00:00 [INFO] rclone: rclone v1.75.2 (bundled with CloudSBiian) is running; 69 backends available. Path: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\portable\CloudSBiian\rclone\rclone.exe
+2026-10-26 00:58:59.358 +00:00 [INFO] app: Shutting down.
+2026-10-26 00:59:00.880 +00:00 [WARNING] rclone: rclone daemon exited (code 0).

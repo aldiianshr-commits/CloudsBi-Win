@@ -1,0 +1,70 @@
+  Determining projects to restore...
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj (in 5.18 sec).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj (in 5.23 sec).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj (in 23 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj (in 3 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj (in 3 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj (in 5 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj (in 3 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj (in 4 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.IntegrationTests\CloudSBiian.IntegrationTests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.Tests\CloudSBiian.Tests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.Tests\CloudSBiian.Tests.csproj (in 5.77 sec).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.IntegrationTests\CloudSBiian.IntegrationTests.csproj (in 5.76 sec).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.IntegrationTests\CloudSBiian.IntegrationTests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.Tests\CloudSBiian.Tests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+  CloudSBiian.Core -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\bin\Release\net10.0\CloudSBiian.Core.dll
+  CloudSBiian.Monitoring -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\bin\Release\net10.0\CloudSBiian.Monitoring.dll
+  CloudSBiian.CacheEngine -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\bin\Release\net10.0\CloudSBiian.CacheEngine.dll
+  CloudSBiian.CloudProviders -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\bin\Release\net10.0\CloudSBiian.CloudProviders.dll
+  CloudSBiian.PredictionEngine -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\bin\Release\net10.0\CloudSBiian.PredictionEngine.dll
+  CloudSBiian.GameLauncher -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\bin\Release\net10.0\CloudSBiian.GameLauncher.dll
+  CloudSBiian.VirtualDrive -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\bin\Release\net10.0-windows\CloudSBiian.VirtualDrive.dll
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop_ydqsdzy1_wpftmp.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+  CloudSBiian.Tests -> D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.Tests\bin\Release\net10.0-windows\CloudSBiian.Tests.dll
+  CloudSBiian.IntegrationTests -> D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.IntegrationTests\bin\Release\net10.0-windows\CloudSBiian.IntegrationTests.dll
+  CloudSBiian.Desktop -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\bin\Release\net10.0-windows\win-x64\CloudSBiian.dll
+
+Build succeeded.
+
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.IntegrationTests\CloudSBiian.IntegrationTests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.Tests\CloudSBiian.Tests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\CloudSBiian.slnx]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.IntegrationTests\CloudSBiian.IntegrationTests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.Tests\CloudSBiian.Tests.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop_ydqsdzy1_wpftmp.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+    21 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:20.44

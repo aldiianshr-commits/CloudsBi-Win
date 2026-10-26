@@ -1,0 +1,29 @@
+Test run for D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.IntegrationTests\bin\Release\net10.0-windows\CloudSBiian.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 10.0.14)
+[xUnit.net 00:00:00.07]   Discovering: CloudSBiian.IntegrationTests
+[xUnit.net 00:00:00.16]   Discovered:  CloudSBiian.IntegrationTests
+[xUnit.net 00:00:00.17]   Starting:    CloudSBiian.IntegrationTests
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.MultiAccountDrive_IsolatesAccountsInFolders [543 ms]
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.ConcurrentReaders_GetConsistentData [224 ms]
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.ExplorerStyleWrites_ReachTheCloud [791 ms]
+  Passed CloudSBiian.IntegrationTests.RcloneInstallTests.WrongSettingsPath_FallsBackToInstalledRclone_AndSaysSo [2 s]
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.Disconnect_CachedDataStaysReadable_AndReconnectRestoresAccess [2 s]
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.Mount_Browse_ReadSequentialAndRandom_Unmount [1 s]
+  Passed CloudSBiian.IntegrationTests.RcloneInstallTests.DownloadRclone_VerifiesInstallsAndUnblocksProviders [3 s]
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.Benchmark_ColdAndWarmSequentialRead [1 s]
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.UsedDriveLetter_IsRejected [89 ms]
+  Passed CloudSBiian.IntegrationTests.WinFspDriveTests.ReadOnlyMount_RefusesWrites [112 ms]
+  Passed CloudSBiian.IntegrationTests.RcloneProviderTests.NativeWebDav_AgainstRcloneWebDavServer [627 ms]
+  Passed CloudSBiian.IntegrationTests.RcloneProviderTests.Sftp_ThroughRcloneBackend_WithPasswordSecret [1 s]
+  Passed CloudSBiian.IntegrationTests.RcloneProviderTests.LocalBackend_ThroughAccountManager_SupportsAllOperations [1 s]
+  Passed CloudSBiian.IntegrationTests.RcloneProviderTests.S3_ThroughRcloneBackend_AgainstRcloneS3Server [1 s]
+  Passed CloudSBiian.IntegrationTests.RcloneProviderTests.Catalog_ListsOfficialBackends_AndTeraBoxStatusIsHonest [662 ms]
+[xUnit.net 00:00:27.01]   Finished:    CloudSBiian.IntegrationTests
+  Passed CloudSBiian.IntegrationTests.RcloneProviderTests.TwoAccounts_GetSeparateRemotes [686 ms]
+Results File: D:\a\CloudsBi-Win\CloudsBi-Win\ci\results\integration.trx
+
+Test Run Successful.
+Total tests: 16
+     Passed: 16
+ Total time: 27.5171 Seconds

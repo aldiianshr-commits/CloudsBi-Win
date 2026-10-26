@@ -1,0 +1,5 @@
+Test run for D:\a\CloudsBi-Win\CloudsBi-Win\tests\CloudSBiian.Tests\bin\Release\net10.0-windows\CloudSBiian.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+Results File: D:\a\CloudsBi-Win\CloudsBi-Win\ci\results\unit.trx
+
+Passed!  - Failed:     0, Passed:   102, Skipped:     0, Total:   102, Duration: 16 s - CloudSBiian.Tests.dll (net10.0)

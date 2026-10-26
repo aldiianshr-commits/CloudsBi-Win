@@ -1,0 +1,412 @@
+  Determining projects to restore...
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj (in 6.09 sec).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj (in 6.1 sec).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj (in 6.09 sec).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj (in 6.08 sec).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj (in 120 ms).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj (in 124 ms).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj (in 128 ms).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj (in 121 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+  CloudSBiian.Core -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\bin\Release\net10.0\CloudSBiian.Core.dll
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+  CloudSBiian.Monitoring -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\bin\Release\net10.0\CloudSBiian.Monitoring.dll
+  CloudSBiian.CloudProviders -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\bin\Release\net10.0\CloudSBiian.CloudProviders.dll
+  CloudSBiian.CacheEngine -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\bin\Release\net10.0\CloudSBiian.CacheEngine.dll
+  CloudSBiian.PredictionEngine -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\bin\Release\net10.0\CloudSBiian.PredictionEngine.dll
+  CloudSBiian.GameLauncher -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\bin\Release\net10.0\CloudSBiian.GameLauncher.dll
+  CloudSBiian.VirtualDrive -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\bin\Release\net10.0-windows\CloudSBiian.VirtualDrive.dll
+  CloudSBiian.Desktop -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\bin\Release\net10.0-windows\win-x64\CloudSBiian.dll
+  CloudSBiian.Desktop -> D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\
+  Determining projects to restore...
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj (in 1.13 sec).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj (in 1.13 sec).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj (in 1.13 sec).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj (in 1.13 sec).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q [D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj]
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj (in 17 ms).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj (in 23 ms).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj (in 17 ms).
+  Restored D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj (in 21 ms).
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\CloudSBiian.Monitoring.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\CloudSBiian.Core.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\CloudSBiian.CloudProviders.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\CloudSBiian.PredictionEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\CloudSBiian.VirtualDrive.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+  CloudSBiian.Core -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Core\bin\Release\net10.0\CloudSBiian.Core.dll
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\CloudSBiian.GameLauncher.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\CloudSBiian.CacheEngine.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+  CloudSBiian.Monitoring -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Monitoring\bin\Release\net10.0\CloudSBiian.Monitoring.dll
+  CloudSBiian.CloudProviders -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CloudProviders\bin\Release\net10.0\CloudSBiian.CloudProviders.dll
+  CloudSBiian.CacheEngine -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.CacheEngine\bin\Release\net10.0\CloudSBiian.CacheEngine.dll
+  CloudSBiian.PredictionEngine -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.PredictionEngine\bin\Release\net10.0\CloudSBiian.PredictionEngine.dll
+  CloudSBiian.VirtualDrive -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.VirtualDrive\bin\Release\net10.0-windows\CloudSBiian.VirtualDrive.dll
+  CloudSBiian.GameLauncher -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.GameLauncher\bin\Release\net10.0\CloudSBiian.GameLauncher.dll
+D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\CloudSBiian.Desktop_ikyydjrv_wpftmp.csproj : warning NU1903: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.10 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q
+  CloudSBiian.Desktop -> D:\a\CloudsBi-Win\CloudsBi-Win\src\CloudSBiian.Desktop\bin\Release\net10.0-windows\win-x64\CloudSBiian.dll
+  CloudSBiian.Desktop -> D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\single\
+Inno Setup 6 Command-Line Compiler
+Copyright (C) 1997-2026 Jordan Russell. All rights reserved.
+Portions Copyright (C) 2000-2026 Martijn Laan. All rights reserved.
+Portions Copyright (C) 2001-2004 Alex Yackimoff. All rights reserved.
+https://www.innosetup.com
+
+Compiler engine version: Inno Setup 6.7.1
+Non-commercial use only
+
+Preprocessing
+   Reading file: c:\program files (x86)\inno setup 6\ISPPBuiltins.iss
+Parsing [Setup] section, line 13
+Parsing [Setup] section, line 14
+Parsing [Setup] section, line 15
+Parsing [Setup] section, line 16
+Parsing [Setup] section, line 17
+Parsing [Setup] section, line 18
+Parsing [Setup] section, line 19
+Parsing [Setup] section, line 20
+Parsing [Setup] section, line 21
+Parsing [Setup] section, line 22
+Parsing [Setup] section, line 23
+Parsing [Setup] section, line 24
+Parsing [Setup] section, line 25
+Parsing [Setup] section, line 26
+Parsing [Setup] section, line 27
+Parsing [Setup] section, line 28
+Parsing [Setup] section, line 29
+Parsing [Setup] section, line 30
+Parsing [Setup] section, line 31
+Parsing [Setup] section, line 33
+Parsing [Setup] section, line 34
+Reading file (LicenseFile)
+Reading file (WizardImageFile)
+Reading file (WizardSmallImageFile)
+Preparing Setup program executable
+   Verification successful
+   Updating icons (Setup.e32)
+   Updating version info (Setup.e32)
+Determining language code pages
+   Reading file: c:\program files (x86)\inno setup 6\Default.isl
+   Messages in script file
+Reading default messages from Default.isl
+Parsing [LangOptions], [Messages], and [CustomMessages] sections
+   Reading file: c:\program files (x86)\inno setup 6\Default.isl
+   Messages in script file
+Reading [Code] section
+Parsing [Tasks] section, line 37
+Parsing [Tasks] section, line 38
+Parsing [Icons] section, line 49
+Parsing [Icons] section, line 50
+Parsing [UninstallDelete] section, line 60
+Parsing [Run] section, line 53
+Parsing [Run] section, line 54
+Parsing [Files] section, line 41
+Parsing [Files] section, line 43
+Parsing [Files] section, line 44
+Parsing [Files] section, line 45
+Parsing [Files] section, line 46
+Compiling [Code] section
+Creating setup files
+   Verification successful
+   Updating icons (Setup.exe)
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Accessibility.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.CacheEngine.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.CacheEngine.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.CloudProviders.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.CloudProviders.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.Core.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.Core.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.deps.json
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.exe
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.GameLauncher.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.GameLauncher.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.Monitoring.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.Monitoring.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.PredictionEngine.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.PredictionEngine.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.runtimeconfig.json
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.VirtualDrive.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\CloudSBiian.VirtualDrive.pdb
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\clretwrc.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\clrgc.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\clrgcexp.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\clrjit.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\coreclr.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\createdump.exe
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\D3DCompiler_47_cor3.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\DirectWriteForwarder.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\e_sqlite3.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\hostfxr.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\hostpolicy.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.CSharp.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.Data.Sqlite.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.DiaSymReader.Native.amd64.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.VisualBasic.Core.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.VisualBasic.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.Win32.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.Win32.Registry.AccessControl.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.Win32.Registry.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\Microsoft.Win32.SystemEvents.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\mscordaccore.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\mscordaccore_amd64_amd64_10.0.1426.52326.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\mscordbi.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\mscorlib.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\mscorrc.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\msquic.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\netstandard.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PenImc_cor3.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationCore.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework-SystemCore.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework-SystemData.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework-SystemDrawing.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework-SystemXml.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework-SystemXmlLinq.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.Aero.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.Aero2.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.AeroLite.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.Classic.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.Fluent.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.Luna.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationFramework.Royale.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationNative_cor3.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\PresentationUI.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\ReachFramework.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\SQLitePCLRaw.batteries_v2.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\SQLitePCLRaw.core.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\SQLitePCLRaw.provider.e_sqlite3.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.AppContext.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Buffers.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.CodeDom.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Collections.Concurrent.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Collections.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Collections.Immutable.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Collections.NonGeneric.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Collections.Specialized.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ComponentModel.Annotations.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ComponentModel.DataAnnotations.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ComponentModel.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ComponentModel.EventBasedAsync.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ComponentModel.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ComponentModel.TypeConverter.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Configuration.ConfigurationManager.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Configuration.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Console.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Core.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Data.Common.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Data.DataSetExtensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Data.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.Contracts.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.Debug.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.DiagnosticSource.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.EventLog.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.EventLog.Messages.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.FileVersionInfo.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.PerformanceCounter.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.Process.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.StackTrace.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.TextWriterTraceListener.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.Tools.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.TraceSource.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Diagnostics.Tracing.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.DirectoryServices.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Drawing.Common.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Drawing.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Drawing.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Dynamic.Runtime.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Formats.Asn1.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Formats.Nrbf.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Formats.Tar.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Globalization.Calendars.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Globalization.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Globalization.Extensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Compression.Brotli.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Compression.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Compression.FileSystem.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Compression.Native.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Compression.ZipFile.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.FileSystem.AccessControl.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.FileSystem.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.FileSystem.DriveInfo.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.FileSystem.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.FileSystem.Watcher.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.IsolatedStorage.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.MemoryMappedFiles.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Packaging.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Pipelines.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Pipes.AccessControl.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.Pipes.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.IO.UnmanagedMemoryStream.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Linq.AsyncEnumerable.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Linq.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Linq.Expressions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Linq.Parallel.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Linq.Queryable.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Memory.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Http.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Http.Json.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.HttpListener.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Mail.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.NameResolution.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.NetworkInformation.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Ping.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Quic.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Requests.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Security.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.ServerSentEvents.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.ServicePoint.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.Sockets.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.WebClient.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.WebHeaderCollection.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.WebProxy.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.WebSockets.Client.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Net.WebSockets.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Numerics.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Numerics.Vectors.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ObjectModel.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Printing.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Private.CoreLib.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Private.DataContractSerialization.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Private.Uri.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Private.Windows.Core.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Private.Windows.GdiPlus.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Private.Xml.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Private.Xml.Linq.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.DispatchProxy.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.Emit.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.Emit.ILGeneration.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.Emit.Lightweight.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.Extensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.Metadata.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Reflection.TypeExtensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Resources.Extensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Resources.Reader.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Resources.ResourceManager.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Resources.Writer.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.CompilerServices.Unsafe.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.CompilerServices.VisualC.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Extensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Handles.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.InteropServices.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.InteropServices.JavaScript.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.InteropServices.RuntimeInformation.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Intrinsics.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Loader.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Numerics.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Serialization.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Serialization.Formatters.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Serialization.Json.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Serialization.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Runtime.Serialization.Xml.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.AccessControl.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Claims.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.Algorithms.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.Cng.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.Csp.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.Encoding.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.OpenSsl.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.Pkcs.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.ProtectedData.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.X509Certificates.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Cryptography.Xml.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Permissions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Principal.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.Principal.Windows.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Security.SecureString.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ServiceModel.Web.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ServiceProcess.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Text.Encoding.CodePages.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Text.Encoding.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Text.Encoding.Extensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Text.Encodings.Web.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Text.Json.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Text.RegularExpressions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.AccessControl.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Channels.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Overlapped.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Tasks.Dataflow.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Tasks.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Tasks.Extensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Tasks.Parallel.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Thread.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.ThreadPool.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Threading.Timer.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Transactions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Transactions.Local.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.ValueTuple.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Web.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Web.HttpUtility.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Windows.Controls.Ribbon.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Windows.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Windows.Extensions.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Windows.Input.Manipulations.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Windows.Presentation.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Windows.Primitives.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xaml.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.Linq.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.ReaderWriter.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.Serialization.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.XDocument.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.XmlDocument.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.XmlSerializer.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.XPath.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\System.Xml.XPath.XDocument.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\UIAutomationClient.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\UIAutomationClientSideProviders.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\UIAutomationProvider.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\UIAutomationTypes.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\vcruntime140_cor3.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\WindowsBase.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\winfsp-msil.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\wpfgfx_cor3.dll
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\rclone\COPYING.txt
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\publish\CloudSBiian\rclone\rclone.exe
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\deps\winfsp.msi
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\installer\..\LICENSE
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\installer\..\THIRD_PARTY_NOTICES.md
+   Compressing: D:\a\CloudsBi-Win\CloudsBi-Win\installer\..\README.md
+   Compressing Setup program executable
+   Updating version info (Setup.exe)
+   Updating manifest (Setup.exe)
+
+
+Successful compile (61.750 sec). Resulting Setup program filename is:
+D:\a\CloudsBi-Win\CloudsBi-Win\artifacts\CloudSBiian-Setup.exe
+CloudSBiian-Portable-x64.zip               94,835,023 bytes
+CloudSBiian-Setup.exe                      68,111,602 bytes
+CloudSBiian.exe                            91,957,383 bytes

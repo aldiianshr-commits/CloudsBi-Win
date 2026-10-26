@@ -1,0 +1,103 @@
+2026-10-26 00:56:24.411 +00:00 [INFO] accounts {mock_cd3f7feaf5a4}: Account added: TeraBox (Mock).
+2026-10-26 00:56:24.418 +00:00 [INFO] accounts {mock_cd3f7feaf5a4}: Connected TeraBox.
+2026-10-26 00:56:24.421 +00:00 [INFO] accounts {mock_f162ec2122de}: Account added: TeraBox (Mock).
+2026-10-26 00:56:24.421 +00:00 [INFO] accounts {mock_f162ec2122de}: Connected TeraBox.
+2026-10-26 00:56:24.476 +00:00 [INFO] drive: Mounted W: (2 account folder(s)).
+2026-10-26 00:56:24.494 +00:00 [DEBUG] winfsp: Open \ access=0x100081 options=0x1000020 = 0x00000000
+2026-10-26 00:56:24.584 +00:00 [DEBUG] winfsp: Open \TeraBox\same.txt access=0x120089 options=0x1400060 = 0x00000000
+2026-10-26 00:56:24.621 +00:00 [DEBUG] winfsp: Open \TeraBox (2)\same.txt access=0x120089 options=0x1400060 = 0x00000000
+2026-10-26 00:56:24.625 +00:00 [DEBUG] winfsp: Open \TeraBox\same.txt access=0x80 options=0x1200000 = 0x00000000
+2026-10-26 00:56:24.626 +00:00 [DEBUG] winfsp: Open \TeraBox\same.txt access=0x110080 options=0x1200020 = 0x00000000
+2026-10-26 00:56:24.626 +00:00 [DEBUG] winfsp: Open \TeraBox (2) access=0x100002 options=0x1000001 = 0x00000000
+2026-10-26 00:56:24.629 +00:00 [DEBUG] winfsp: Rename \TERABOX\SAME.TXT -> \TERABOX (2)\moved.txt (replace=False) = 0xC00000D4
+2026-10-26 00:56:24.629 +00:00 [DEBUG] winfsp: Open \TeraBox\same.txt access=0x12019F options=0x1200044 = 0x00000000
+2026-10-26 00:56:24.629 +00:00 [DEBUG] winfsp: Open \TeraBox (2) access=0x100001 options=0x1004021 = 0x00000000
+2026-10-26 00:56:24.644 +00:00 [DEBUG] winfsp: Create \TeraBox (2)\moved.txt dir=False = 0x00000000
+2026-10-26 00:56:24.656 +00:00 [INFO] drive {mock_f162ec2122de}: Queued upload: /moved.txt (11 bytes).
+2026-10-26 00:56:24.657 +00:00 [DEBUG] winfsp: Open \TeraBox\same.txt access=0x10080 options=0x1200040 = 0x00000000
+2026-10-26 00:56:24.660 +00:00 [DEBUG] winfsp: CanDelete \TERABOX\SAME.TXT = 0x00000000
+2026-10-26 00:56:24.660 +00:00 [DEBUG] winfsp: Cleanup with delete: \TERABOX\SAME.TXT (node path /same.txt)
+2026-10-26 00:56:24.670 +00:00 [INFO] drive {mock_cd3f7feaf5a4}: Deleted file: /same.txt
+2026-10-26 00:56:24.683 +00:00 [INFO] uploads {mock_f162ec2122de}: Uploaded /moved.txt.
+2026-10-26 00:56:24.739 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).
+2026-10-26 00:56:24.858 +00:00 [INFO] accounts {mock_e9b22ce79e5f}: Account added: Main (Mock).
+2026-10-26 00:56:24.858 +00:00 [INFO] accounts {mock_e9b22ce79e5f}: Connected Main.
+2026-10-26 00:56:24.860 +00:00 [INFO] drive: Mounted W: (single account).
+2026-10-26 00:56:24.876 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.876 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.890 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.890 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.950 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.950 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.967 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.967 +00:00 [DEBUG] winfsp: Open \big.bin access=0x120089 options=0x1400044 = 0x00000000
+2026-10-26 00:56:24.997 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).
+2026-10-26 00:56:25.054 +00:00 [INFO] accounts {mock_e3fb74bc7a80}: Account added: Main (Mock).
+2026-10-26 00:56:25.054 +00:00 [INFO] accounts {mock_e3fb74bc7a80}: Connected Main.
+2026-10-26 00:56:25.056 +00:00 [INFO] drive: Mounted W: (single account).
+2026-10-26 00:56:25.057 +00:00 [DEBUG] winfsp: Open \docs access=0x100001 options=0x1004021 = 0x00000000
+2026-10-26 00:56:25.060 +00:00 [DEBUG] winfsp: Create \docs\new.txt dir=False = 0x00000000
+2026-10-26 00:56:25.065 +00:00 [INFO] drive {mock_e3fb74bc7a80}: Queued upload: /docs/new.txt (28 bytes).
+2026-10-26 00:56:25.070 +00:00 [INFO] uploads {mock_e3fb74bc7a80}: Uploaded /docs/new.txt.
+2026-10-26 00:56:25.118 +00:00 [DEBUG] winfsp: Open \docs access=0x100001 options=0x1004021 = 0x00000000
+2026-10-26 00:56:25.119 +00:00 [DEBUG] winfsp: Open \docs\existing.txt access=0x120196 options=0x5400060 = 0x00000000
+2026-10-26 00:56:25.127 +00:00 [INFO] drive {mock_e3fb74bc7a80}: Queued upload: /docs/existing.txt (8 bytes).
+2026-10-26 00:56:25.133 +00:00 [INFO] uploads {mock_e3fb74bc7a80}: Uploaded /docs/existing.txt.
+2026-10-26 00:56:25.188 +00:00 [DEBUG] winfsp: Open \docs\new.txt access=0x80 options=0x1200000 = 0x00000000
+2026-10-26 00:56:25.189 +00:00 [DEBUG] winfsp: Open \docs\new.txt access=0x110080 options=0x1200020 = 0x00000000
+2026-10-26 00:56:25.189 +00:00 [DEBUG] winfsp: Open \docs access=0x100002 options=0x1000001 = 0x00000000
+2026-10-26 00:56:25.191 +00:00 [INFO] drive {mock_e3fb74bc7a80}: Renamed /docs/new.txt -> /docs/renamed.txt
+2026-10-26 00:56:25.191 +00:00 [DEBUG] winfsp: Rename \DOCS\NEW.TXT -> \DOCS\renamed.txt (replace=False) = 0x00000000
+2026-10-26 00:56:25.192 +00:00 [DEBUG] winfsp: Open \ access=0x100001 options=0x1004021 = 0x00000000
+2026-10-26 00:56:25.193 +00:00 [INFO] drive {mock_e3fb74bc7a80}: Folder created: /saves
+2026-10-26 00:56:25.193 +00:00 [DEBUG] winfsp: Create \saves dir=True = 0x00000000
+2026-10-26 00:56:25.193 +00:00 [DEBUG] winfsp: Open \docs\renamed.txt access=0x10080 options=0x1200040 = 0x00000000
+2026-10-26 00:56:25.194 +00:00 [DEBUG] winfsp: CanDelete \DOCS\RENAMED.TXT = 0x00000000
+2026-10-26 00:56:25.194 +00:00 [DEBUG] winfsp: Cleanup with delete: \DOCS\RENAMED.TXT (node path /docs/renamed.txt)
+2026-10-26 00:56:25.194 +00:00 [INFO] drive {mock_e3fb74bc7a80}: Deleted file: /docs/renamed.txt
+2026-10-26 00:56:25.194 +00:00 [DEBUG] winfsp: Open \saves access=0x110080 options=0x1200021 = 0x00000000
+2026-10-26 00:56:25.195 +00:00 [DEBUG] winfsp: CanDelete \SAVES = 0x00000000
+2026-10-26 00:56:25.195 +00:00 [DEBUG] winfsp: Cleanup with delete: \SAVES (node path /saves)
+2026-10-26 00:56:25.196 +00:00 [INFO] drive {mock_e3fb74bc7a80}: Deleted folder: /saves
+2026-10-26 00:56:25.198 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).
+2026-10-26 00:56:25.845 +00:00 [INFO] accounts {mock_fc580392b90e}: Account added: Main (Mock).
+2026-10-26 00:56:25.845 +00:00 [INFO] accounts {mock_fc580392b90e}: Connected Main.
+2026-10-26 00:56:25.848 +00:00 [INFO] drive: Mounted W: (single account).
+2026-10-26 00:56:25.853 +00:00 [DEBUG] winfsp: Open \cached.bin access=0x120089 options=0x1400064 = 0x00000000
+2026-10-26 00:56:25.857 +00:00 [DEBUG] winfsp: Open \cold.bin access=0x80 options=0x1200000 = 0x00000000
+2026-10-26 00:56:25.858 +00:00 [DEBUG] winfsp: Open \cached.bin access=0x120089 options=0x1400064 = 0x00000000
+2026-10-26 00:56:25.862 +00:00 [DEBUG] winfsp: Open \cold.bin access=0x120089 options=0x1400064 = 0x00000000
+2026-10-26 00:56:25.864 +00:00 [DEBUG] cache {mock_fc580392b90e}: Retrying chunk after Network (400 ms).
+2026-10-26 00:56:26.264 +00:00 [DEBUG] cache {mock_fc580392b90e}: Retrying chunk after Network (800 ms).
+2026-10-26 00:56:27.072 +00:00 [DEBUG] cache {mock_fc580392b90e}: Retrying chunk after Network (1600 ms).
+2026-10-26 00:56:27.483 +00:00 [DEBUG] winfsp: Open \ access=0x80 options=0x1200000 = 0x00000000
+2026-10-26 00:56:28.676 +00:00 [WARNING] drive: Read /cold.bin -> 0xC00000C4: Simulated offline.
+2026-10-26 00:56:28.677 +00:00 [DEBUG] winfsp: Open \cold.bin access=0x120089 options=0x1400064 = 0x00000000
+2026-10-26 00:56:28.699 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).
+2026-10-26 00:56:29.001 +00:00 [INFO] accounts {mock_7f41af9d1843}: Account added: Main (Mock).
+2026-10-26 00:56:29.001 +00:00 [INFO] accounts {mock_7f41af9d1843}: Connected Main.
+2026-10-26 00:56:29.004 +00:00 [INFO] drive: Mounted W: (single account).
+2026-10-26 00:56:29.005 +00:00 [DEBUG] winfsp: Open \ access=0x100081 options=0x1000020 = 0x00000000
+2026-10-26 00:56:29.007 +00:00 [DEBUG] winfsp: Open \docs\readme.txt access=0x120089 options=0x1400060 = 0x00000000
+2026-10-26 00:56:29.012 +00:00 [DEBUG] winfsp: Open \Games\Demo\data.pak access=0x80 options=0x1200000 = 0x00000000
+2026-10-26 00:56:29.020 +00:00 [DEBUG] winfsp: Open \Games\Demo\data.pak access=0x120089 options=0x1400064 = 0x00000000
+2026-10-26 00:56:29.064 +00:00 [DEBUG] winfsp: Open \Games\Demo\data.pak access=0x120089 options=0x1400860 = 0x00000000
+2026-10-26 00:56:29.074 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).
+2026-10-26 00:56:30.164 +00:00 [INFO] accounts {mock_bc1084284307}: Account added: Main (Mock).
+2026-10-26 00:56:30.164 +00:00 [INFO] accounts {mock_bc1084284307}: Connected Main.
+2026-10-26 00:56:30.167 +00:00 [INFO] drive: Mounted W: (single account).
+2026-10-26 00:56:30.168 +00:00 [DEBUG] winfsp: Open \bench.bin access=0x120089 options=0x1400064 = 0x00000000
+2026-10-26 00:56:30.487 +00:00 [DEBUG] winfsp: Open \bench.bin access=0x120089 options=0x1400064 = 0x00000000
+2026-10-26 00:56:30.745 +00:00 [DEBUG] winfsp: Open \bench.bin access=0x120089 options=0x1400860 = 0x00000000
+2026-10-26 00:56:30.773 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).
+2026-10-26 00:56:31.205 +00:00 [INFO] accounts {mock_a5edcf5fdb15}: Account added: Main (Mock).
+2026-10-26 00:56:31.205 +00:00 [INFO] accounts {mock_a5edcf5fdb15}: Connected Main.
+2026-10-26 00:56:31.207 +00:00 [INFO] drive: Mounted W: (single account).
+2026-10-26 00:56:31.211 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).
+2026-10-26 00:56:31.313 +00:00 [INFO] accounts {mock_2ab74a372557}: Account added: Main (Mock).
+2026-10-26 00:56:31.313 +00:00 [INFO] accounts {mock_2ab74a372557}: Connected Main.
+2026-10-26 00:56:31.315 +00:00 [INFO] drive: Mounted W: (single account).
+2026-10-26 00:56:31.316 +00:00 [DEBUG] winfsp: Open \a.txt access=0x120089 options=0x1400060 = 0x00000000
+2026-10-26 00:56:31.319 +00:00 [DEBUG] winfsp: Open \ access=0x100001 options=0x1004021 = 0x00000000
+2026-10-26 00:56:31.320 +00:00 [DEBUG] winfsp: Create \b.txt dir=False = 0xC00000A2
+2026-10-26 00:56:31.321 +00:00 [INFO] drive: Unmounted W: (open handles at unmount: 0).

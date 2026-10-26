@@ -1,0 +1,20 @@
+setup exit code: 0
+installed CloudSBiian.exe : True
+installed rclone\rclone.exe : True
+installed rclone\COPYING.txt : True
+installed dependencies\winfsp.msi : True
+installed LICENSE : True
+installed THIRD_PARTY_NOTICES.md : True
+installed app self-test exit code: 0
+installed app uses bundled rclone: True
+user data exists before uninstall: True
+uninstall exit code: 0
+program removed: True
+user data kept after uninstall: True
+single-file self-test exit code: 0
+single-file uses embedded rclone: True
+  rclone-missing: Missing, GoogleDrive Blocked (rclone is not installed. Use "Download rclone" or "Browse…" on the Accounts page, or set its path in Settings.)
+  rclone-missing: Accounts page + AddAccount/GoogleDrive rendered
+  rclone-recheck: Ready (before simulation: Ready)
+  rclone: Ready | bundled with CloudSBiian | v1.75.2 | C:\Users\runneradmin\AppData\Local\Temp\.net\CloudSBiian\WdkIGJATYZxq\rclone\rclone.exe | backends 69
+  rclone message: rclone v1.75.2 (bundled with CloudSBiian) is running; 69 backends available.

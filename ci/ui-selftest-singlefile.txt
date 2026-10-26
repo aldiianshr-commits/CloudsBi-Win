@@ -1,0 +1,49 @@
+OK
+Visited: 35
+Dark/Dashboard
+Dark/Cloud Accounts
+Dark/Virtual Drive
+Dark/File Browser
+Dark/Cache Manager
+Dark/Prediction Engine
+Dark/Game Library
+Dark/Transfer Queue
+Dark/Monitoring
+Dark/Settings
+Dark/Logs & Diagnostics
+Light/Dashboard
+Light/Cloud Accounts
+Light/Virtual Drive
+Light/File Browser
+Light/Cache Manager
+Light/Prediction Engine
+Light/Game Library
+Light/Transfer Queue
+Light/Monitoring
+Light/Settings
+Light/Logs & Diagnostics
+AddAccount/GoogleDrive
+AddAccount/OneDrive
+AddAccount/Dropbox
+AddAccount/WebDav
+AddAccount/Sftp
+AddAccount/S3
+AddAccount/TeraBox
+AddAccount/Smb
+AddAccount/LocalFolder
+AddAccount/GenericRclone
+rclone-missing: Missing, GoogleDrive Blocked (rclone is not installed. Use "Download rclone" or "Browse…" on the Accounts page, or set its path in Settings.)
+rclone-missing: Accounts page + AddAccount/GoogleDrive rendered
+rclone-recheck: Ready (before simulation: Ready)
+rclone: Ready | bundled with CloudSBiian | v1.75.2 | C:\Users\runneradmin\AppData\Local\Temp\.net\CloudSBiian\WdkIGJATYZxq\rclone\rclone.exe | backends 69
+rclone message: rclone v1.75.2 (bundled with CloudSBiian) is running; 69 backends available.
+provider: GoogleDrive = Experimental
+provider: OneDrive = Experimental
+provider: Dropbox = Experimental
+provider: WebDav = Supported
+provider: Sftp = Experimental
+provider: S3 = Experimental
+provider: TeraBox = Blocked
+provider: Smb = Experimental
+provider: LocalFolder = Supported
+provider: GenericRclone = Experimental
